@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.navigation.fragment.findNavController
 import com.example.threads.R
 import com.example.threads.databinding.FragmentLoginBinding
 
@@ -23,5 +25,17 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.txtForgotPass.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
+
+        binding.txtReg.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_regProfileFragment)
+        }
     }
 }
