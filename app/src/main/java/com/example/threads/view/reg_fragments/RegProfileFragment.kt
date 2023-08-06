@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.threads.R
 import com.example.threads.databinding.FragmentRegProfileBinding
 
@@ -23,6 +24,10 @@ class RegProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnReturnToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_regProfileFragment_to_loginFragment)
+        }
     }
 
 }
