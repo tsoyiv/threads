@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
-        android:name="com.example.threads.view.reg_fragments.CreatePasswordFragment"
+        android:name="com.example.threads.view.log_fragments.CreateNewPasswordFragment"
         android:label="fragment_create_password"
         tools:layout="@layout/fragment_create_password" >
         <action
