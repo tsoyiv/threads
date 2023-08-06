@@ -7,7 +7,6 @@ plugins {
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    namespace 'com.example.threads'
     compileSdk 33
 
     defaultConfig {
@@ -94,5 +93,7 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'io.github.chaosleung:pinview:1.4.4'
 
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.threads.R
 import com.example.threads.databinding.FragmentOtpBinding
 
@@ -23,5 +24,17 @@ class OtpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnReturnToResetEmailPage.setOnClickListener {
+            findNavController().navigate(R.id.action_otpFragment_to_forgotPasswordFragment)
+        }
+
+        binding.btnNewPassPage.setOnClickListener {
+            findNavController().navigate(R.id.action_otpFragment_to_createPasswordFragment)
+        }
     }
 }
