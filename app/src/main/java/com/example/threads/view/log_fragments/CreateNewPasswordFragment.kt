@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentCreatePasswordBinding
 
@@ -24,6 +25,7 @@ class CreateNewPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hide()
 
         navigation()
     }

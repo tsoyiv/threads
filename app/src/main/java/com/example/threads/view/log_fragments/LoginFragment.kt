@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.navigation.fragment.findNavController
+import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentLoginBinding
 
@@ -25,6 +26,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hide()
 
         navigation()
     }
@@ -36,6 +38,10 @@ class LoginFragment : Fragment() {
 
         binding.txtReg.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_regProfileFragment)
+        }
+
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_userMainFragment)
         }
     }
 }

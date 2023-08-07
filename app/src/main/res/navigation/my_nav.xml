@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment_to_regProfileFragment"
             app:destination="@id/regProfileFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -58,5 +61,26 @@
         <action
             android:id="@+id/action_createPasswordFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMainFragment"
+        android:name="com.example.threads.view.user_fragments.UserMainFragment"
+        android:label="fragment_user_main"
+        tools:layout="@layout/fragment_user_main" >
+        <action
+            android:id="@+id/action_userMainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_userMainFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.threads.view.user_fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
     </fragment>
 </navigation>

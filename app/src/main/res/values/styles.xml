@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="AppBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <!-- Change the item icon tint to your desired grey color -->
+        <item name="itemIconTint">#B8B8B8</item>
+    </style>
+</resources>

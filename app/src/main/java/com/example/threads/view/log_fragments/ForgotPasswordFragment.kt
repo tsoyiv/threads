@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentForgotPasswordBinding
 
@@ -24,6 +25,7 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hide()
 
         navigation()
     }
