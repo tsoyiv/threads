@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentEditProfileBinding
@@ -25,5 +26,12 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).hide()
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnCancelEdit.setOnClickListener {
+            findNavController().navigate(R.id.action_editProfileFragment_to_userMainFragment)
+        }
     }
 }
