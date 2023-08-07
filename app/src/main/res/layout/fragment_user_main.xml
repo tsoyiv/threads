@@ -1,19 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.user_fragments.UserMainFragment">
 
     <ImageView
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_logout"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/img_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="110dp"
+        android:fontFamily="@font/sfbold"
+        android:maxLines="1"
+        android:text="No Name"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/img_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="110dp"
+        android:fontFamily="@font/sfmed"
+        android:maxLines="1"
+        android:text="no username"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/img_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+    <TextView
+        android:id="@+id/txt_numbFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/sfthin"
+        android:text="18 followers"
+        android:textColor="#999999"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_username" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/img_user"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/img_userphoto"
+        app:civ_border_color="#D9D9D9"
+        app:civ_border_width="1dp"
+        app:civ_shadow_radius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_editProfile"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_rounded_user_page"
+        android:fontFamily="@font/sfmed"
+        android:text="Edit profile"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_shareProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_numbFollowers" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_shareProfile"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/btn_rounded_user_page"
+        android:text="Share profile"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/sfmed"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_editProfile"
+        app:layout_constraintTop_toBottomOf="@+id/txt_numbFollowers" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Threads"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:fontFamily="@font/sfmed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_editProfile" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You haven’t posted any threads yet."
+        android:layout_marginTop="50dp"
+        android:textSize="17sp"
+        android:fontFamily="@font/sfthin"
+        android:textColor="#999999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
