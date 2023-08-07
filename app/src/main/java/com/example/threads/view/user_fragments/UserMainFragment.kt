@@ -32,6 +32,13 @@ class UserMainFragment : Fragment() {
         (requireActivity() as MainActivity).showBtm()
 
         logOut()
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_userMainFragment_to_editProfileFragment)
+        }
     }
 
     private fun logOut() {
