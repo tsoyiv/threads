@@ -111,6 +111,7 @@
             android:layout_marginEnd="16dp"
             android:textColor="#000000"
             android:textSize="16sp"
+            android:maxLines="1"
             android:fontFamily="@font/sfthin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +138,7 @@
             android:layout_marginEnd="16dp"
             android:textColor="#000000"
             android:textSize="16sp"
+            android:maxLines="1"
             android:fontFamily="@font/sfthin"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -163,6 +165,7 @@
             android:textColorHint="#C0C0C0"
             android:hint="+ Write bio"
             android:textSize="16sp"
+            android:maxLines="1"
             android:fontFamily="@font/sfthin"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -188,6 +191,7 @@
             android:textColor="#0095F6"
             android:textColorHint="#C0C0C0"
             android:hint="+ Add link"
+            android:maxLines="1"
             android:textSize="16sp"
             android:fontFamily="@font/sfthin"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -214,7 +218,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:sb_button_color="@color/white"
             app:sb_shadow_color="@color/black"
-            app:sb_checked="true"
+            app:sb_checked="false"
             app:sb_checked_color="@color/black"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
