@@ -23,11 +23,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:elevation="0dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:itemIconTint="@drawable/bottom_nav_item_selector"
+        app:itemBackground="@android:color/transparent"
         tools:ignore="BottomAppBar">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,6 +39,7 @@
             android:layout_marginRight="16dp"
             app:menu="@menu/btm_menu"
             app:labelVisibilityMode="unlabeled"
+            app:itemBackground="@android:color/transparent"
             app:elevation="0dp"
             android:background="@drawable/transparent_background"
             app:itemIconTint="@drawable/bottom_nav_item_selector"
