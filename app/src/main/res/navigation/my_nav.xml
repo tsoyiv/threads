@@ -17,8 +17,8 @@
             android:id="@+id/action_loginFragment_to_regProfileFragment"
             app:destination="@id/regProfileFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_userMainFragment"
-            app:destination="@id/userMainFragment" />
+            android:id="@+id/action_loginFragment_to_feedMainFragment"
+            app:destination="@id/feedMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -83,4 +83,24 @@
             android:id="@+id/action_editProfileFragment_to_userMainFragment"
             app:destination="@id/userMainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/feedMainFragment"
+        android:name="com.example.threads.view.main_feed_fragments.FeedMainFragment"
+        android:label="fragment_feed_main"
+        tools:layout="@layout/fragment_feed_main" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.threads.view.search_fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.example.threads.view.likes_fragments.ActivityFragment"
+        android:label="fragment_activity"
+        tools:layout="@layout/fragment_activity" />
+    <fragment
+        android:id="@+id/creationThreadFragment"
+        android:name="com.example.threads.view.creation_fragments.CreationThreadFragment"
+        android:label="fragment_creation_thread"
+        tools:layout="@layout/fragment_creation_thread" />
 </navigation>
