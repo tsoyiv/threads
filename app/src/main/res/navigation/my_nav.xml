@@ -17,8 +17,8 @@
             android:id="@+id/action_loginFragment_to_regProfileFragment"
             app:destination="@id/regProfileFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_feedMainFragment"
-            app:destination="@id/feedMainFragment" />
+            android:id="@+id/action_loginFragment_to_tabMainFeedFragment"
+            app:destination="@id/tabMainFeedFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_userMainFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_userMainFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -103,4 +106,14 @@
         android:name="com.example.threads.view.creation_fragments.CreationThreadFragment"
         android:label="fragment_creation_thread"
         tools:layout="@layout/fragment_creation_thread" />
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.example.threads.view.followers_fragments.TabFragment"
+        android:label="fragment_tab"
+        tools:layout="@layout/fragment_tab" />
+    <fragment
+        android:id="@+id/tabMainFeedFragment"
+        android:name="com.example.threads.view.main_feed_fragments.TabMainFeedFragment"
+        android:label="fragment_tab_main_feed"
+        tools:layout="@layout/fragment_tab_main_feed" />
 </navigation>

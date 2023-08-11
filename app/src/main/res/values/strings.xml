@@ -27,4 +27,7 @@
     <string name="link">Link</string>
     <string name="add_link">+ Add link</string>
     <string name="private_profile">Private profile</string>
+    <string name="let_s_sign_you_in">Let’s sign you in</string>
+    <string name="Sort" />
+    <string name="sort">Sort</string>
 </resources>

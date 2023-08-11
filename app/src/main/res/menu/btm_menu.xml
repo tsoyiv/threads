@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/tabMainFeedFragment"
         android:icon="@drawable/icon_home"
         android:title=""
         />
@@ -12,12 +12,12 @@
         android:title=""
         />
     <item
-        android:id="@+id/threadFragment"
+        android:id="@+id/creationThreadFragment"
         android:icon="@drawable/icon_add"
         android:title=""
         />
     <item
-        android:id="@+id/likesFragment"
+        android:id="@+id/activityFragment"
         android:icon="@drawable/icon_activity"
         android:title=""
         />
