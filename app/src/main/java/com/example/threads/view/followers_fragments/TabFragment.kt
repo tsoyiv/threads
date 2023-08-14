@@ -1,13 +1,13 @@
 package com.example.threads.view.followers_fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentTabBinding
 import com.example.threads.utils.TabFragmentPagerAdapter
@@ -28,8 +28,16 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hide()
 
         setupTab()
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnExitFollow.setOnClickListener {
+            findNavController().navigate(R.id.action_tabFragment_to_userMainFragment)
+        }
     }
 
     private fun setupTab() {
