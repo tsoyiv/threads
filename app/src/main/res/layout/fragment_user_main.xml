@@ -6,15 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".view.user_fragments.UserMainFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
     <ImageView
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:src="@drawable/img_logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top" />
 
     <TextView
         android:id="@+id/txt_name"
@@ -54,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
+        android:clickable="true"
         android:fontFamily="@font/sfthin"
         android:text="18 followers"
         android:textColor="#999999"
@@ -61,55 +88,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_username" />
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/img_selectImageUser"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/img_userphoto"
-        app:civ_border_color="#D9D9D9"
-        app:civ_border_width="1dp"
-        app:civ_shadow_radius="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/img_selectImageUser"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        app:cardCornerRadius="55dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline_right"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btn_logout">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/userImage"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_exuser" />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/img_selectImageUser"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/img_userphoto"
+            app:civ_circle_color="#999999"
+            app:civ_border_width="1dp"
+            app:civ_shadow_radius="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_editProfile"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
         android:background="@drawable/btn_rounded_user_page"
         android:fontFamily="@font/sfmed"
-        style="?android:attr/borderlessButtonStyle"
         android:text="Edit profile"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_shareProfile"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/txt_numbFollowers" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_shareProfile"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/btn_rounded_user_page"
         android:fontFamily="@font/sfmed"
         android:text="Share profile"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toEndOf="@+id/btn_editProfile"
         app:layout_constraintTop_toBottomOf="@+id/txt_numbFollowers" />
 
@@ -122,8 +165,9 @@
         android:text="Threads"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/btn_editProfile" />
 
     <View

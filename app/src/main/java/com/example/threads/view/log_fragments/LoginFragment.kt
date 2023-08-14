@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_feedMainFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_tabMainFeedFragment)
         }
     }
 }

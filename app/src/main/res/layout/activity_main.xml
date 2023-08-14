@@ -17,34 +17,47 @@
         app:layout_constraintTop_toBottomOf="parent"
         app:navGraph="@navigation/my_nav" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/btm_nav_bar"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btn_nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:background="@drawable/transparent_background"
         app:elevation="0dp"
-        android:layout_marginBottom="1dp"
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="@drawable/bottom_nav_item_selector"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemIconTint="@drawable/bottom_nav_item_selector"
-        app:itemBackground="@android:color/transparent"
-        tools:ignore="BottomAppBar">
+        app:menu="@menu/btm_menu" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/btn_nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:menu="@menu/btm_menu"
-            app:labelVisibilityMode="unlabeled"
-            app:itemBackground="@android:color/transparent"
-            app:elevation="0dp"
-            android:background="@drawable/transparent_background"
-            app:itemIconTint="@drawable/bottom_nav_item_selector"
-            />
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
+<!--    <com.google.android.material.bottomappbar.BottomAppBar-->
+<!--        android:id="@+id/btm_nav_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        app:elevation="0dp"-->
+<!--        app:itemBackground="@android:color/transparent"-->
+<!--        app:itemIconTint="@drawable/bottom_nav_item_selector"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:ignore="BottomAppBar">-->
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--            android:id="@+id/btn_nav_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginRight="16dp"-->
+<!--            android:background="@drawable/transparent_background"-->
+<!--            app:elevation="0dp"-->
+<!--            app:itemBackground="@android:color/transparent"-->
+<!--            app:labelVisibilityMode="unlabeled"-->
+<!--            app:menu="@menu/btm_menu"-->
+<!--            app:itemIconTint="@drawable/bottom_nav_item_selector"-->
+<!--            />-->
+<!--    </com.google.android.material.bottomappbar.BottomAppBar>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
