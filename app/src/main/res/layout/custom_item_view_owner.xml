@@ -9,22 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/itemView_owner_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_exuser"
+            app:cardCornerRadius="55dp"
+            app:civ_border_width="1dp"
+            app:civ_circle_color="#999999"
+            app:civ_shadow_radius="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_exuser" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/itemView_owner_image"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginBottom="8dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/ic_exuser" />-->
 
         <TextView
             android:id="@+id/item_owner_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/sfmed"
             android:text="malevicz"
@@ -50,8 +65,8 @@
             android:id="@+id/btn_remove_own_thread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginEnd="12dp"
+            android:padding="5dp"
             android:src="@drawable/img_delete_thread"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +75,7 @@
             android:id="@+id/item_ownerThread"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/sf_reg"
             android:text="When I look at you, I see someone who’s working hard sdfsdfslkdfj"
@@ -132,17 +147,45 @@
         <!--        &lt;!&ndash;            app:layout_constraintTop_toBottomOf="@id/item_userThread" />&ndash;&gt;-->
 
         <TextView
-            android:id="@+id/item_view_anotherUser_numbLikes"
+            android:id="@+id/item_view_ownUser_numbLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="87 likes"
+            android:layout_marginStart="10dp"
+            android:textColor="#999999"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text23"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/item_view_replies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="73dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/sf_reg"
-            android:text="87 likes"
+            android:text="2 replies"
             android:textColor="#999999"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/text23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="-"
+            android:layout_marginStart="10dp"
+            android:textColor="#999999"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_view_replies"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <View
@@ -153,7 +196,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="8dp"
             android:background="#D9D9D9"
-            app:layout_constraintBottom_toTopOf="@+id/item_view_anotherUser_numbLikes"
+            app:layout_constraintBottom_toTopOf="@+id/item_view_ownUser_numbLikes"
             app:layout_constraintStart_toStartOf="@+id/itemView_owner_image"
             app:layout_constraintTop_toTopOf="@+id/itemView_owner_image" />
 

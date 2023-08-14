@@ -10,22 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/itemView_user_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_exuser"
+            app:cardCornerRadius="55dp"
+            app:civ_border_width="1dp"
+            app:civ_circle_color="#999999"
+            app:civ_shadow_radius="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_exuser" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/itemView_user_image"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginBottom="8dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/ic_exuser" />-->
 
         <TextView
             android:id="@+id/item_user_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/sfmed"
             android:text="mountain_mama"
@@ -51,7 +66,7 @@
             android:id="@+id/item_userThread"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/sf_reg"
             android:text="Innovation sets leaders apart from followers."
@@ -97,36 +112,35 @@
             app:layout_constraintStart_toEndOf="@+id/imageView4"
             app:layout_constraintTop_toBottomOf="@+id/item_image" />
 
+        <!--        <ImageView-->
+        <!--            android:id="@+id/item_image"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:src="@drawable/img_ex_of_image"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/checkBox"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/item_userThread" />-->
+
         <ImageView
             android:id="@+id/item_image"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="17dp"
             android:src="@drawable/img_ex_of_image"
             app:layout_constraintBottom_toTopOf="@+id/checkBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_userThread" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/item_image"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:layout_marginStart="60dp"-->
-        <!--            android:layout_marginEnd="17dp"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/checkBox"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            android:src="@drawable/img_ex_of_image"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/item_userThread" />-->
-
         <TextView
             android:id="@+id/item_view_anotherUser_numbLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="73dp"
-            android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/sf_reg"
             android:text="87 likes"
