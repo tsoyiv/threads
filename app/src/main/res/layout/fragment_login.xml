@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_begin="110dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_right"
@@ -38,10 +38,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/sfbold"
-        android:text="Let’s sign you in"
-        android:textColor="@color/black"
-        android:textSize="34sp"
+        style="@style/AuthHeaderText"
+        android:text="@string/let_s_sign_you_in"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toTopOf="@id/guideline_top" />
 
@@ -50,9 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/sfthin"
-        android:text="We’ve missed you"
-        android:textSize="17sp"
+        android:text="@string/we_ve_missed_you"
+        style="@style/SecondaryAuthHeaderText"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -62,8 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:hintEnabled="true"
-
+        app:hintEnabled="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
@@ -73,15 +69,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/custom_input_layout"
-            android:fontFamily="@font/sfthin"
-            android:hint="Your email"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#999999"
-            android:textSize="15sp" />
+            android:hint="@string/your_email1"
+            style="@style/AuthEditTextSetup"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_password_layout"
@@ -89,8 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Password"
-
+        app:hintEnabled="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/et_email_layout"
@@ -101,12 +92,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/custom_input_layout"
-            android:fontFamily="@font/sfthin"
+            style="@style/AuthEditTextSetup"
             android:inputType="textPassword"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#999999"
-            android:textSize="15sp" />
+            android:hint="@string/password1"
+             />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -114,10 +103,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:fontFamily="@font/sfbold"
-        android:text="Forgot password?"
-        android:textColor="@color/black"
-        android:textSize="15sp"
+        android:text="@string/forgot_password2"
+        style="@style/ForgotPassText"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
         app:layout_constraintTop_toBottomOf="@+id/et_password_layout" />
@@ -129,8 +116,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="26dp"
         android:background="@drawable/btn_rounded"
-        android:fontFamily="@font/sfbold"
-        android:text="Log in"
+        android:text="@string/log_in1"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:backgroundTint="@null"
@@ -152,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="or"
+        android:text="@string/or"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/horizontalLineSecond"
         app:layout_constraintStart_toEndOf="@+id/horizontalLineFirst"
@@ -187,7 +173,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="13dp"
         android:src="@drawable/img_logo_google"
@@ -202,13 +188,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:fontFamily="@font/sfmed"
-        android:text="Don’t have an account yet? Sign up"
+        android:text="@string/don_t_have_an_account_yet_sign_up"
         android:textColor="@color/black"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
