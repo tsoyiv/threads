@@ -30,4 +30,15 @@
     <string name="let_s_sign_you_in">Let’s sign you in</string>
     <string name="Sort" />
     <string name="sort">Sort</string>
+    <string name="we_ve_missed_you">We’ve missed you</string>
+    <string name="your_email1">Your email</string>
+    <string name="password1">Password</string>
+    <string name="forgot_password2">Forgot password?</string>
+    <string name="log_in1">Log in</string>
+    <string name="or">or</string>
+    <string name="don_t_have_an_account_yet_sign_up">Don’t have an account yet? Sign up</string>
+    <string name="your_email2">Your email</string>
+    <string name="your_name23">Your name</string>
+    <string name="create_account1">Create account</string>
+    <string name="confirm_password1">Confirm password</string>
 </resources>

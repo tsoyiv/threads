@@ -110,7 +110,11 @@
         android:id="@+id/tabFragment"
         android:name="com.example.threads.view.followers_fragments.TabFragment"
         android:label="fragment_tab"
-        tools:layout="@layout/fragment_tab" />
+        tools:layout="@layout/fragment_tab" >
+        <action
+            android:id="@+id/action_tabFragment_to_userMainFragment"
+            app:destination="@id/userMainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tabMainFeedFragment"
         android:name="com.example.threads.view.main_feed_fragments.TabMainFeedFragment"
