@@ -2,4 +2,7 @@
 <resources>
     <item name="searchUsers" type="id" />
     <item name="rc_searchUsers" type="id" />
+    <item name="img_repost" type="id" />
+    <item name="txt_reposted" type="id" />
+    <item name="rc_feed_user_page" type="id" />
 </resources>
