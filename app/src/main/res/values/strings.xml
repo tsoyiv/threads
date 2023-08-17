@@ -41,4 +41,5 @@
     <string name="your_name23">Your name</string>
     <string name="create_account1">Create account</string>
     <string name="confirm_password1">Confirm password</string>
+    <string name="search">Search</string>
 </resources>
