@@ -9,40 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/itemView_user_image"
+            style="@style/roundedImageViewRounded"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            app:cardCornerRadius="55dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_exuser"
-            app:civ_border_width="1dp"
-            app:civ_circle_color="#999999"
-            app:civ_shadow_radius="0dp"
+            app:strokeWidth="1dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        />
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/itemView_user_image"-->
-<!--                    android:layout_width="36dp"-->
-<!--                    android:layout_height="36dp"-->
-<!--                    app:cardCornerRadius="55dp"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginBottom="8dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/userImage"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:scaleType="centerCrop"-->
-<!--                        android:src="@drawable/ic_exuser" />-->
-<!--                </androidx.cardview.widget.CardView>-->
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/centerButton"
@@ -70,7 +48,7 @@
             android:id="@+id/item_user_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/sfmed"
             android:text="Username1"
             android:textColor="@color/black"
@@ -85,7 +63,7 @@
             android:id="@+id/item_userThread"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/sf_reg"
             android:text="UX|UI"
             android:textColor="#999999"
