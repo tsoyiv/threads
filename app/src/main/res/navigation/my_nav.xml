@@ -17,10 +17,13 @@
             app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_loginFragment_to_regProfileFragment"
-            app:destination="@id/regProfileFragment" />
+            app:destination="@id/regProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_loginFragment_to_tabMainFeedFragment"
-            app:destination="@id/tabMainFeedFragment" />
+            app:destination="@id/tabMainFeedFragment"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -61,7 +64,8 @@
         tools:layout="@layout/fragment_reg_profile" >
         <action
             android:id="@+id/action_regProfileFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
@@ -70,7 +74,8 @@
         tools:layout="@layout/fragment_create_password" >
         <action
             android:id="@+id/action_createPasswordFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/userMainFragment"
@@ -79,13 +84,16 @@
         tools:layout="@layout/fragment_user_main" >
         <action
             android:id="@+id/action_userMainFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_userMainFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_userMainFragment_to_tabFragment"
-            app:destination="@id/tabFragment" />
+            app:destination="@id/tabFragment"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -94,7 +102,8 @@
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment_to_userMainFragment"
-            app:destination="@id/userMainFragment" />
+            app:destination="@id/userMainFragment"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/feedMainFragment"
@@ -127,7 +136,8 @@
         tools:layout="@layout/fragment_tab" >
         <action
             android:id="@+id/action_tabFragment_to_userMainFragment"
-            app:destination="@id/userMainFragment" />
+            app:destination="@id/userMainFragment"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/tabMainFeedFragment"
