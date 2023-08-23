@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -26,54 +26,65 @@
             android:textColor="@color/black"
             android:textSize="24sp" />
 
-        <View
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginTop="90dp"-->
+        <!--            android:background="#EFEFEF"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/txt_logout"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/txt_logout"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/img_liked" />-->
+
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginTop="136dp"-->
+        <!--            android:background="#EFEFEF"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/txt_cancel"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/txt_logout"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/img_liked" />-->
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="90dp"
-            android:background="#EFEFEF"
-            app:layout_constraintEnd_toStartOf="@id/txt_logout"
-            app:layout_constraintStart_toStartOf="@id/txt_logout"
-            app:layout_constraintTop_toBottomOf="@id/img_liked" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="98dp">
 
-        <View
+            <TextView
+                android:id="@+id/txt_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:clickable="true"
+                android:fontFamily="@font/sfbold"
+                android:gravity="center"
+                android:text="Log out"
+                android:textAlignment="center"
+                android:textColor="#FF453A"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/img_liked" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="136dp"
-            android:background="#EFEFEF"
-            app:layout_constraintEnd_toEndOf="@id/txt_cancel"
-            app:layout_constraintStart_toEndOf="@id/txt_logout"
-            app:layout_constraintTop_toBottomOf="@id/img_liked" />
-
-        <TextView
-            android:id="@+id/txt_logout"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:clickable="true"
-            android:fontFamily="@font/sfbold"
-            android:text="Log out"
-            android:textAlignment="center"
-            android:textColor="#FF453A"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_liked" />
+            android:layout_marginTop="146dp">
 
-        <TextView
-            android:id="@+id/txt_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="65dp"
-            android:clickable="true"
-            android:fontFamily="@font/sfthin"
-            android:gravity="center"
-            android:text="Cancel"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/img_liked" />
+            <TextView
+                android:id="@+id/txt_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:fontFamily="@font/sfthin"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
