@@ -42,4 +42,11 @@
     <string name="create_account1">Create account</string>
     <string name="confirm_password1">Confirm password</string>
     <string name="search">Search</string>
+    <string name="the_username_you_entered_doesn_t_appear_to_belong_to_an_account_please_check_your_username_and_try_again">The username you entered doesn’t appear to belong to an account Please check your username and try again.</string>
+
+    <string-array name="replyOptions">
+        <item>Anyone</item>
+        <item>Profiles you follow</item>
+        <item>Mentioned only</item>
+    </string-array>
 </resources>

@@ -83,12 +83,30 @@
     <style name="txtReply">
         <item name="android:textColor">#999999</item>
         <item name="android:fontFamily">@font/sf_reg</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="txtReplyOptions">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/sf_reg</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">13dp</item>
     </style>
 
     <style name="txtPOst">
         <item name="android:fontFamily">@font/sf_reg</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AutoCompleteTextViewStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu">
+        <!-- Remove the box background -->
+        <item name="boxBackgroundMode">none</item>
+        <!-- Remove the label -->
+        <item name="hintEnabled">false</item>
+        <!-- Set a negative dropdown vertical offset to move the dropdown above the text input -->
+        <item name="android:dropDownVerticalOffset">-8dp</item>
     </style>
 
 </resources>

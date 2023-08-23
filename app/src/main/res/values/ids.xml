@@ -5,4 +5,5 @@
     <item name="img_repost" type="id" />
     <item name="txt_reposted" type="id" />
     <item name="rc_feed_user_page" type="id" />
+    <item name="btn_share" type="id" />
 </resources>
