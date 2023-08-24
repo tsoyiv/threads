@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/btmDialog_removeThread"
+    android:id="@+id/btmDialog_actionThread"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     app:behavior_skipCollapsed="true"
@@ -32,7 +32,7 @@
         app:cardCornerRadius="8dp">
 
         <LinearLayout
-            android:id="@+id/btnRemoveThread"
+            android:id="@+id/btnRepostThread"
             android:layout_width="380dp"
             android:layout_height="45dp"
             android:orientation="horizontal"
@@ -43,17 +43,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:src="@drawable/img_remove_threadsvg" />
+                android:src="@drawable/img_repostsvg" />
 
             <TextView
-                android:id="@+id/btnRemove"
+                android:id="@+id/btnRepost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:text="Remove"
-                android:textColor="#FF453A"
+                android:text="Repost"
+                android:textColor="@color/black"
                 android:textSize="17sp"
                 android:fontFamily="@font/sfmed" />
         </LinearLayout>
