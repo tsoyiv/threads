@@ -1,17 +1,22 @@
 package com.example.threads
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.threads.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    val CHANEL_ID = "chanelID"
+    val CHANEL_NAME = "chanelName"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +28,25 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         findViewById<BottomNavigationView>(R.id.btn_nav_view)
             .setupWithNavController(navController)
+
+        createNotification()
     }
-//    override fun onResume() {
+
+    fun createNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANEL_ID, CHANEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                lightColor = Color.GREEN
+                enableLights(true)
+            }
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    //    override fun onResume() {
 //        super.onResume()
 ////        bottomNavigationView.menu.findItem(R.id.menu_item_home).setIcon(R.drawable.img_home_filled)
 //        bottomNavigationView.menu.findItem(R.id.tabMainFeedFragment).setIcon(R.drawable.img_colored_home)
