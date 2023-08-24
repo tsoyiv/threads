@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F9F9F9">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/itemView_user_image"
+            style="@style/roundedImageViewRounded"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeWidth="1dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/centerButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="104dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/btn_google"
+            android:fontFamily="@font/sfmed"
+            android:text="Follow"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="206dp" />
+
+        <TextView
+            android:id="@+id/item_user_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/sfmed"
+            android:text="Username1"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/item_userThread"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintStart_toEndOf="@+id/itemView_user_image"
+            app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/item_userThread"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="UX|UI"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/centerButton"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintStart_toEndOf="@+id/itemView_user_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_user_username"
+            app:layout_constraintVertical_bias="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
