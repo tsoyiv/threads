@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +19,9 @@ import com.example.threads.R
 import com.example.threads.databinding.FragmentUserMainBinding
 import com.example.threads.models.FeedItem
 import com.example.threads.utils.FeedAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.btm_dialog_share.*
 import kotlinx.android.synthetic.main.custom_dialog_logout.view.*
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
 
 class UserMainFragment : Fragment() {
 
@@ -44,6 +48,26 @@ class UserMainFragment : Fragment() {
         setupRV()
     }
 
+    private fun shareProfileBottom() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetView = layoutInflater.inflate(R.layout.btm_dialog_share, null)
+
+        val copyLink = bottomSheetView.findViewById<LinearLayout>(R.id.btn_copyLink)
+        val shareVia = bottomSheetView.findViewById<LinearLayout>(R.id.btn_shareVia)
+
+        copyLink.setOnClickListener {
+            Toast.makeText(requireContext(), "top", Toast.LENGTH_SHORT).show()
+            bottomSheetDialog.dismiss()
+        }
+        shareVia.setOnClickListener {
+            Toast.makeText(requireContext(), "bottom", Toast.LENGTH_SHORT).show()
+            bottomSheetDialog.dismiss()
+        }
+        
+        bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog.show()
+    }
+
     private fun setupRV() {
 
         val testItems = listOf(
@@ -66,6 +90,10 @@ class UserMainFragment : Fragment() {
 
         binding.txtNumbFollowers.setOnClickListener {
             findNavController().navigate(R.id.action_userMainFragment_to_tabFragment)
+        }
+
+        binding.btnShareProfile.setOnClickListener {
+            shareProfileBottom()
         }
     }
 

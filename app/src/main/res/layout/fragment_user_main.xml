@@ -71,19 +71,19 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_threads_net"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_name"
-        app:layout_constraintWidth_default="wrap"
-        app:layout_constraintHorizontal_chainStyle="packed" />
+        app:layout_constraintWidth_default="wrap" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_threads_net"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="12dp"
-        android:layout_marginStart="4dp"
-        style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/custom_thread_net_button"
         android:fontFamily="@font/sf_reg"
         android:text="threads.net"
@@ -91,8 +91,8 @@
         android:textColor="#999999"
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_numbFollowers"
-        app:layout_constraintTop_toBottomOf="@+id/txt_name"
         app:layout_constraintStart_toEndOf="@id/txt_username"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name"
         app:layout_constraintWidth_default="wrap" />
 
     <TextView
@@ -142,14 +142,14 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_userImageMainPage"
+        style="@style/roundedImageViewRounded"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="22dp"
-        app:strokeWidth="1dp"
-        style="@style/roundedImageViewRounded"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintTop_toBottomOf="@+id/btn_logout"
-        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:strokeWidth="1dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_editProfile"
@@ -222,95 +222,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:indeterminateTint="@color/black"
+        android:animateLayoutChanges="true"
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="22dp"
-                android:src="@drawable/img_repost"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/sfthin"
-                android:text="You reposted"
-                android:textColor="#999999"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_feed_user_page"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                android:layout_height="match_parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="22dp"
+                    android:src="@drawable/img_repost"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="@font/sfthin"
+                    android:text="You reposted"
+                    android:textColor="#999999"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/img_repost"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="22dp"-->
-<!--        android:src="@drawable/img_repost"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/txt_reposted"-->
-<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_feed_user_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    app:layout_constraintVertical_bias="1.0" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/txt_reposted"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="22dp"-->
-<!--        android:layout_marginBottom="5dp"-->
-<!--        android:fontFamily="@font/sfthin"-->
-<!--        android:text="You reposted"-->
-<!--        android:textColor="#999999"-->
-<!--        android:textSize="15sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/textView6"-->
-<!--        app:layout_constraintStart_toEndOf="@id/img_repost"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rc_feed_user_page"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txt_reposted" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/img_repost"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="24dp"-->
+    <!--        android:layout_marginTop="22dp"-->
+    <!--        android:src="@drawable/img_repost"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/txt_reposted"-->
+    <!--        app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/txt_reposted"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginTop="22dp"-->
+    <!--        android:layout_marginBottom="5dp"-->
+    <!--        android:fontFamily="@font/sfthin"-->
+    <!--        android:text="You reposted"-->
+    <!--        android:textColor="#999999"-->
+    <!--        android:textSize="15sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/textView6"-->
+    <!--        app:layout_constraintStart_toEndOf="@id/img_repost"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rc_feed_user_page"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:layout_marginBottom="50dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/txt_reposted" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
