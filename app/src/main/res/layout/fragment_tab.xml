@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sfmed"
         android:text="@string/sort"
-        android:textColor="#999999"
+        android:textColor="#141414"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/guideline_top" />

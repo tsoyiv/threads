@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -11,6 +12,7 @@ import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentTabBinding
 import com.example.threads.utils.TabFragmentPagerAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 
 class TabFragment : Fragment(R.layout.fragment_tab) {
@@ -38,6 +40,39 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
         binding.btnExitFollow.setOnClickListener {
             findNavController().navigate(R.id.action_tabFragment_to_userMainFragment)
         }
+
+        binding.txtSort.setOnClickListener {
+            callSortDialog()
+        }
+    }
+
+    private fun callSortDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetView = layoutInflater.inflate(R.layout.custom_dialog_sort_options, null)
+
+        val defaultRadioButton: RadioButton = bottomSheetView.findViewById(R.id.radBtnDefault)
+        val latestRadioButton: RadioButton = bottomSheetView.findViewById(R.id.ratBtnLatest)
+        val earliestRadioButton: RadioButton = bottomSheetView.findViewById(R.id.ratBtnEarliest)
+
+        defaultRadioButton.isChecked = true
+
+        defaultRadioButton.setOnClickListener {
+            latestRadioButton.isChecked = false
+            earliestRadioButton.isChecked = false
+        }
+
+        latestRadioButton.setOnClickListener {
+            defaultRadioButton.isChecked = false
+            earliestRadioButton.isChecked = false
+        }
+
+        earliestRadioButton.setOnClickListener {
+            defaultRadioButton.isChecked = false
+            latestRadioButton.isChecked = false
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog.show()
     }
 
     private fun setupTab() {
