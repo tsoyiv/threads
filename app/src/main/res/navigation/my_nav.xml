@@ -76,6 +76,9 @@
             android:id="@+id/action_createPasswordFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment"
             app:enterAnim="@anim/from_left" />
+        <action
+            android:id="@+id/action_createPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/userMainFragment"

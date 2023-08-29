@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/tabMainFeedFragment"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/img_home2svg"
         android:title=""
         />
     <item
@@ -18,12 +18,12 @@
         />
     <item
         android:id="@+id/activityFragment"
-        android:icon="@drawable/icon_activity"
+        android:icon="@drawable/img_heart2"
         android:title=""
         />
     <item
         android:id="@+id/userMainFragment"
-        android:icon="@drawable/icon_profile"
+        android:icon="@drawable/img_user2"
         android:title=""
         />
 
