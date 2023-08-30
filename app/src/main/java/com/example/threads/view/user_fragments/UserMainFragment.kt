@@ -19,16 +19,19 @@ import com.example.threads.R
 import com.example.threads.databinding.FragmentUserMainBinding
 import com.example.threads.models.FeedItem
 import com.example.threads.utils.FeedAdapter
+import com.example.threads.utils.Holder
+import com.example.threads.view_models.UserDataViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.btm_dialog_share.*
 import kotlinx.android.synthetic.main.custom_dialog_logout.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserMainFragment : Fragment() {
 
     private lateinit var binding: FragmentUserMainBinding
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var recyclerView: RecyclerView
-    private val feedItems: MutableList<FeedItem> = mutableListOf()
+    private val userDataViewModel by viewModel<UserDataViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +49,21 @@ class UserMainFragment : Fragment() {
         logOut()
         navigation()
         setupRV()
+        fetchData()
+    }
+
+    private fun fetchData() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        userDataViewModel.fetchUserInfo(authHeader)
+
+        userDataViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
+            if (userInfo != null) {
+                binding.txtUsername.text = userInfo.username
+                binding.txtName.text = userInfo.name
+                binding.txtName.text = userInfo.name
+            }
+        }
     }
 
     private fun shareProfileBottom() {

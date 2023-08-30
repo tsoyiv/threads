@@ -1,0 +1,117 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F9F9F9">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgUserActivityFollowing"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:strokeWidth="1dp"
+            style="@style/roundedImageViewRounded"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            />
+
+        <ImageView
+            android:id="@+id/btn_subscribe_from_userPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/img_activity_following"
+            app:layout_constraintEnd_toStartOf="@+id/txtActivityFollowRequests"
+            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing" />
+
+        <TextView
+            android:id="@+id/txtActivityFollowingUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sfmed"
+            android:text="Username1"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/imgUserActivityFollowing"
+            app:layout_constraintTop_toTopOf="@id/imgUserActivityFollowing" />
+
+        <TextView
+            android:id="@+id/txtDateOfFollowed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="12m"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnActivityConfirm"
+            app:layout_constraintStart_toEndOf="@+id/txtActivityFollowingUsername"
+            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing" />
+
+        <TextView
+            android:id="@+id/txtActivityFollowRequests"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="Follow requests"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnActivityConfirm"
+            app:layout_constraintStart_toEndOf="@id/imgUserActivityFollowing"
+            app:layout_constraintTop_toBottomOf="@id/txtActivityFollowingUsername" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnActivityConfirm"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="69dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_google"
+            android:fontFamily="@font/sfmed"
+            android:text="Confirm"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@id/imgUserActivityFollowing"
+            app:layout_constraintEnd_toStartOf="@+id/btnActivityHide"
+            app:layout_constraintTop_toTopOf="@id/imgUserActivityFollowing" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnActivityHide"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="49dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_google"
+            android:fontFamily="@font/sfmed"
+            android:text="Hide"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="9dp"
+            android:background="#3C3C4399"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgUserActivityFollowing"
+            app:layout_constraintTop_toBottomOf="@+id/txtActivityFollowRequests" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
