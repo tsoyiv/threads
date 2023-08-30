@@ -73,10 +73,11 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/button_selector"
                 android:text="Comments"
+                tools:ignore="HardcodedText"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 app:backgroundTint="@null" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -85,10 +86,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/button_selector"
                 android:text="Requests"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 app:backgroundTint="@null" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -97,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/button_selector"
                 android:text="Following"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 app:backgroundTint="@null" />
 
         </LinearLayout>
