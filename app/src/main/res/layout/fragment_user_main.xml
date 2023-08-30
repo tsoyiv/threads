@@ -103,7 +103,7 @@
         android:layout_marginTop="14dp"
         android:clickable="true"
         android:fontFamily="@font/sfthin"
-        android:text="18 followers"
+        android:text="0 followers"
         android:textColor="#999999"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -32,6 +32,8 @@ class UserMainFragment : Fragment() {
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var recyclerView: RecyclerView
     private val userDataViewModel by viewModel<UserDataViewModel>()
+    private val itemList: MutableList<FeedItem> = mutableListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +98,7 @@ class UserMainFragment : Fragment() {
         )
 
         recyclerView = binding.rcFeedUserPage
-        feedAdapter = FeedAdapter(testItems)
+        feedAdapter = FeedAdapter(itemList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = feedAdapter
     }

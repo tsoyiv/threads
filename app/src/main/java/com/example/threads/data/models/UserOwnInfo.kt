@@ -9,6 +9,6 @@ class UserOwnInfo(
     val bio: String?,
     val link: String?,
     val is_private: Boolean,
-    val following: String,
-    val followers: String
+    val following: List<String>,
+    val followers: List<String>
 )

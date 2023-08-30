@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,22 @@ class EditProfileFragment : Fragment() {
         imageInstall()
         finishUpdateUser()
         checkUpdating()
+        fetchData()
+    }
+
+    private fun fetchData() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        userDataViewModel.fetchUserInfo(authHeader)
+
+        userDataViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
+            if (userInfo != null) {
+                binding.etUsername.text = Editable.Factory.getInstance().newEditable(userInfo.username)
+                binding.etName.text = Editable.Factory.getInstance().newEditable(userInfo.name ?: "")
+                binding.etBio.text = Editable.Factory.getInstance().newEditable(userInfo.bio ?: "")
+                binding.etLink.text = Editable.Factory.getInstance().newEditable(userInfo.link ?: "")
+            }
+        }
     }
 
     private fun checkUpdating() {
@@ -71,6 +88,7 @@ class EditProfileFragment : Fragment() {
             updateUser()
         }
     }
+
 
     private fun updateUser() {
         val username = binding.etUsername.text.toString()
@@ -126,9 +144,9 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun navigation() {
-//        binding.btnCancelEdit.setOnClickListener {
-//            findNavController().navigate(R.id.action_editProfileFragment_to_userMainFragment)
-//        }
+        binding.btnCancelEdit.setOnClickListener {
+            findNavController().navigate(R.id.action_editProfileFragment_to_userMainFragment)
+        }
     }
 
     private fun showBottomSheetDialog() {

@@ -23,6 +23,6 @@ interface UserDataAPI {
         @Part("is_private") isPrivate: RequestBody,
     ): Call<Any>
 
-    @GET("v1/user-info/")
+    @GET("v1/profile/")
     suspend fun getUserInfo(@Header("Authorization") token: String): Response<UserOwnInfo>
 }
