@@ -1,6 +1,5 @@
 package com.example.threads.view.likes_fragments
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.threads.R
 import com.example.threads.databinding.FragmentActivityBinding
-import com.example.threads.utils.ActivityFragmentAdapter
+import com.example.threads.utils.adapters.activity.FragmentAdapter
 
 class ActivityFragment : Fragment() {
 
@@ -41,7 +39,7 @@ class ActivityFragment : Fragment() {
 
     private fun setupState() {
         val viewPager = binding.viewPager
-        val adapter = ActivityFragmentAdapter(requireActivity())
+        val adapter = FragmentAdapter(requireActivity())
         viewPager.adapter = adapter
 
         button1 = binding.btnActivityComments

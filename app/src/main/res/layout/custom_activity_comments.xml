@@ -1,0 +1,104 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F9F9F9">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/itemView_user_image"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:strokeWidth="1dp"
+            style="@style/roundedImageViewRounded"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            />
+
+        <TextView
+            android:id="@+id/item_user_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sfmed"
+            android:text="iamnalimov"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/itemView_user_image"
+            app:layout_constraintTop_toTopOf="@id/itemView_user_image" />
+
+        <TextView
+            android:id="@+id/txtThread"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="Focusing is about saying no..."
+            android:textColor="#999999"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/itemView_user_image"
+            app:layout_constraintTop_toBottomOf="@id/item_user_username" />
+
+        <TextView
+            android:id="@+id/txtComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="It is what it is bro..."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemView_user_image"
+            app:layout_constraintTop_toBottomOf="@+id/txtThread" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="9dp"
+            android:background="#3C3C4399"
+            app:layout_constraintStart_toEndOf="@+id/itemView_user_image"
+            app:layout_constraintTop_toBottomOf="@+id/txtComment"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_subscribe_from_userPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:padding="5dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/txtThread"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/itemView_user_image"
+            app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
+            app:srcCompat="@drawable/img_activity_following" />
+
+        <TextView
+            android:id="@+id/txtTimeFollowed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_reg"
+            android:layout_marginStart="4dp"
+            android:text="12m"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_user_username"
+            app:layout_constraintTop_toTopOf="@+id/itemView_user_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -47,23 +47,77 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/itemView_owner_image"
+                style="@style/roundedImageViewRounded2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded2" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/img_hand"
+                app:layout_constraintBottom_toBottomOf="@+id/itemView_owner_image"
+                app:layout_constraintEnd_toEndOf="@+id/itemView_owner_image"
+                app:layout_constraintStart_toStartOf="@+id/itemView_owner_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtNumbRequests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sfmed"
+                android:text="@string/_0_requests"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/itemView_owner_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnActivityConfirm"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="98dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_google"
+                android:fontFamily="@font/sfmed"
+                android:text="@string/approve_all"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.01dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="9dp"
+                android:background="#3C3C4399"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/itemView_owner_image"
+                app:layout_constraintTop_toBottomOf="@+id/btnActivityConfirm" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_activity_requests"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="9dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="reauest"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

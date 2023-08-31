@@ -21,17 +21,31 @@
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btn_subscribe_from_userPhoto"
+            style="@style/roundedImageViewRounded2"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="23dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/txtActivityFollowRequests"
+            app:layout_constraintStart_toStartOf="@+id/imgUserActivityFollowing"
+            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp" />
+
+        <ImageView
+            android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:visibility="visible"
-            app:srcCompat="@drawable/img_activity_following"
-            app:layout_constraintEnd_toStartOf="@+id/txtActivityFollowRequests"
-            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing" />
+            android:src="@drawable/img_small_hand"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_subscribe_from_userPhoto"
+            app:layout_constraintEnd_toEndOf="@+id/btn_subscribe_from_userPhoto"
+            app:layout_constraintStart_toStartOf="@+id/btn_subscribe_from_userPhoto"
+            app:layout_constraintTop_toTopOf="@+id/btn_subscribe_from_userPhoto" />
 
         <TextView
             android:id="@+id/txtActivityFollowingUsername"
@@ -98,8 +112,9 @@
             android:fontFamily="@font/sfmed"
             android:text="Hide"
             android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/btnActivityConfirm"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgUserActivityFollowing" />
+            app:layout_constraintTop_toTopOf="@+id/btnActivityConfirm" />
 
         <View
             android:id="@+id/view1"

@@ -79,6 +79,12 @@
         <item name="android:background">#D9D9D9</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
+    <style name="roundedImageViewRounded2">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:background">#FFAE00</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
 
     <style name="txtReply">
         <item name="android:textColor">#999999</item>
