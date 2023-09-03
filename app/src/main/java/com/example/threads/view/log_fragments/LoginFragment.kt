@@ -64,7 +64,9 @@ class LoginFragment : Fragment() {
 
     private fun isSuccess() {
         authViewModel.loginStatus.observe(viewLifecycleOwner) { isSuccess ->
+
             loadingDialogUtil.dismissLoadingDialog()
+
             if (isSuccess) {
                 Toast.makeText(requireContext(), "You are in", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_loginFragment_to_tabMainFeedFragment)
