@@ -2,6 +2,7 @@ package com.example.threads.view_models
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,6 +42,8 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
             val imagePart = prepareImagePart(imageFile)
             val imageParts = imagePart
 
+            Log.d("UpdateUserInfo", "Profile Picture: ${imageFile.absolutePath}")
+
             userDataRepository.updateUserInfo(
                 token,
                 username,
@@ -65,7 +68,7 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
 
     private fun prepareImagePart(imageFile: File): MultipartBody.Part {
         val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-        return MultipartBody.Part.createFormData("photo", imageFile.name, requestFile)
+        return MultipartBody.Part.createFormData("profile_picture", imageFile.name, requestFile)
     }
 
     fun fetchUserInfo(token: String) {

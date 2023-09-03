@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentEditProfileBinding
@@ -66,6 +67,13 @@ class EditProfileFragment : Fragment() {
                 binding.etName.text = Editable.Factory.getInstance().newEditable(userInfo.name ?: "")
                 binding.etBio.text = Editable.Factory.getInstance().newEditable(userInfo.bio ?: "")
                 binding.etLink.text = Editable.Factory.getInstance().newEditable(userInfo.link ?: "")
+
+                userInfo.profile_picture?.let { uriString ->
+                    val profilePictureUri = Uri.parse(uriString)
+                    Glide.with(requireContext())
+                        .load(profilePictureUri)
+                        .into(binding.imgSelectImageUser)
+                }
             }
         }
     }
@@ -129,7 +137,7 @@ class EditProfileFragment : Fragment() {
 
     private fun prepareImagePart(imageFile: File): MultipartBody.Part {
         val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-        return MultipartBody.Part.createFormData("photo", imageFile.name, requestFile)
+        return MultipartBody.Part.createFormData("profile_picture", imageFile.name, requestFile)
     }
 
 

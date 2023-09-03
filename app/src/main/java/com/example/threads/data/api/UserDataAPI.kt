@@ -1,7 +1,5 @@
 package com.example.threads.data.api
 
-import android.net.Uri
-import com.example.threads.data.models.UserInfoResponse
 import com.example.threads.data.models.UserOwnInfo
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

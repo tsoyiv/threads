@@ -1,5 +1,7 @@
 package com.example.threads.data.models
 
+import android.net.Uri
+
 class UserOwnInfo(
     val id: Int,
     val email: String,

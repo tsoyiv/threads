@@ -3,6 +3,7 @@ package com.example.threads.view.user_fragments
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentUserMainBinding
@@ -33,7 +35,6 @@ class UserMainFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val userDataViewModel by viewModel<UserDataViewModel>()
     private val itemList: MutableList<FeedItem> = mutableListOf()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +65,13 @@ class UserMainFragment : Fragment() {
                 binding.txtUsername.text = userInfo.username
                 binding.txtName.text = userInfo.name
                 binding.txtName.text = userInfo.name
+
+                userInfo.profile_picture?.let { uriString ->
+                    val profilePictureUri = Uri.parse(uriString)
+                    Glide.with(requireContext())
+                        .load(profilePictureUri)
+                        .into(binding.imgUserImageMainPage)
+                }
             }
         }
     }

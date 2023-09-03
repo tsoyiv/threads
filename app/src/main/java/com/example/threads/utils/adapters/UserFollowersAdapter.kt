@@ -1,4 +1,4 @@
-package com.example.threads.utils
+package com.example.threads.utils.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.R
 import com.example.threads.models.UserRepresentation
+import com.example.threads.utils.UserFollowersDiffCallback
 
 class UserFollowersAdapter : RecyclerView.Adapter<UserFollowersAdapter.UserFollowerViewHolder>() {
 
