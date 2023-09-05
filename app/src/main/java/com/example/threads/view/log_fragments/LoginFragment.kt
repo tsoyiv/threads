@@ -4,9 +4,13 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +19,6 @@ import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.data.models.UserLogin
 import com.example.threads.databinding.FragmentLoginBinding
-import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.view_models.AuthViewModel
 import kotlinx.android.synthetic.main.custom_dialog_forgotten_password.view.*
@@ -27,6 +30,9 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnLogin: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,22 +49,57 @@ class LoginFragment : Fragment() {
         (requireActivity() as MainActivity).hide()
 
         navigation()
+
+        etCheck()
         isSuccess()
-        loginUser()
+    }
+
+    private fun etCheck() {
+        etEmail = binding.etEmail
+        etPassword = binding.etPassword
+        btnLogin = binding.btnLogin
+
+        etEmail.addTextChangedListener(textWatcher)
+        etPassword.addTextChangedListener(textWatcher)
+
+        btnLogin.isEnabled = true
+
+        btnLogin.setOnClickListener {
+            val emailText = etEmail.text.toString()
+            val passwordText = etPassword.text.toString()
+
+            if (emailText.isEmpty() || passwordText.isEmpty()) {
+                Toast.makeText(requireContext(), "Both fields must be filled", Toast.LENGTH_SHORT).show()
+            } else if (!emailText.contains("@")) {
+                Toast.makeText(requireContext(), "Email must contain '@'", Toast.LENGTH_SHORT).show()
+            } else {
+                loginUser()
+            }
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            btnLogin.isEnabled = true
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
     }
 
     private fun loginUser() {
-        binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
 
-            val loginInstance = UserLogin(email, password, false)
+        val loginInstance = UserLogin(email, password, false)
 
-            loadingDialogUtil.showLoadingDialog()
+        loadingDialogUtil.showLoadingDialog()
 
-            lifecycleScope.launch {
-                authViewModel.loginUser(loginInstance)
-            }
+        lifecycleScope.launch {
+            authViewModel.loginUser(loginInstance)
         }
     }
 
@@ -68,18 +109,13 @@ class LoginFragment : Fragment() {
             loadingDialogUtil.dismissLoadingDialog()
 
             if (isSuccess) {
-                Toast.makeText(requireContext(), "You are in", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_loginFragment_to_tabMainFeedFragment)
             } else {
                 callDialog()
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Error Occurred. Please, try again",
-//                    Toast.LENGTH_SHORT
-//                ).show()
             }
         }
     }
+
 
     private fun callDialog() {
         val dialogBinding = layoutInflater.inflate(R.layout.custom_dialog_forgotten_password, null)

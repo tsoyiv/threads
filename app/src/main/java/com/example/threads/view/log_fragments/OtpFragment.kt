@@ -1,9 +1,13 @@
 package com.example.threads.view.log_fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +26,9 @@ class OtpFragment : Fragment() {
     private lateinit var binding: FragmentOtpBinding
     private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private lateinit var otpFields: EditText
+    private lateinit var btnLogin: Button
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,21 +46,54 @@ class OtpFragment : Fragment() {
 
         navigation()
         isSuccess()
-        otpVerify()
+        //otpVerify()
+        etCheck()
+    }
+
+    private fun etCheck() {
+        otpFields = binding.pinView
+        btnLogin = binding.btnNewPassPage
+
+        otpFields.addTextChangedListener(textWatcher)
+
+        btnLogin.isEnabled = true
+
+        btnLogin.setOnClickListener {
+            val otpText = otpFields.text.toString()
+
+            if (otpText.isEmpty()) {
+                Toast.makeText(requireContext(), "Field must be filled", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                otpVerify()
+            }
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            btnLogin.isEnabled = true
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
     }
 
     private fun otpVerify() {
         val pinCode = binding.pinView
-        binding.btnNewPassPage.setOnClickListener {
-            val code = pinCode.text.toString()
-            Holder.otpCode = code
+        val code = pinCode.text.toString()
+        Holder.otpCode = code
 
-            loadingDialogUtil.showLoadingDialog()
+        loadingDialogUtil.showLoadingDialog()
 
-            lifecycleScope.launch {
+        lifecycleScope.launch {
                 authViewModel.otpCodeRequest(code)
             }
-        }
+
 
         binding.txtResendCode.setOnClickListener {
             val email = Holder.email
@@ -79,7 +119,7 @@ class OtpFragment : Fragment() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Error Occurred. Please, try again",
+                    "Incorrect code typed",
                     Toast.LENGTH_SHORT
                 ).show()
             }

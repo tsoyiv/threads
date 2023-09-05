@@ -1,9 +1,13 @@
 package com.example.threads.view.log_fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +26,8 @@ class ForgotPasswordFragment : Fragment() {
     private lateinit var binding: FragmentForgotPasswordBinding
     private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private lateinit var etEmail: EditText
+    private lateinit var btnLogin: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,21 +44,55 @@ class ForgotPasswordFragment : Fragment() {
         (requireActivity() as MainActivity).hide()
 
         navigation()
-        sendEmail()
         isSuccess()
+        etCheck()
+    }
+
+    private fun etCheck() {
+        etEmail = binding.etEmailResPassword
+        btnLogin = binding.btnReset
+
+        etEmail.addTextChangedListener(textWatcher)
+
+        btnLogin.isEnabled = true
+
+        btnLogin.setOnClickListener {
+            val emailText = etEmail.text.toString()
+
+            if (emailText.isEmpty()) {
+                Toast.makeText(requireContext(), "The field must be filled", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (!emailText.contains("@")) {
+                Toast.makeText(requireContext(), "Email must contain '@'", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                sendEmail()
+            }
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            btnLogin.isEnabled = true
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
     }
 
     private fun sendEmail() {
-        binding.btnReset.setOnClickListener {
-            val email = binding.etEmailResPassword.text.toString()
+        val email = binding.etEmailResPassword.text.toString()
 
-            Holder.email = email
-            loadingDialogUtil.showLoadingDialog()
+        Holder.email = email
+        loadingDialogUtil.showLoadingDialog()
 
-            lifecycleScope.launch {
-                authViewModel.sendForgotPasswordEmail(email)
+        lifecycleScope.launch {
+            authViewModel.sendForgotPasswordEmail(email)
             }
-        }
+
     }
 
     private fun isSuccess() {
