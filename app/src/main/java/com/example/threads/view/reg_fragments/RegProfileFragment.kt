@@ -16,6 +16,7 @@ import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.data.models.CustomUser
 import com.example.threads.databinding.FragmentRegProfileBinding
+import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.view_models.AuthViewModel
 import kotlinx.coroutines.launch
@@ -48,8 +49,9 @@ class RegProfileFragment : Fragment() {
         (requireActivity() as MainActivity).hide()
 
         navigation()
-        isRegSuccess()
+        //isRegSuccess()
         checkReg()
+        isSuccess()
     }
 
     private fun checkReg() {
@@ -89,6 +91,7 @@ class RegProfileFragment : Fragment() {
                     .show()
             } else {
                 registerUser()
+                //sendEmail()
             }
         }
     }
@@ -105,12 +108,28 @@ class RegProfileFragment : Fragment() {
         }
     }
 
-    private fun isRegSuccess() {
+//    private fun sendEmail() {
+//        val email = binding.etRegEmail.text.toString()
+//
+//        Holder.email = email
+//        loadingDialogUtil.showLoadingDialog()
+//
+//        lifecycleScope.launch {
+//            authViewModel.sendForgotPasswordEmail(email)
+//        }
+//
+//    }
+
+    private fun isSuccess() {
         authViewModel.registrationStatus.observe(viewLifecycleOwner) { isSuccess ->
             loadingDialogUtil.dismissLoadingDialog()
             if (isSuccess) {
-                Toast.makeText(requireContext(), "User Created", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_regProfileFragment_to_loginFragment)
+                Toast.makeText(
+                    requireContext(),
+                    "Check Email to confirm the email",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_regProfileFragment_to_confirmEmailFragment)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -135,7 +154,6 @@ class RegProfileFragment : Fragment() {
         lifecycleScope.launch {
             authViewModel.registerUser(userInstance)
         }
-
     }
 
     private fun navigation() {

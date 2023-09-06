@@ -56,6 +56,9 @@
             android:id="@+id/action_otpFragment_to_createPasswordFragment"
             app:destination="@id/createPasswordFragment"
             app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_otpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/regProfileFragment"
@@ -64,8 +67,10 @@
         tools:layout="@layout/fragment_reg_profile" >
         <action
             android:id="@+id/action_regProfileFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/from_left" />
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_regProfileFragment_to_confirmEmailFragment"
+            app:destination="@id/confirmEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
@@ -79,6 +84,7 @@
         <action
             android:id="@+id/action_createPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/userMainFragment"
@@ -130,7 +136,8 @@
         tools:layout="@layout/fragment_creation_thread" >
         <action
             android:id="@+id/action_creationThreadFragment_to_tabMainFeedFragment"
-            app:destination="@id/tabMainFeedFragment" />
+            app:destination="@id/tabMainFeedFragment"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/tabFragment"
@@ -147,4 +154,15 @@
         android:name="com.example.threads.view.main_feed_fragments.TabMainFeedFragment"
         android:label="fragment_tab_main_feed"
         tools:layout="@layout/fragment_tab_main_feed" />
+    <fragment
+        android:id="@+id/confirmEmailFragment"
+        android:name="com.example.threads.view.log_fragments.ConfirmEmailFragment"
+        android:label="ConfirmEmailFragment" >
+        <action
+            android:id="@+id/action_confirmEmailFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_confirmEmailFragment_to_regProfileFragment"
+            app:destination="@id/regProfileFragment" />
+    </fragment>
 </navigation>

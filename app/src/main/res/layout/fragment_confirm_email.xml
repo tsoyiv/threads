@@ -35,7 +35,7 @@
         app:layout_constraintGuide_percent="0.93" />
 
     <ImageView
-        android:id="@+id/btnReturnToResetEmailPage"
+        android:id="@+id/btn_returnToRegPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
