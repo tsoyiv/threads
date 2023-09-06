@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/creationThreadFragment"
     tools:context=".view.creation_fragments.CreationThreadFragment">
 
 
@@ -78,21 +79,25 @@
 
     <TextView
         android:id="@+id/txt_replyOptions"
-        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
         android:text="Anyone can reply"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
         app:layout_constraintStart_toStartOf="@+id/guideline_left" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/txtPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_reg"
         android:textSize="20sp"
         android:textColor="#590095F6"
         android:text="Post"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right" />
 
@@ -153,10 +158,10 @@
         android:background="@null"
         android:fontFamily="@font/sf_reg"
         android:hint="Start a thread..."
-        android:maxLength="280"
+        android:maxLength="240"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/item_owner_time_minutes"
+        app:layout_constraintEnd_toStartOf="@+id/imgDeleteEver"
         app:layout_constraintStart_toEndOf="@+id/itemView_owner_image"
         app:layout_constraintTop_toBottomOf="@+id/item_owner_username" />
 
@@ -173,10 +178,11 @@
         app:layout_constraintTop_toBottomOf="@id/item_ownerThread" />
 
     <ImageView
-        android:id="@+id/item_owner_time_minutes"
+        android:id="@+id/imgDeleteEver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
         android:src="@drawable/icon_small_cancel"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"

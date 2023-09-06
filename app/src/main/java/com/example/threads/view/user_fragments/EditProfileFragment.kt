@@ -2,6 +2,8 @@ package com.example.threads.view.user_fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -24,6 +26,8 @@ import com.example.threads.view_models.UserDataViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.imageview.ShapeableImageView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 class EditProfileFragment : Fragment() {
 
@@ -51,18 +55,134 @@ class EditProfileFragment : Fragment() {
 
         navigation()
         imageInstall()
-//        finishUpdateUser()
+//      finishUpdateUser()
         checkUpdating()
         fetchData()
         updateUser()
+        checkPhotoUpdate()
+    }
 
-//        userDataViewModel.imageAddedSuccess.observe(viewLifecycleOwner) { success ->
-//            if (success) {
-//                Toast.makeText(requireContext(), "Photo Added", Toast.LENGTH_SHORT).show()
+    private fun checkPhotoUpdate() {
+        userDataViewModel.imageAddedSuccess.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
+                Toast.makeText(requireContext(), "Photo added", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Photo was not uploaded", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    companion object {
+        private const val GALLERY_REQUEST_CODE = 123
+    }
+
+    private fun selectImageFromGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+    }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            val selectedImageUri = data?.data
+//
+//            if (selectedImageUri != null) {
+//                userDataViewModel.uploadProfilePicture(getFileFromUri(selectedImageUri))
 //            } else {
-//                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
 //            }
 //        }
+//    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // Get the selected image URI
+            val selectedImageUri = data?.data
+
+            if (selectedImageUri != null) {
+                // Compress the selected image
+                val compressedImage = compressImage(getRealPathFromURI(selectedImageUri), 800, 600, 80)
+
+                if (compressedImage != null) {
+                    // Now, you can send the compressed image to the server
+                    userDataViewModel.uploadProfilePicture(compressedImage)
+                } else {
+                    // Handle the case where compression failed
+                    Toast.makeText(requireContext(), "Image compression failed", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // Handle the case where the selectedImageUri is null
+            }
+        }
+    }
+
+    // Helper function to get the real path from URI
+    private fun getRealPathFromURI(uri: Uri): String {
+        val cursor = requireActivity().contentResolver.query(uri, null, null, null, null)
+        cursor?.moveToFirst()
+        val columnIndex = cursor?.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+        val filePath = cursor?.getString(columnIndex ?: 0) ?: ""
+        cursor?.close()
+        return filePath
+    }
+
+    fun compressImage(imagePath: String, maxWidth: Int, maxHeight: Int, quality: Int): ByteArray? {
+        try {
+            // Decode the image file into a Bitmap
+            val options = BitmapFactory.Options()
+            options.inJustDecodeBounds = true
+            BitmapFactory.decodeFile(imagePath, options)
+
+            // Calculate the inSampleSize to scale the image down
+            options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight)
+
+            // Decode the image with the calculated inSampleSize
+            options.inJustDecodeBounds = false
+            val bitmap = BitmapFactory.decodeFile(imagePath, options)
+
+            // Convert the Bitmap to a byte array with compression
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+
+            return outputStream.toByteArray()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    // Calculate the inSampleSize to scale the image down
+    private fun calculateInSampleSize(options: BitmapFactory.Options, maxWidth: Int, maxHeight: Int): Int {
+        val imageHeight = options.outHeight
+        val imageWidth = options.outWidth
+        var inSampleSize = 1
+
+        if (imageHeight > maxHeight || imageWidth > maxWidth) {
+            val halfHeight = imageHeight / 2
+            val halfWidth = imageWidth / 2
+
+            while ((halfHeight / inSampleSize) >= maxHeight && (halfWidth / inSampleSize) >= maxWidth) {
+                inSampleSize *= 2
+            }
+        }
+        return inSampleSize
+    }
+
+    private fun getFileFromUri(uri: Uri): File {
+        val contentResolver = requireContext().contentResolver
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            it.moveToFirst()
+            val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            if (columnIndex != -1) {
+                val filePath = it.getString(columnIndex)
+                if (!filePath.isNullOrBlank()) {
+                    return File(filePath)
+                }
+            }
+        }
+        return File("")
     }
 
     private fun updateUser() {
@@ -209,23 +329,23 @@ class EditProfileFragment : Fragment() {
             showBottomSheetDialog()
         }
     }
-
-    private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
-    }
-
-    companion object {
-        private const val GALLERY_REQUEST_CODE = 123
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            selectedImageUri = data?.data
-            circularImageView.setImageURI(selectedImageUri)
-        }
-    }
+//
+//    private fun openGallery() {
+//        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+//    }
+//
+//    companion object {
+//        private const val GALLERY_REQUEST_CODE = 123
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            selectedImageUri = data?.data
+//            circularImageView.setImageURI(selectedImageUri)
+//        }
+//    }
 
     private fun showBottomSheetDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
@@ -235,7 +355,7 @@ class EditProfileFragment : Fragment() {
         val removePhotoButton = bottomSheetView.findViewById<TextView>(R.id.btn_removePhoto)
 
         addPhotoButton.setOnClickListener {
-            openGallery()
+            selectImageFromGallery()
             bottomSheetDialog.dismiss()
         }
 
