@@ -49,7 +49,6 @@ class RegProfileFragment : Fragment() {
         (requireActivity() as MainActivity).hide()
 
         navigation()
-        //isRegSuccess()
         checkReg()
         isSuccess()
     }
@@ -91,7 +90,6 @@ class RegProfileFragment : Fragment() {
                     .show()
             } else {
                 registerUser()
-                //sendEmail()
             }
         }
     }
@@ -107,18 +105,6 @@ class RegProfileFragment : Fragment() {
         override fun afterTextChanged(s: Editable?) {
         }
     }
-
-//    private fun sendEmail() {
-//        val email = binding.etRegEmail.text.toString()
-//
-//        Holder.email = email
-//        loadingDialogUtil.showLoadingDialog()
-//
-//        lifecycleScope.launch {
-//            authViewModel.sendForgotPasswordEmail(email)
-//        }
-//
-//    }
 
     private fun isSuccess() {
         authViewModel.registrationStatus.observe(viewLifecycleOwner) { isSuccess ->

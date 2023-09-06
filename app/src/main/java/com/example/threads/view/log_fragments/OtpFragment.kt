@@ -45,7 +45,6 @@ class OtpFragment : Fragment() {
 
         navigation()
         isSuccess()
-        //otpVerify()
         etCheck()
     }
 
