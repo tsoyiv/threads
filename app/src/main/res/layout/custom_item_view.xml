@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardElevation="0dp"
     android:background="#F9F9F9">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,6 +118,7 @@
             android:layout_marginStart="60dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="17dp"
+            android:visibility="gone"
             android:src="@drawable/img_ex_of_image"
             app:layout_constraintBottom_toTopOf="@+id/checkBox"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,24 +1,26 @@
 package com.example.threads.view.main_feed_fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.MainActivity
-import com.example.threads.R
 import com.example.threads.databinding.FragmentFeedMainBinding
-import com.example.threads.models.FeedItem
 import com.example.threads.utils.FeedAdapter
+import com.example.threads.utils.LoadingDialogUtil
+import com.example.threads.view_models.ThreadViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedMainFragment : Fragment() {
 
     private lateinit var binding: FragmentFeedMainBinding
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var recyclerView: RecyclerView
+    private val threadViewModel by viewModel<ThreadViewModel>()
+    private lateinit var loadingDialogUtil: LoadingDialogUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,26 +34,24 @@ class FeedMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).showBtm()
+        loadingDialogUtil = LoadingDialogUtil(requireContext())
 
-       // navigation()
+        isSuccess()
         setupRV()
+    }
+    private fun isSuccess() {
+        loadingDialogUtil.showLoadingDialog()
+        threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
+            feedAdapter.updateList(threads)
+            loadingDialogUtil.dismissLoadingDialog()
+        }
+        threadViewModel.getThread()
     }
 
     private fun setupRV() {
-        val testItems = listOf(
-            FeedItem(1, "User1", "This is the first thread."),
-            FeedItem(2, "User2", "Testing the second thread."),
-            FeedItem(3, "User3", "Third thread for testing."),
-            // Add more test items as needed
-        )
-
         recyclerView = binding.rcFeedMainPage
-        feedAdapter = FeedAdapter(testItems)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        feedAdapter = FeedAdapter(mutableListOf(), null) // Initialize with an empty list
         recyclerView.adapter = feedAdapter
     }
-
-//    private fun navigation() {
-//        TODO("Not yet implemented")
-//    }
 }

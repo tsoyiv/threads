@@ -18,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
-import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.databinding.FragmentCreationThreadBinding
 import com.example.threads.utils.Holder
