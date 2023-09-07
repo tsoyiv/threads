@@ -1,5 +1,6 @@
 package com.example.threads.data.api
 
+import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.google.gson.annotations.Until
@@ -32,8 +33,8 @@ interface UserDataAPI {
     @Multipart
     @POST("v1/profile/avatar/")
     fun uploadProfilePicture(
-        @Part profilePicture: MultipartBody.Part
-    ): Call<Void>
+        @Part profile_picture: MultipartBody.Part
+    ): Call<ProfileAvatarResponse>
 
     @GET("v1/profile/")
     suspend fun getUserInfo(@Header("Authorization") token: String): Response<UserOwnInfo>

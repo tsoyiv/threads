@@ -106,7 +106,11 @@ class UserMainFragment : Fragment() {
         )
 
         recyclerView = binding.rcFeedUserPage
-        feedAdapter = FeedAdapter(itemList)
+        feedAdapter = FeedAdapter(
+            mutableListOf(),
+            null
+        )
+        recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = feedAdapter
     }

@@ -6,10 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.airbnb.lottie.utils.Utils
 import com.example.threads.data.models.CustomUser
+import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.UserDataRepository
+import com.example.threads.utils.Holder
 import com.example.threads.utils.ImageConverter
 import com.example.threads.utils.RetrofitInstance
 import kotlinx.coroutines.launch
@@ -31,6 +34,76 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
 
     private val _imageAddedSuccess = MutableLiveData<Boolean>()
     val imageAddedSuccess: LiveData<Boolean> = _imageAddedSuccess
+
+//    fun uploadProfilePicture(imageFile: File) {
+//        userDataRepository.uploadProfilePicture(imageFile, object : Callback<Unit> {
+//            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+//                if (response.isSuccessful) {
+//                    _imageAddedSuccess.postValue(response.isSuccessful)
+//                } else {
+//                    _imageAddedSuccess.postValue(false)
+//                }
+//            }
+//            override fun onFailure(call: Call<Unit>, t: Throwable) {
+//                _imageAddedSuccess.postValue(false)
+//            }
+//        })
+//    }
+
+    fun editPhoto(
+        context: Context,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        val photo = Holder.selectedImageUri
+        val apiInterface = RetrofitInstance.userDataApi
+
+        val file: File? = photo?.let { ImageConverter.getFile(context, it) }
+        val requestBody = file?.asRequestBody("image/png".toMediaTypeOrNull())
+        val imagePart = requestBody?.let {
+            MultipartBody.Part.createFormData("photo", file.name, it)
+        }
+
+        imagePart?.let {
+            apiInterface.uploadProfilePicture(
+                it
+            )
+        }?.enqueue(object : Callback<ProfileAvatarResponse> {
+            override fun onResponse(
+                call: Call<ProfileAvatarResponse>,
+                response: Response<ProfileAvatarResponse>
+            ) {
+                if (response.isSuccessful) {
+                    onSuccess.invoke()
+                } else {
+                    onError.invoke()
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileAvatarResponse>, t: Throwable) {
+                onError.invoke()
+            }
+        })
+    }
+
+//    fun uploadProfilePicture(imageData: ByteArray) {
+//        userDataRepository.uploadProfilePicture(imageData, object : Callback<Unit> {
+//            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+//                if (response.isSuccessful) {
+//                    // Handle success, you can update a LiveData or perform any necessary actions
+//                    _imageAddedSuccess.postValue(response.isSuccessful)
+//                } else {
+//                    // Handle failure, you can update a LiveData or perform error handling
+//                    _imageAddedSuccess.postValue(false)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Unit>, t: Throwable) {
+//                // Handle failure, you can update a LiveData or perform error handling
+//                _imageAddedSuccess.postValue(false)
+//            }
+//        })
+//    }
 
     fun updateUser(token: String, user: ProfileUpdateRequest) {
         userDataRepository.updateProfile(token, user).enqueue(object : Callback<Unit> {
