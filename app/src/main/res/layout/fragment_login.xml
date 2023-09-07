@@ -182,20 +182,67 @@
         app:layout_constraintTop_toTopOf="@+id/btn_logGoogle"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/txt_reg"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:fontFamily="@font/sfmed"
-        android:text="@string/don_t_have_an_account_yet_sign_up"
-        android:textColor="@color/black"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_left">
+
+        <TextView
+            android:id="@+id/txt_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="Don’t have an account yet?"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+            />
+
+        <TextView
+            android:id="@+id/txt_reg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Sign up"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/sfmed"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+            />
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_reg1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_reg"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+
+
+    </LinearLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/txt_reg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:clickable="true"-->
+<!--        android:fontFamily="@font/sfmed"-->
+<!--        android:text="@string/don_t_have_an_account_yet_sign_up"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:textSize="15sp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline_right"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline_left"-->
+<!--        android:focusable="true" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

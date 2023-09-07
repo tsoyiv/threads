@@ -144,5 +144,8 @@ class LoginFragment : Fragment() {
         binding.txtReg.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_regProfileFragment)
         }
+        binding.txtReg1.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_regProfileFragment)
+        }
     }
 }
