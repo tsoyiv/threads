@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.databinding.FragmentFollowersBinding
 import com.example.threads.models.UserRepresentation
-import com.example.threads.utils.UserFollowersAdapter
+import com.example.threads.utils.adapters.UserFollowersAdapter
 
 class FollowersFragment : Fragment() {
 

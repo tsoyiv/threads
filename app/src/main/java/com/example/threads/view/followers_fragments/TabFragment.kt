@@ -11,13 +11,17 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentTabBinding
+import com.example.threads.utils.Holder
 import com.example.threads.utils.TabFragmentPagerAdapter
+import com.example.threads.view_models.UserDataViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TabFragment : Fragment(R.layout.fragment_tab) {
 
     private lateinit var binding: FragmentTabBinding
+    private val userDataViewModel by viewModel<UserDataViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +38,19 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
 
         setupTab()
         navigation()
+        fetchData()
+    }
+
+    private fun fetchData() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        userDataViewModel.fetchUserInfo(authHeader)
+
+        userDataViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
+            if (userInfo != null) {
+                binding.txtFollowPageUsername.text = userInfo.username
+            }
+        }
     }
 
     private fun navigation() {

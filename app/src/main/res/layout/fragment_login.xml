@@ -66,12 +66,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
+            style="@style/AuthEditTextSetup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/custom_input_layout"
-            android:hint="@string/your_email1"
-            style="@style/AuthEditTextSetup"
-            />
+            android:hint="@string/your_email1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
