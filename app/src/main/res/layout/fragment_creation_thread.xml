@@ -165,15 +165,35 @@
         app:layout_constraintStart_toEndOf="@+id/itemView_owner_image"
         app:layout_constraintTop_toBottomOf="@+id/item_owner_username" />
 
-    <ImageView
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/itemView_user_image1"-->
+<!--        android:layout_width="361dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:maxHeight="361dp"-->
+<!--        android:src="@drawable/job1"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintDimensionRatio="H,1:1"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/item_userThread"-->
+<!--        app:layout_constraintVertical_bias="0.5"-->
+<!--        app:strokeWidth="1dp" />-->
+<!--    android:src="@drawable/job1"-->
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/item_image"
-        android:layout_width="316dp"
-        android:layout_height="316dp"
+        android:layout_width="309dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:maxHeight="361dp"
+        android:maxWidth="309dp"
+        android:rotation="360"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:src="@drawable/img_ex_of_image"
-        android:visibility="gone"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toEndOf="@+id/item_ownerThread"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/item_ownerThread"
         app:layout_constraintTop_toBottomOf="@id/item_ownerThread" />
 
