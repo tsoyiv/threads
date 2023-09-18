@@ -12,6 +12,7 @@ import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.UserDataRepository
+import com.example.threads.models.SearchUserInfo
 import com.example.threads.utils.Holder
 import com.example.threads.utils.ImageConverter
 import com.example.threads.utils.RetrofitInstance
@@ -34,6 +35,35 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
 
     private val _imageAddedSuccess = MutableLiveData<Boolean>()
     val imageAddedSuccess: LiveData<Boolean> = _imageAddedSuccess
+
+    private val _searchResults = MutableLiveData<List<SearchUserInfo>>()
+    val searchResults: LiveData<List<SearchUserInfo>>  = _searchResults
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
+    fun searchUsers(token: String, query: String) {
+        userDataRepository.searchUsers(token, query).enqueue(object : Callback<List<SearchUserInfo>> {
+            override fun onResponse(
+                call: Call<List<SearchUserInfo>>,
+                response: Response<List<SearchUserInfo>>
+            ) {
+                if (response.isSuccessful) {
+                    val results = response.body() ?: emptyList()
+                    _searchResults.postValue(results)
+                } else {
+                    val errorMessage = "API Error: ${response.code()}"
+                    _error.postValue(errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<List<SearchUserInfo>>, t: Throwable) {
+                val errorMessage = "Network Error: ${t.message}"
+                _error.postValue(errorMessage)
+            }
+        })
+    }
+
 
 //    fun uploadProfilePicture(imageFile: File) {
 //        userDataRepository.uploadProfilePicture(imageFile, object : Callback<Unit> {

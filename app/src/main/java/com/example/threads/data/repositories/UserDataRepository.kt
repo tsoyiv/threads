@@ -3,6 +3,7 @@ package com.example.threads.data.repositories
 import com.example.threads.data.api.UserDataAPI
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
+import com.example.threads.models.SearchUserInfo
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -17,6 +18,10 @@ class UserDataRepository(private val userDataAPI: UserDataAPI) {
 
     fun updateProfile(token: String, request: ProfileUpdateRequest): Call<Unit> {
         return userDataAPI.updateProfile(token, request)
+    }
+
+    fun searchUsers(token: String, query: String): Call<List<SearchUserInfo>> {
+        return userDataAPI.searchUsers(token, query)
     }
 
 //    fun uploadProfilePicture(imageFile: File, callback: Callback<Unit>) {

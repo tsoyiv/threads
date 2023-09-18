@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.models.SearchUserInfo
+import com.google.android.material.imageview.ShapeableImageView
 
 class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewHolder>() {
 
@@ -39,10 +41,15 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
             val usernameTextView = itemView.findViewById<TextView>(R.id.item_user_username)
             val bioTextView = itemView.findViewById<TextView>(R.id.item_userSearchBio)
             val followersTextView = itemView.findViewById<TextView>(R.id.txt_numbOfFollowers)
+            val profileImageView = itemView.findViewById<ShapeableImageView>(R.id.itemView_user_image)
 
             usernameTextView.text = searchUser.username
             bioTextView.text = searchUser.bio
             followersTextView.text = searchUser.numbOfFollowers.toString()
+
+            Glide.with(itemView)
+                .load(searchUser.profile_picture)
+                .into(profileImageView)
         }
     }
 }
