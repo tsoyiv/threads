@@ -35,6 +35,7 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
     private val userDataViewModel by viewModel<UserDataViewModel>()
     private val threadViewModel by viewModel<ThreadViewModel>()
     private lateinit var etThread: EditText
+    private lateinit var symbolsCounter: TextView
     private lateinit var txtPost: TextView
     private lateinit var loadingDialogUtil: LoadingDialogUtil
 
@@ -66,6 +67,7 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
     private fun lengthChecker() {
         val item_ownerThread = binding.itemOwnerThread
         val txtPost = binding.txtPost
+        symbolsCounter = binding.textCharacterCount
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -73,11 +75,15 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val textLength = s?.length ?: 0
-                if (textLength > 250) {
+
+                symbolsCounter.text = "$textLength/240"
+                if (textLength > 240 || textLength == 0) {
                     txtPost.isEnabled = false
-                    Toast.makeText(requireContext(), "The Thread must be shorter than 250 symbols", Toast.LENGTH_SHORT).show()
+                    symbolsCounter.setTextColor(Color.RED)
                 } else {
                     txtPost.isEnabled = true
+                    txtPost.setTextColor(Color.parseColor("#0096FF"))
+                    symbolsCounter.setTextColor(Color.BLACK)
                 }
             }
             override fun afterTextChanged(s: Editable?) {
