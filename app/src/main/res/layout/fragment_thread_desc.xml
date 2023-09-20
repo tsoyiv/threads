@@ -36,7 +36,7 @@
         app:layout_constraintGuide_percent="0.95" />
 
     <ImageView
-        android:id="@+id/btn_cancelAddingThread"
+        android:id="@+id/btnExitFromDetailPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Reply"
-        app:layout_constraintStart_toEndOf="@+id/btn_cancelAddingThread"
+        app:layout_constraintStart_toEndOf="@+id/btnExitFromDetailPage"
         app:layout_constraintTop_toTopOf="@+id/guideline_top" />
 
     <View
@@ -149,7 +149,7 @@
                 android:layout_marginTop="12dp"
                 android:maxHeight="361dp"
                 android:src="@drawable/job1"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 app:layout_constraintDimensionRatio="H,1:1"

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentTabMainFeedBinding
+import com.example.threads.utils.FeedAdapter
 import com.example.threads.utils.TabFragmentMainFeed
 import com.example.threads.utils.TabFragmentPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator

@@ -17,4 +17,7 @@ interface ThreadActionAPI {
 
     @GET("v3/threads/")
     fun getThreadMainPage(@Header("Authorization") token: String): Call<List<ThreadResponse>>
+
+    @GET("v3/threads/{id}/")
+    fun getThreadDetails(@Header("Authorization") token: String, @Path("id") productId: Int) : Call<ThreadResponse>
 }

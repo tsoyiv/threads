@@ -16,4 +16,8 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
     fun getThread(token: String): Call<List<ThreadResponse>> {
         return threadActionAPI.getThreadMainPage(token)
     }
+
+    fun getThreadDetails(token: String, threadId: Int): Call<ThreadResponse> {
+        return threadActionAPI.getThreadDetails(token, threadId)
+    }
 }

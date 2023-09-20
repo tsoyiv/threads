@@ -4,41 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.R
 import com.example.threads.data.models.ThreadResponse
-
-//class FeedAdapter(private val items: MutableList<ThreadResponse>) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view, parent, false)
-//        return FeedViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-//        val item = items[position]
-//        holder.bind(item)
-//    }
-//
-//    override fun getItemCount(): Int = items.size
-//
-//    inner class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        fun bind(item: ThreadResponse) {
-//            val usernameTextView = itemView.findViewById<TextView>(R.id.item_user_username)
-//            val threadTextView = itemView.findViewById<TextView>(R.id.item_userThread)
-//            usernameTextView.text = item.author
-//            threadTextView.text = item.content
-//            usernameTextView.text = "Test Username"
-//            threadTextView.text = "This is a test thread."
-//        }
-//    }
-//
-//    fun updateList(newThreads: List<ThreadResponse>) {
-//        items.clear()
-//        items.addAll(newThreads)
-//        notifyDataSetChanged()
-//    }
-//}
+import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
 
 class FeedAdapter(
     private val threadList: MutableList<ThreadResponse>,
@@ -53,6 +23,12 @@ class FeedAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view, parent, false)
         return ThreadViewHolder(view)
+    }
+
+    private var clickListener: ((ThreadResponse) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (ThreadResponse) -> Unit) {
+        clickListener = listener
     }
 
     inner class ThreadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -83,21 +59,13 @@ class FeedAdapter(
     override fun onBindViewHolder(holder: ThreadViewHolder, position: Int) {
         val thread = threadList[position]
         holder.bind(thread)
-    }
 
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val thread = threadList[position]
-//
-//        holder.itemView.apply {
-//            item_user_username.text = thread.author
-//            item_userThread.text = thread.content
-//            item_view_anotherUser_numbLikes.text = thread.likes
-//
-//            setOnClickListener {
-//                onItemClickListener?.onItemClick(thread)
-//            }
-//        }
-//    }
+        holder.itemView.setOnClickListener {
+            val action = TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadDescFragment(thread)
+            action.thread = thread
+            holder.itemView.findNavController().navigate(action)
+        }
+    }
 
     override fun getItemCount(): Int {
         return threadList.size

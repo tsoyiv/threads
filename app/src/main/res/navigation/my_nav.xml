@@ -118,7 +118,11 @@
         android:id="@+id/feedMainFragment"
         android:name="com.example.threads.view.main_feed_fragments.FeedMainFragment"
         android:label="fragment_feed_main"
-        tools:layout="@layout/fragment_feed_main" />
+        tools:layout="@layout/fragment_feed_main" >
+        <action
+            android:id="@+id/action_feedMainFragment_to_threadDescFragment"
+            app:destination="@id/threadDescFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.threads.view.search_fragments.SearchFragment"
@@ -153,7 +157,11 @@
         android:id="@+id/tabMainFeedFragment"
         android:name="com.example.threads.view.main_feed_fragments.TabMainFeedFragment"
         android:label="fragment_tab_main_feed"
-        tools:layout="@layout/fragment_tab_main_feed" />
+        tools:layout="@layout/fragment_tab_main_feed" >
+        <action
+            android:id="@+id/action_tabMainFeedFragment_to_threadDescFragment"
+            app:destination="@id/threadDescFragment" />
+    </fragment>
     <fragment
         android:id="@+id/confirmEmailFragment"
         android:name="com.example.threads.view.log_fragments.ConfirmEmailFragment"
@@ -164,5 +172,23 @@
         <action
             android:id="@+id/action_confirmEmailFragment_to_regProfileFragment"
             app:destination="@id/regProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/threadDescFragment"
+        android:name="com.example.threads.view.main_feed_fragments.ThreadDescFragment"
+        android:label="fragment_thread_desc"
+        tools:layout="@layout/fragment_thread_desc" >
+        <action
+            android:id="@+id/action_threadDescFragment_to_tabMainFeedFragment"
+            app:destination="@id/tabMainFeedFragment" />
+        <action
+            android:id="@+id/action_threadDescFragment_to_tabMainFeedFragment2"
+            app:destination="@id/tabMainFeedFragment" />
+        <argument
+            android:name="thread"
+            app:argType="com.example.threads.data.models.ThreadResponse" />
+        <action
+            android:id="@+id/action_threadDescFragment_to_feedMainFragment"
+            app:destination="@id/feedMainFragment" />
     </fragment>
 </navigation>

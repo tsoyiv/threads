@@ -45,11 +45,20 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
 
             usernameTextView.text = searchUser.username
             bioTextView.text = searchUser.bio
-            followersTextView.text = searchUser.numbOfFollowers.toString()
+            val formattedCount = formatFollowerCount(searchUser.numbOfFollowers)
+            followersTextView.text = formattedCount
 
             Glide.with(itemView)
                 .load(searchUser.profile_picture)
                 .into(profileImageView)
         }
     }
+    private fun formatFollowerCount(count: Int): String {
+        return when {
+            count < 1000 -> count.toString()
+            count < 10000 -> (count / 1000.0).toString() + "k"
+            else -> (count / 1000).toString() + "k"
+        }
+    }
+
 }

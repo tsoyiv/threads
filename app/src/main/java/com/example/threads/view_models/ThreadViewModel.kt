@@ -26,6 +26,40 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threads = MutableLiveData<List<ThreadResponse>>()
     val threads: LiveData<List<ThreadResponse>> get() = _threads
 
+    private val _threadDetails: MutableLiveData<ThreadResponse> = MutableLiveData()
+    val threadDetails: LiveData<ThreadResponse> = _threadDetails
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
+    fun getThreadDetails(token: String, threadId: Int) {
+        _isLoading.value = true
+        val call = threadRepository.getThreadDetails(token, threadId)
+        call.enqueue(object : Callback<ThreadResponse> {
+            override fun onResponse(call: Call<ThreadResponse>, response: Response<ThreadResponse>) {
+                _isLoading.value = false
+
+                if (response.isSuccessful) {
+                    val threadResponse = response.body()
+                    if (threadResponse != null) {
+                        _threadDetails.value = threadResponse
+                    } else {
+                        _errorMessage.value = "Empty response"
+                    }
+                } else {
+                    _errorMessage.value = "Failed to fetch thread details"
+                }
+            }
+
+            override fun onFailure(call: Call<ThreadResponse>, t: Throwable) {
+                _isLoading.value = false
+                _errorMessage.value = "Network error: ${t.message}"
+            }
+        })
+    }
 
     fun createThread(token: String, content: ThreadRequest) {
         threadRepository.createThread(token, content).enqueue(object : Callback<ThreadResponse> {
@@ -59,14 +93,4 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
             }
         })
     }
-
-//    fun getThread(token: String) {
-//        viewModelScope.launch {
-//            val response = threadRepository.getThread(token)
-//            if (response.isSuccessful) {
-//                _threadActionStatus.postValue(true)
-//            } else {
-//            }
-//        }
-//    }
 }

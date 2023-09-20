@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.MainActivity
+import com.example.threads.R
 import com.example.threads.databinding.FragmentFeedMainBinding
 import com.example.threads.utils.FeedAdapter
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.view_models.ThreadViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.Serializable
 
 class FeedMainFragment : Fragment() {
 
@@ -36,8 +39,8 @@ class FeedMainFragment : Fragment() {
         (requireActivity() as MainActivity).showBtm()
         loadingDialogUtil = LoadingDialogUtil(requireContext())
 
-        isSuccess()
         setupRV()
+        isSuccess()
     }
     private fun isSuccess() {
         loadingDialogUtil.showLoadingDialog()

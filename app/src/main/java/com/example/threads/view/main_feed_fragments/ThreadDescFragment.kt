@@ -5,12 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.threads.MainActivity
 import com.example.threads.R
+import com.example.threads.data.models.ThreadResponse
 import com.example.threads.databinding.FragmentThreadDescBinding
+import com.example.threads.utils.Holder
+import com.example.threads.view_models.ThreadViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ThreadDescFragment : Fragment() {
 
+    val args: ThreadDescFragmentArgs by navArgs()
+    private lateinit var thread: ThreadResponse
     private lateinit var binding: FragmentThreadDescBinding
+    private val threadViewModel by viewModel<ThreadViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,5 +33,49 @@ class ThreadDescFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hide()
+
+        loadDetailPage()
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnExitFromDetailPage.setOnClickListener {
+            findNavController().navigate(R.id.action_threadDescFragment_to_tabMainFeedFragment2)
+        }
+    }
+
+    private fun loadDetailPage() {
+        thread = args.thread
+        val token = Holder.token
+        val authHolder = "Bearer $token"
+        descriptionUi(thread)
+        getThread(authHolder, thread.id)
+        loadImage(thread.thread_media)
+    }
+
+    private fun getThread(token: String, id: Int) {
+        threadViewModel.threadDetails.observe(viewLifecycleOwner) { threadResponse ->
+            if (threadResponse != null) {
+                descriptionUi(threadResponse)
+                loadImage(threadResponse.thread_media)
+            }
+        }
+        threadViewModel.getThreadDetails(token, id)
+    }
+
+    private fun descriptionUi(product: ThreadResponse) {
+        binding.itemUserUsername.text = product.author
+        binding.itemUserThread.text = product.content
+
+        val fetchUsername = product.author
+        binding.etLeftComment.hint = "Reply to $fetchUsername"
+    }
+
+    private fun loadImage(imageUrl: String) {
+        Glide.with(requireContext())
+            .load(imageUrl)
+            .centerCrop()
+            .into(binding.itemViewUserImage)
     }
 }
