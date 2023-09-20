@@ -160,7 +160,9 @@
         tools:layout="@layout/fragment_tab_main_feed" >
         <action
             android:id="@+id/action_tabMainFeedFragment_to_threadDescFragment"
-            app:destination="@id/threadDescFragment" />
+            app:destination="@id/threadDescFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/confirmEmailFragment"
@@ -183,7 +185,8 @@
             app:destination="@id/tabMainFeedFragment" />
         <action
             android:id="@+id/action_threadDescFragment_to_tabMainFeedFragment2"
-            app:destination="@id/tabMainFeedFragment" />
+            app:destination="@id/tabMainFeedFragment"
+            app:enterAnim="@anim/from_left" />
         <argument
             android:name="thread"
             app:argType="com.example.threads.data.models.ThreadResponse" />
