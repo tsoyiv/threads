@@ -1,6 +1,7 @@
 package com.example.threads.view.user_fragments
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -34,6 +35,7 @@ class UserMainFragment : Fragment() {
     private lateinit var feedAdapter: FeedAdapter
     private lateinit var recyclerView: RecyclerView
     private val userDataViewModel by viewModel<UserDataViewModel>()
+    private lateinit var textLink: String
     private val itemList: MutableList<FeedItem> = mutableListOf()
 
     override fun onCreateView(
@@ -53,6 +55,15 @@ class UserMainFragment : Fragment() {
         navigation()
         setupRV()
         fetchData()
+        openLink()
+    }
+
+    private fun openLink() {
+        binding.txtLink.setOnClickListener {
+            val uri = Uri.parse(textLink)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
     }
 
     private fun fetchData() {
@@ -65,6 +76,9 @@ class UserMainFragment : Fragment() {
                 binding.txtUsername.text = userInfo.username
                 binding.txtName.text = userInfo.name
                 binding.txtName.text = userInfo.name
+                binding.txtUserBio.text = userInfo.bio
+                binding.txtLink.text = userInfo.link
+                textLink = userInfo.link.toString()
 
                 userInfo.profile_picture?.let { uriString ->
                     val profilePictureUri = Uri.parse(uriString)

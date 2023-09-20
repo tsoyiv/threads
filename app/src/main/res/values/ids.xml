@@ -7,4 +7,5 @@
     <item name="rc_feed_user_page" type="id" />
     <item name="btn_share" type="id" />
     <item name="et_left_comment" type="id" />
+    <item name="txt_username" type="id" />
 </resources>

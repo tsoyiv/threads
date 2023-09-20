@@ -84,6 +84,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUserName"
         app:layout_constraintWidth_default="wrap" />
 
+    <TextView
+        android:id="@+id/txtUserBio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sfmed"
+        android:text="Add bio"
+        android:textColor="#999999"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/txtNickname" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_threads_net"
         style="?android:attr/borderlessButtonStyle"
@@ -91,14 +104,13 @@
         android:layout_height="26dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
         android:background="@drawable/custom_thread_net_button"
         android:fontFamily="@font/sf_reg"
         android:text="threads.net"
         android:textAllCaps="false"
         android:textColor="#999999"
         android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtUserNumbFollowers"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserBio"
         app:layout_constraintStart_toEndOf="@id/txtNickname"
         app:layout_constraintTop_toBottomOf="@+id/txtUserName"
         app:layout_constraintWidth_default="wrap" />
@@ -108,14 +120,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:fontFamily="@font/sfthin"
         android:text="18 followers"
         android:textColor="#999999"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNickname" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUserBio" />
+
+    <TextView
+        android:id="@+id/txtLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:clickable="true"
+        android:fontFamily="@font/sfthin"
+        android:text="Add link"
+        android:textColor="#999999"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txtUserNumbFollowers"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserBio" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgUser"

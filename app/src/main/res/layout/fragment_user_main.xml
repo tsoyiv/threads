@@ -83,31 +83,57 @@
         android:layout_height="26dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
         android:background="@drawable/custom_thread_net_button"
         android:fontFamily="@font/sf_reg"
         android:text="threads.net"
         android:textAllCaps="false"
         android:textColor="#999999"
         android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_numbFollowers"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserBio"
         app:layout_constraintStart_toEndOf="@id/txt_username"
         app:layout_constraintTop_toBottomOf="@+id/txt_name"
         app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+        android:id="@+id/txtUserBio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/sfmed"
+        android:text="Add bio"
+        android:textColor="#999999"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/txt_username" />
 
     <TextView
         android:id="@+id/txt_numbFollowers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
         android:fontFamily="@font/sfthin"
         android:text="0 followers"
         android:textColor="#999999"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_username" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUserBio" />
+
+    <TextView
+        android:id="@+id/txtLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/sfthin"
+        android:text="Add Link"
+        android:textColor="#999999"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txt_numbFollowers"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserBio" />
 
     <!--    <androidx.cardview.widget.CardView-->
     <!--        android:id="@+id/img_selectImageUser"-->
