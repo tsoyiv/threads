@@ -19,5 +19,14 @@ interface ThreadActionAPI {
     fun getThreadMainPage(@Header("Authorization") token: String): Call<List<ThreadResponse>>
 
     @GET("v3/threads/{id}/")
-    fun getThreadDetails(@Header("Authorization") token: String, @Path("id") productId: Int) : Call<ThreadResponse>
+    fun getThreadDetails(
+        @Header("Authorization") token: String,
+        @Path("id") threadId: Int
+    ): Call<ThreadResponse>
+
+    @POST("v3/threads/{thread_id}/like/")
+    fun likeThread(
+        @Header("Authorization") token: String,
+        @Path("thread_id") threadId: Int
+    ): Call<ThreadResponse>
 }
