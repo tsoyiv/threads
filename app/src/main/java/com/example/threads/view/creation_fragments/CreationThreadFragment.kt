@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import coil.clear
 import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
@@ -124,9 +125,11 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
         etThread = binding.itemOwnerThread
 
         val imgRemove = binding.imgDeleteEver
+        val image = binding.itemImage
 
         imgRemove.setOnClickListener {
             etThread.text.clear()
+            image.setImageDrawable(null)
         }
 
         etThread.addTextChangedListener(object : TextWatcher {
