@@ -53,6 +53,11 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
                 .into(profileImageView)
         }
     }
+
+    fun clearSearchUsers() {
+        searchUserList.clear()
+        notifyDataSetChanged()
+    }
     private fun formatFollowerCount(count: Int): String {
         return when {
             count < 1000 -> count.toString()
