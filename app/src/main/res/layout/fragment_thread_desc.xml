@@ -248,7 +248,7 @@
             android:layout_height="50dp"
             android:background="@drawable/custom_input_comment"
             android:hint="Reply to username"
-            android:inputType="textPassword" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
