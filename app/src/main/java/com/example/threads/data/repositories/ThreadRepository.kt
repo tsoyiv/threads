@@ -5,6 +5,7 @@ import com.example.threads.data.models.CommentRequest
 import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadWithCommentsResponse
 import retrofit2.Call
 
 class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
@@ -24,5 +25,9 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
     fun writeComment(token: String, threadId: Int, content: String): Call<CommentResponse> {
         val commentRequest = CommentRequest(content)
         return threadActionAPI.writeComment(token, threadId, commentRequest)
+    }
+
+    fun getThreadsWithComments(token: String): Call<List<ThreadWithCommentsResponse>> {
+        return threadActionAPI.getThreadsWithComments(token)
     }
 }

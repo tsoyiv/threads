@@ -7,5 +7,16 @@ data class CommentResponse(
     val created: String,
     val likes: Int,
     val parent: Int?,
-    val replies: List<CommentRequest>
+    val replies: List<CommentResponse>
 )
+
+data class ThreadWithCommentsResponse(
+    val id: Int,
+    val content: String,
+    val thread_media: String?,
+    val author: String,
+    val likes: Int,
+    val comments_count: Int,
+    val comments: List<CommentResponse>
+)
+

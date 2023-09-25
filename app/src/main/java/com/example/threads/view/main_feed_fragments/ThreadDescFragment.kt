@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
+import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadWithCommentsResponse
 import com.example.threads.databinding.FragmentThreadDescBinding
 import com.example.threads.utils.Holder
+import com.example.threads.utils.adapters.activity.ThreadCommentAdapter
 import com.example.threads.view_models.ThreadViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,6 +27,8 @@ class ThreadDescFragment : Fragment() {
     private lateinit var thread: ThreadResponse
     private lateinit var binding: FragmentThreadDescBinding
     private val threadViewModel by viewModel<ThreadViewModel>()
+    private lateinit var commentAdapter: ThreadCommentAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +46,25 @@ class ThreadDescFragment : Fragment() {
         navigation()
         writeComment()
         isCommentSuccess()
+        RVsetup()
+        updateComments()
+    }
+
+    private fun updateComments() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        threadViewModel.fetchThreadsWithComments(authHeader)
+        threadViewModel.threadsWithComments.observe(viewLifecycleOwner) { threadsWithComments ->
+            val allComments = threadsWithComments.flatMap { it.comments }
+            commentAdapter.updateComments(allComments)
+        }
+    }
+
+    private fun RVsetup() {
+        commentAdapter = ThreadCommentAdapter()
+        val recyclerView = binding.rcComments
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = commentAdapter
     }
 
     private fun writeComment() {

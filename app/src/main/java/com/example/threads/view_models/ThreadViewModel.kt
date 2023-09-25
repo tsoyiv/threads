@@ -9,6 +9,7 @@ import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadWithCommentsResponse
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.ThreadRepository
 import com.example.threads.utils.Holder
@@ -39,6 +40,28 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
 
     private val _commentResult: MutableLiveData<Boolean> = MutableLiveData()
     val commentResult: LiveData<Boolean> = _commentResult
+
+    private val _threadsWithComments = MutableLiveData<List<ThreadWithCommentsResponse>>()
+    val threadsWithComments: LiveData<List<ThreadWithCommentsResponse>> = _threadsWithComments
+
+    fun fetchThreadsWithComments(token: String) {
+        threadRepository.getThreadsWithComments(token).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
+            override fun onResponse(
+                call: Call<List<ThreadWithCommentsResponse>>,
+                response: Response<List<ThreadWithCommentsResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    _threadsWithComments.value = response.body()
+                } else {
+                    _errorMessage.value = "Empty response"
+                }
+            }
+
+            override fun onFailure(call: Call<List<ThreadWithCommentsResponse>>, t: Throwable) {
+                _errorMessage.value = "Network error: ${t.message}"
+            }
+        })
+    }
 
     fun writeComment(token: String, threadId: Int, content: String) {
         threadRepository.writeComment(token, threadId, content).enqueue(object : Callback<CommentResponse> {

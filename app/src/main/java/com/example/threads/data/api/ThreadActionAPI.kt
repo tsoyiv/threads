@@ -4,6 +4,7 @@ import com.example.threads.data.models.CommentRequest
 import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadWithCommentsResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,4 +37,7 @@ interface ThreadActionAPI {
         @Path("thread_id") threadId: Int,
         @Body request: CommentRequest
     ): Call<CommentResponse>
+
+    @GET("v3/threads_with_comments/")
+    fun getThreadsWithComments(@Header("Authorization") token: String): Call<List<ThreadWithCommentsResponse>>
 }
