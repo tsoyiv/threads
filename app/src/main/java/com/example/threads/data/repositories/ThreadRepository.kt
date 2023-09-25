@@ -1,11 +1,11 @@
 package com.example.threads.data.repositories
 
 import com.example.threads.data.api.ThreadActionAPI
+import com.example.threads.data.models.CommentRequest
+import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
-import com.example.threads.data.models.UserOwnInfo
 import retrofit2.Call
-import retrofit2.Response
 
 class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
 
@@ -19,5 +19,10 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
 
     fun getThreadDetails(token: String, threadId: Int): Call<ThreadResponse> {
         return threadActionAPI.getThreadDetails(token, threadId)
+    }
+
+    fun writeComment(token: String, threadId: Int, content: String): Call<CommentResponse> {
+        val commentRequest = CommentRequest(content)
+        return threadActionAPI.writeComment(token, threadId, commentRequest)
     }
 }

@@ -1,10 +1,10 @@
 package com.example.threads.data.api
 
+import com.example.threads.data.models.CommentRequest
+import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
-import com.example.threads.data.models.UserOwnInfo
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ThreadActionAPI {
@@ -29,4 +29,11 @@ interface ThreadActionAPI {
         @Header("Authorization") token: String,
         @Path("thread_id") threadId: Int
     ): Call<ThreadResponse>
+
+    @POST("v3/threads/{thread_id}/comments/")
+    fun writeComment(
+        @Header("Authorization") token: String,
+        @Path("thread_id") threadId: Int,
+        @Body request: CommentRequest
+    ): Call<CommentResponse>
 }

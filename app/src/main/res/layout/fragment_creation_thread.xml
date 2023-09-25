@@ -203,8 +203,7 @@
         android:maxHeight="361dp"
         android:rotation="360"
         android:scaleType="fitCenter"
-        android:src="@drawable/img_ex_of_image"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/item_ownerThread"
         app:layout_constraintTop_toBottomOf="@+id/textCharacterCount" />

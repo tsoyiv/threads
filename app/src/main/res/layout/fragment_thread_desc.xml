@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/sf_reg"
-                android:text="1 reply"
+                android:text="0 reply"
                 android:textColor="#999999"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/sf_reg"
-                android:text="87 likes"
+                android:text="0 likes"
                 android:textColor="#999999"
                 app:layout_constraintStart_toEndOf="@+id/item_view_reply"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -238,7 +238,7 @@
         android:layout_height="wrap_content"
         app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintEnd_toStartOf="@+id/btn_send_comment"
         app:layout_constraintStart_toStartOf="@+id/guideline_left">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -247,9 +247,20 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/custom_input_comment"
-            android:hint="Reply to username"
-            />
+            android:hint="Reply to username" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_send_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent_background"
+        android:text="Send"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_commentThread"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_commentThread" />
 
 
 <!--    <com.google.android.material.imageview.ShapeableImageView-->

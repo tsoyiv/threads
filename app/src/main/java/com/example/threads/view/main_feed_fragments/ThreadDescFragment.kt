@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -37,6 +38,33 @@ class ThreadDescFragment : Fragment() {
 
         loadDetailPage()
         navigation()
+        writeComment()
+        isCommentSuccess()
+    }
+
+    private fun writeComment() {
+        binding.btnSendComment.setOnClickListener {
+            val token = Holder.token
+            val authHolder = "Bearer $token"
+            thread = args.thread
+            val content = binding.etLeftComment.text.toString()
+
+            if (content.isNotEmpty()) {
+                threadViewModel.writeComment(authHolder, thread.id, content)
+                binding.etLeftComment.text?.clear()
+            } else {
+                Toast.makeText(requireContext(), "Comment cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun isCommentSuccess() {
+        threadViewModel.commentResult.observe(viewLifecycleOwner) { isSuccessful ->
+            if (isSuccessful) {
+                Toast.makeText(requireContext(), "Comment added", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Comment were not added", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun navigation() {

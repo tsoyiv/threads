@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.threads.data.models.CommentRequest
+import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
@@ -34,6 +36,29 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
+
+    private val _commentResult: MutableLiveData<Boolean> = MutableLiveData()
+    val commentResult: LiveData<Boolean> = _commentResult
+
+    fun writeComment(token: String, threadId: Int, content: String) {
+        threadRepository.writeComment(token, threadId, content).enqueue(object : Callback<CommentResponse> {
+            override fun onResponse(
+                call: Call<CommentResponse>,
+                response: Response<CommentResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val comment = response.body()
+                    _commentResult.postValue(true)
+                } else {
+                    _commentResult.postValue(false)
+                }
+            }
+
+            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+                _errorMessage.value = "Network error: ${t.message}"
+            }
+        })
+    }
 
     fun getThreadDetails(token: String, threadId: Int) {
         _isLoading.value = true

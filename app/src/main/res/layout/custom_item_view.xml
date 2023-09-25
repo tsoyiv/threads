@@ -72,7 +72,7 @@
             android:padding="14dp"
             android:button="@drawable/selector_likes"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_image" />
+            app:layout_constraintTop_toBottomOf="@+id/item_image12" />
 
 
         <ImageView
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:padding="14dp"
             app:layout_constraintStart_toEndOf="@+id/checkBox"
-            app:layout_constraintTop_toBottomOf="@+id/item_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_image12"
             app:srcCompat="@drawable/img_comment" />
 
         <ImageView
@@ -91,7 +91,7 @@
             android:padding="14dp"
             android:src="@drawable/icon_repost"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/item_image" />
+            app:layout_constraintTop_toBottomOf="@+id/item_image12" />
 
         <ImageView
             android:id="@+id/imageView7"
@@ -100,7 +100,7 @@
             android:padding="14dp"
             android:src="@drawable/img_sent"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/item_image" />
+            app:layout_constraintTop_toBottomOf="@+id/item_image12" />
 
         <!--        <ImageView-->
         <!--            android:id="@+id/item_image"-->
@@ -113,19 +113,35 @@
         <!--            app:layout_constraintStart_toStartOf="parent"-->
         <!--            app:layout_constraintTop_toBottomOf="@id/item_userThread" />-->
 
-        <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="17dp"
-            android:visibility="gone"
-            android:src="@drawable/img_ex_of_image"
-            app:layout_constraintBottom_toTopOf="@+id/checkBox"
+<!--        <ImageView-->
+<!--            android:id="@+id/item_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="17dp"-->
+<!--            android:visibility="visible"-->
+<!--            android:src="@drawable/img_ex_of_image"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/checkBox"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/item_userThread" />-->
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/item_image12"
+            android:layout_width="309dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="5dp"
+            android:maxWidth="309dp"
+            android:maxHeight="361dp"
+            android:rotation="360"
+            android:scaleType="fitCenter"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_userThread" />
+            app:layout_constraintStart_toStartOf="@+id/item_userThread"
+            app:layout_constraintTop_toBottomOf="@+id/item_userThread" />
 
         <TextView
             android:id="@+id/item_view_anotherUser_numbLikes"
