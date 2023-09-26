@@ -17,6 +17,7 @@ import com.example.threads.data.models.ThreadResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
 import com.example.threads.databinding.FragmentThreadDescBinding
 import com.example.threads.utils.Holder
+import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.utils.adapters.activity.ThreadCommentAdapter
 import com.example.threads.view_models.ThreadViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +29,7 @@ class ThreadDescFragment : Fragment() {
     private lateinit var binding: FragmentThreadDescBinding
     private val threadViewModel by viewModel<ThreadViewModel>()
     private lateinit var commentAdapter: ThreadCommentAdapter
+    private lateinit var loadingDialogUtil: LoadingDialogUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,7 @@ class ThreadDescFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).hide()
+        loadingDialogUtil = LoadingDialogUtil(requireContext())
 
         loadDetailPage()
         navigation()
@@ -54,9 +57,11 @@ class ThreadDescFragment : Fragment() {
         val token = Holder.token
         val authHeader = "Bearer $token"
         threadViewModel.fetchThreadsWithComments(authHeader)
+        loadingDialogUtil.showLoadingDialog()
         threadViewModel.threadsWithComments.observe(viewLifecycleOwner) { threadsWithComments ->
             val allComments = threadsWithComments.flatMap { it.comments }
             commentAdapter.updateComments(allComments)
+            loadingDialogUtil.dismissLoadingDialog()
         }
     }
 
