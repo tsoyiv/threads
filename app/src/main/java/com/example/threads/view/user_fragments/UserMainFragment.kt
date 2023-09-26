@@ -74,6 +74,7 @@ class UserMainFragment : Fragment() {
         userDataViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
             if (userInfo != null) {
                 binding.txtUsername.text = userInfo.username
+                Holder.currentUsername = userInfo.username
                 binding.txtName.text = userInfo.name
                 binding.txtName.text = userInfo.name
                 binding.txtUserBio.text = userInfo.bio
