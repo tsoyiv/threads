@@ -195,17 +195,17 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/item_image"
-        android:layout_width="309dp"
+        android:layout_width="310dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
         android:layout_marginTop="5dp"
+        android:adjustViewBounds="true"
         android:maxWidth="309dp"
         android:maxHeight="361dp"
         android:rotation="360"
-        android:scaleType="fitCenter"
+        android:scaleType="fitStart"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/item_ownerThread"
+        app:layout_constraintStart_toStartOf="@+id/textCharacterCount"
         app:layout_constraintTop_toBottomOf="@+id/textCharacterCount" />
 
     <ImageView
