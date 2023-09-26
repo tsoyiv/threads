@@ -3,9 +3,11 @@ package com.example.threads.utils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.data.models.ThreadResponse
 import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
@@ -36,7 +38,7 @@ class FeedAdapter(
         private val threadContent: TextView = itemView.findViewById(R.id.item_userThread)
         private val likedTextView: TextView =
             itemView.findViewById(R.id.item_view_anotherUser_numbLikes)
-        //private val imageView: ImageView = itemView.findViewById(R.id.image_on_item)
+        private val imageView: ImageView = itemView.findViewById(R.id.item_image12)
 
         fun bind(thread: ThreadResponse) {
             username.text = thread.author
@@ -47,12 +49,11 @@ class FeedAdapter(
             } else {
                 "$numLikes likes"
             }
-//            if (!thread.thread_media.isNullOrEmpty()) {
-//                Glide.with(imageView)
-//                    .load(product.photo)
-//                    .centerCrop()
-//                    .into(imageView)
-//            }
+            Glide.with(imageView)
+                .load(thread.thread_media)
+                .centerCrop()
+                .into(imageView)
+
         }
     }
 
@@ -61,7 +62,8 @@ class FeedAdapter(
         holder.bind(thread)
 
         holder.itemView.setOnClickListener {
-            val action = TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadDescFragment(thread)
+            val action =
+                TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadDescFragment(thread)
             action.thread = thread
             holder.itemView.findNavController().navigate(action)
         }
