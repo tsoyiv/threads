@@ -13,7 +13,6 @@ import com.example.threads.utils.UserFollowersDiffCallback
 class UserFollowersAdapter : RecyclerView.Adapter<UserFollowersAdapter.UserFollowerViewHolder>() {
 
     private val followers: MutableList<UserRepresentation> = mutableListOf()
-
     fun updateFollowers(newFollowers: List<UserRepresentation>) {
         val diffCallback = UserFollowersDiffCallback(followers, newFollowers)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -22,6 +21,7 @@ class UserFollowersAdapter : RecyclerView.Adapter<UserFollowersAdapter.UserFollo
         followers.addAll(newFollowers)
         diffResult.dispatchUpdatesTo(this)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserFollowerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.custom_follower_item_view, parent, false)

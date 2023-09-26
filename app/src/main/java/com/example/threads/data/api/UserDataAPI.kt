@@ -4,6 +4,7 @@ import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.models.UserRepresentation
 import com.google.gson.annotations.Until
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -42,4 +43,7 @@ interface UserDataAPI {
 
     @GET("v1/user/search/")
     fun searchUsers(@Header("Authorization") token: String, @Query("search") query: String): Call<List<SearchUserInfo>>
+
+    @GET("v1/followers/{username}/")
+    fun getSubscribersOfUser(@Header("Authorization") token: String, @Path("username") username: String): Call<List<UserRepresentation>>
 }

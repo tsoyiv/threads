@@ -4,6 +4,7 @@ import com.example.threads.data.api.UserDataAPI
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.models.UserRepresentation
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -16,6 +17,9 @@ import java.io.File
 
 class UserDataRepository(private val userDataAPI: UserDataAPI) {
 
+    fun getUserFollowers(token: String, username: String): Call<List<UserRepresentation>> {
+        return userDataAPI.getSubscribersOfUser(token, username)
+    }
     fun updateProfile(token: String, request: ProfileUpdateRequest): Call<Unit> {
         return userDataAPI.updateProfile(token, request)
     }

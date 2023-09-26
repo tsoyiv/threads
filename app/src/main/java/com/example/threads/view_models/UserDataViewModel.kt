@@ -13,6 +13,7 @@ import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.UserDataRepository
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.models.UserRepresentation
 import com.example.threads.utils.Holder
 import com.example.threads.utils.ImageConverter
 import com.example.threads.utils.RetrofitInstance
@@ -41,6 +42,22 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
+
+    private val _userFollowers = MutableLiveData<List<UserRepresentation>>()
+    val userFollowers: LiveData<List<UserRepresentation>> = _userFollowers
+
+    fun fetchUserFollowers(token: String, username: String) {
+        userDataRepository.getUserFollowers(token, username).enqueue(object : Callback<List<UserRepresentation>> {
+            override fun onResponse(call: Call<List<UserRepresentation>>, response: Response<List<UserRepresentation>>) {
+                if (response.isSuccessful) {
+                    _userFollowers.value = response.body()
+                } else {
+                }
+            }
+            override fun onFailure(call: Call<List<UserRepresentation>>, t: Throwable) {
+            }
+        })
+    }
 
     fun searchUsers(token: String, query: String) {
         userDataRepository.searchUsers(token, query).enqueue(object : Callback<List<SearchUserInfo>> {

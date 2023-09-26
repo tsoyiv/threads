@@ -6,5 +6,6 @@ object Holder {
     var otpCode: String = ""
     var email: String = ""
     var token: String = ""
+    var currentUsername: String = ""
     var selectedImageUri: Uri? = null
 }

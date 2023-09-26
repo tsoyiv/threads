@@ -9,13 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.databinding.FragmentFollowersBinding
 import com.example.threads.models.UserRepresentation
+import com.example.threads.utils.Holder
 import com.example.threads.utils.adapters.UserFollowersAdapter
+import com.example.threads.view_models.UserDataViewModel
+import com.google.android.material.transition.Hold
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FollowersFragment : Fragment() {
 
     private lateinit var binding: FragmentFollowersBinding
     private lateinit var userFollowersAdapter: UserFollowersAdapter
     private lateinit var recyclerView: RecyclerView
+    private val userDataViewModel by viewModel<UserDataViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,35 +35,27 @@ class FollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRV()
+        fetchUserFollowers()
+        checkFetching()
+    }
+
+    private fun checkFetching() {
+        userDataViewModel.userFollowers.observe(viewLifecycleOwner) { followers ->
+            userFollowersAdapter.updateFollowers(followers)
+        }
+    }
+
+    private fun fetchUserFollowers() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        val username = Holder.currentUsername
+        userDataViewModel.fetchUserFollowers(authHeader, username)
     }
 
     private fun setupRV() {
         recyclerView = binding.rcFollowers
         userFollowersAdapter = UserFollowersAdapter()
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = userFollowersAdapter
-
-        val testData = listOf(
-            UserRepresentation(1, "User1", "Bio for User1"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-            UserRepresentation(2, "User2", "Bio for User2"),
-        )
-        userFollowersAdapter.updateFollowers(testData)
-
     }
 }
