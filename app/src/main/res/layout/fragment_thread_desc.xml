@@ -88,16 +88,16 @@
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:strokeWidth="1dp" />
 
-            <ImageView
-                android:id="@+id/btn_subscribe_from_userPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:padding="5dp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/item_user_username"
-                app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
-                app:srcCompat="@drawable/img_subscribe_user_photo" />
+<!--            <ImageView-->
+<!--                android:id="@+id/btn_subscribe_from_userPhoto"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:padding="5dp"-->
+<!--                android:visibility="visible"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/item_user_username"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/itemView_user_image"-->
+<!--                app:srcCompat="@drawable/img_subscribe_user_photo" />-->
 
             <TextView
                 android:id="@+id/item_user_username"
@@ -227,7 +227,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_view_reply"
                 app:layout_constraintVertical_bias="1.0" />
-
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#3C3C4399"
+                app:layout_constraintBottom_toTopOf="@+id/rcComments"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_view_anotherUser_numbLikes" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
