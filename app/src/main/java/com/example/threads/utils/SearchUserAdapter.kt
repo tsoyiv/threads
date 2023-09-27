@@ -4,11 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
+import com.example.threads.view.search_fragments.SearchFragmentDirections
 import com.google.android.material.imageview.ShapeableImageView
 
 class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewHolder>() {
@@ -32,6 +35,13 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
     override fun onBindViewHolder(holder: SearchUserViewHolder, position: Int) {
         val searchUser = searchUserList[position]
         holder.bind(searchUser)
+
+        holder.itemView.setOnClickListener {
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToUserAccountRepresentationFragment(searchUser)
+            action.user = searchUser
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = searchUserList.size

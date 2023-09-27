@@ -127,7 +127,11 @@
         android:id="@+id/searchFragment"
         android:name="com.example.threads.view.search_fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_userAccountRepresentationFragment"
+            app:destination="@id/userAccountRepresentationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/activityFragment"
         android:name="com.example.threads.view.likes_fragments.ActivityFragment"
@@ -193,5 +197,17 @@
         <action
             android:id="@+id/action_threadDescFragment_to_feedMainFragment"
             app:destination="@id/feedMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAccountRepresentationFragment"
+        android:name="com.example.threads.view.search_fragments.UserAccountRepresentationFragment"
+        android:label="fragment_user_account_representation"
+        tools:layout="@layout/fragment_user_account_representation" >
+        <action
+            android:id="@+id/action_userAccountRepresentationFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.threads.models.SearchUserInfo" />
     </fragment>
 </navigation>
