@@ -19,6 +19,7 @@ import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.data.models.UserLogin
 import com.example.threads.databinding.FragmentLoginBinding
+import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.view_models.AuthViewModel
 import kotlinx.android.synthetic.main.custom_dialog_forgotten_password.view.*
@@ -67,6 +68,8 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             val emailText = etEmail.text.toString()
             val passwordText = etPassword.text.toString()
+
+            Holder.email = emailText
 
             if (emailText.isEmpty() || passwordText.isEmpty()) {
                 Toast.makeText(requireContext(), "Both fields must be filled", Toast.LENGTH_SHORT).show()

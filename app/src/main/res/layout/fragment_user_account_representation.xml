@@ -59,7 +59,7 @@
         android:layout_marginEnd="110dp"
         android:fontFamily="@font/sfbold"
         android:maxLines="1"
-        android:text="Alex Elle"
+        tools:text="Alex Elle"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/imgUser"

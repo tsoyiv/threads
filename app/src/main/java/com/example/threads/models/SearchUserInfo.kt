@@ -12,4 +12,6 @@ data class SearchUserInfo(
     val link: String,
     val numbOfFollowers: Int,
     val is_private: Boolean
-): Serializable
+) : Serializable
+
+
