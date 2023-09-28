@@ -8,11 +8,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.clear
@@ -39,6 +44,8 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
     private lateinit var symbolsCounter: TextView
     private lateinit var txtPost: TextView
     private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private lateinit var textView: TextView
+    private lateinit var popupMenu: PopupMenu
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +63,8 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
 
         navigation()
         callGallery()
-//        callDropDownMenu()
-        replyOptions()
+        callPopUpMenu()
+        //replyOptions()
         fetchData()
         btnPostEnableCheck()
         createThread()
@@ -87,6 +94,7 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
                     symbolsCounter.setTextColor(Color.BLACK)
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
             }
         }
@@ -173,21 +181,46 @@ class CreationThreadFragment : Fragment(), BottomMenuDialog.OnOptionSelectedList
             }
         }
     }
-
-    private fun replyOptions() {
-        val replyOptions = binding.txtReplyOptions
-
-        replyOptions.setOnClickListener {
-            // Show the ReplyOptionsDialogFragment
-            val dialogFragment = BottomMenuDialog()
-            dialogFragment.setOptionSelectedListener(this)
-            dialogFragment.show(childFragmentManager, "ReplyOptionsDialogFragment")
-        }
-    }
-
     override fun onOptionSelected(option: String) {
         val replyOptionsText = binding.txtReplyOptions
         replyOptionsText.text = option
+    }
+
+    private fun callPopUpMenu() {
+        val txtReplyOptions = binding.txtReplyOptions
+
+        txtReplyOptions.setOnClickListener { view ->
+            val popupMenu = PopupMenu(requireContext(), view)
+            popupMenu.menuInflater.inflate(R.menu.menu_reply, popupMenu.menu)
+
+            val item1 = popupMenu.menu.findItem(R.id.item1)
+            val item2 = popupMenu.menu.findItem(R.id.item2)
+            val item3 = popupMenu.menu.findItem(R.id.item3)
+
+            item1.icon = ContextCompat.getDrawable(requireContext(), R.drawable.img_earth)
+            item2.icon = ContextCompat.getDrawable(requireContext(), R.drawable.img_account_users)
+            item3.icon = ContextCompat.getDrawable(requireContext(), R.drawable.img_email1)
+
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.item1 -> {
+                        txtReplyOptions.text = "Anyone can reply"
+                        true
+                    }
+                    R.id.item2 -> {
+                        txtReplyOptions.text = "Profiles you follow"
+                        true
+                    }
+                    R.id.item3 -> {
+                        txtReplyOptions.text = "Mentioned only"
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.show()
+        }
     }
 
 //    private fun callDropDownMenu() {
