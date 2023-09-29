@@ -41,7 +41,7 @@ class FeedAdapter(
         private val imageView: ImageView = itemView.findViewById(R.id.item_image12)
 
         fun bind(thread: ThreadResponse) {
-            username.text = thread.author
+            username.text = thread.username
             threadContent.text = thread.content
             val numLikes = thread.likes.toIntOrNull() ?: 0
             likedTextView.text = if (numLikes == 1) {
@@ -53,7 +53,6 @@ class FeedAdapter(
                 .load(thread.thread_media)
                 .centerCrop()
                 .into(imageView)
-
         }
     }
 
