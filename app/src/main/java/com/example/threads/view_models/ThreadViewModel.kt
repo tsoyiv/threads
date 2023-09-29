@@ -44,8 +44,8 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threadsWithComments = MutableLiveData<List<ThreadWithCommentsResponse>>()
     val threadsWithComments: LiveData<List<ThreadWithCommentsResponse>> = _threadsWithComments
 
-    fun fetchThreadsWithComments(token: String) {
-        threadRepository.getThreadsWithComments(token).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
+    fun fetchThreadsWithComments(token: String, threadId: Int) {
+        threadRepository.getThreadsWithComments(token, threadId).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
             override fun onResponse(
                 call: Call<List<ThreadWithCommentsResponse>>,
                 response: Response<List<ThreadWithCommentsResponse>>

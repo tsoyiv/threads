@@ -44,26 +44,42 @@ class ThreadDescFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).hide()
         loadingDialogUtil = LoadingDialogUtil(requireContext())
+        thread = args.thread
 
         loadDetailPage()
         navigation()
         writeComment()
         isCommentSuccess()
         RVsetup()
-        updateComments()
+        updateComments(thread.id)
     }
 
-    private fun updateComments() {
+    private fun updateComments(threadId: Int) {
         val token = Holder.token
         val authHeader = "Bearer $token"
-        threadViewModel.fetchThreadsWithComments(authHeader)
+        threadViewModel.fetchThreadsWithComments(authHeader, threadId)
         loadingDialogUtil.showLoadingDialog()
         threadViewModel.threadsWithComments.observe(viewLifecycleOwner) { threadsWithComments ->
-            val allComments = threadsWithComments.flatMap { it.comments }
-            commentAdapter.updateComments(allComments)
+            val commentsForSelectedThread = threadsWithComments
+                .filter { it.id == threadId }
+                .flatMap { it.comments }
+
+            commentAdapter.updateComments(commentsForSelectedThread)
             loadingDialogUtil.dismissLoadingDialog()
         }
     }
+
+//    private fun updateComments() {
+//        val token = Holder.token
+//        val authHeader = "Bearer $token"
+//        threadViewModel.fetchThreadsWithComments(authHeader, thread.id)
+//        loadingDialogUtil.showLoadingDialog()
+//        threadViewModel.threadsWithComments.observe(viewLifecycleOwner) { threadsWithComments ->
+//            val allComments = threadsWithComments.flatMap { it.comments }
+//            commentAdapter.updateComments(allComments)
+//            loadingDialogUtil.dismissLoadingDialog()
+//        }
+//    }
 
     private fun RVsetup() {
         commentAdapter = ThreadCommentAdapter()
@@ -82,6 +98,7 @@ class ThreadDescFragment : Fragment() {
             if (content.isNotEmpty()) {
                 threadViewModel.writeComment(authHolder, thread.id, content)
                 binding.etLeftComment.text?.clear()
+                updateComments(thread.id)
             } else {
                 Toast.makeText(requireContext(), "Comment cannot be empty", Toast.LENGTH_SHORT).show()
             }
@@ -123,7 +140,7 @@ class ThreadDescFragment : Fragment() {
     }
 
     private fun descriptionUi(product: ThreadResponse) {
-        binding.itemUserUsername.text = product.author
+        binding.itemUserUsername.text = product.username
         binding.itemUserThread.text = product.content
 
         val fetchUsername = product.author

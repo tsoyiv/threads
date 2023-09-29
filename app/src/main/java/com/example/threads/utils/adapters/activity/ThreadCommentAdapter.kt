@@ -104,6 +104,7 @@ class ThreadCommentAdapter :
         diffResult.dispatchUpdatesTo(this)
     }
 
+
     inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(comment: CommentResponse) {
             val usernameTextView = itemView.findViewById<TextView>(R.id.commentThreadUsername)

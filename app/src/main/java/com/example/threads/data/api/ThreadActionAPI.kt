@@ -38,6 +38,6 @@ interface ThreadActionAPI {
         @Body request: CommentRequest
     ): Call<CommentResponse>
 
-    @GET("v3/threads_with_comments/")
-    fun getThreadsWithComments(@Header("Authorization") token: String): Call<List<ThreadWithCommentsResponse>>
+    @GET("v3/threads_with_comments/{thread_id}/")
+    fun getThreadsWithComments(@Header("Authorization") token: String, @Path("thread_id") threadId: Int): Call<List<ThreadWithCommentsResponse>>
 }
