@@ -25,6 +25,12 @@ interface ThreadActionAPI {
         @Path("id") threadId: Int
     ): Call<ThreadResponse>
 
+    @GET("v3/threads/{author_email}/")
+    fun getThreadUserThread(
+        @Header("Authorization") token: String,
+        @Path("author_email") authorEmail: String
+    ): Call<List<ThreadResponse>>
+
     @POST("v3/threads/{thread_id}/like/")
     fun likeThread(
         @Header("Authorization") token: String,

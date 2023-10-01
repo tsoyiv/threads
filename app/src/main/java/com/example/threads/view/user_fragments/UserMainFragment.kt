@@ -23,6 +23,9 @@ import com.example.threads.databinding.FragmentUserMainBinding
 import com.example.threads.models.FeedItem
 import com.example.threads.utils.FeedAdapter
 import com.example.threads.utils.Holder
+import com.example.threads.utils.LoadingDialogUtil
+import com.example.threads.utils.adapters.activity.UserThreadAdapter
+import com.example.threads.view_models.ThreadViewModel
 import com.example.threads.view_models.UserDataViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.btm_dialog_share.*
@@ -32,11 +35,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class UserMainFragment : Fragment() {
 
     private lateinit var binding: FragmentUserMainBinding
-    private lateinit var feedAdapter: FeedAdapter
+    private lateinit var feedAdapter: UserThreadAdapter
     private lateinit var recyclerView: RecyclerView
     private val userDataViewModel by viewModel<UserDataViewModel>()
+    private val threadViewModel by viewModel<ThreadViewModel>()
     private lateinit var textLink: String
     private val itemList: MutableList<FeedItem> = mutableListOf()
+    private lateinit var loadingDialogUtil: LoadingDialogUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +55,27 @@ class UserMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).showBtm()
+        loadingDialogUtil = LoadingDialogUtil(requireContext())
 
         logOut()
         navigation()
         setupRV()
         fetchData()
         openLink()
+        getUserThread()
+    }
+
+    private fun getUserThread() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        val email = Holder.email
+
+        loadingDialogUtil.showLoadingDialog()
+        threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
+            feedAdapter.updateList(threads)
+            loadingDialogUtil.dismissLoadingDialog()
+        }
+        threadViewModel.getUserThread(authHeader, email)
     }
 
     private fun openLink() {
@@ -106,7 +126,7 @@ class UserMainFragment : Fragment() {
             Toast.makeText(requireContext(), "bottom", Toast.LENGTH_SHORT).show()
             bottomSheetDialog.dismiss()
         }
-        
+
         bottomSheetDialog.setContentView(bottomSheetView)
         bottomSheetDialog.show()
     }
@@ -121,8 +141,9 @@ class UserMainFragment : Fragment() {
         )
 
         recyclerView = binding.rcFeedUserPage
-        feedAdapter = FeedAdapter(
+        feedAdapter = UserThreadAdapter(
             mutableListOf(),
+            Holder.email,
             null
         )
         recyclerView.setHasFixedSize(true)

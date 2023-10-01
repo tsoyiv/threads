@@ -44,6 +44,40 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threadsWithComments = MutableLiveData<List<ThreadWithCommentsResponse>>()
     val threadsWithComments: LiveData<List<ThreadWithCommentsResponse>> = _threadsWithComments
 
+    fun getUserThread(token: String, authorEmail: String) {
+        threadRepository.getThreadUserThread(token, authorEmail).enqueue(object : Callback<List<ThreadResponse>> {
+            override fun onResponse(
+                call: Call<List<ThreadResponse>>,
+                response: Response<List<ThreadResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val threadList = response.body() ?: emptyList()
+                    _threads.postValue(threadList)
+                } else {
+                }
+            }
+            override fun onFailure(call: Call<List<ThreadResponse>>, t: Throwable) {
+            }
+        })
+    }
+
+//    fun getThreadUserThread(token: String, authorEmail: String) {
+//        threadRepository.getThreadUserThread(token, authorEmail)
+//            .enqueue(object : Callback<List<ThreadResponse>> {
+//                override fun onResponse(call: Call<List<ThreadResponse>>, response: Response<List<ThreadResponse>>) {
+//                    if (response.isSuccessful) {
+//                        _threadResponse.postValue(response.body())
+//                    } else {
+//                        _error.postValue("API Error: ${response.code()}")
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<List<ThreadResponse>>, t: Throwable) {
+//                    _error.postValue("Network Error: ${t.message}")
+//                }
+//            })
+//    }
+
     fun fetchThreadsWithComments(token: String, threadId: Int) {
         threadRepository.getThreadsWithComments(token, threadId).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
             override fun onResponse(

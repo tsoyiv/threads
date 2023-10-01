@@ -11,13 +11,19 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentUserAccountRepresentationBinding
+import com.example.threads.models.FeedItem
 import com.example.threads.models.SearchUserInfo
 import com.example.threads.utils.Holder
+import com.example.threads.utils.LoadingDialogUtil
+import com.example.threads.utils.adapters.activity.UserThreadAdapter
+import com.example.threads.view_models.ThreadViewModel
 import com.example.threads.view_models.UserDataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,6 +32,10 @@ class UserAccountRepresentationFragment : Fragment() {
     private lateinit var binding: FragmentUserAccountRepresentationBinding
     private val userDataViewModel by viewModel<UserDataViewModel>()
     val args: UserAccountRepresentationFragmentArgs by navArgs()
+    private lateinit var feedAdapter: UserThreadAdapter
+    private lateinit var recyclerView: RecyclerView
+    private val threadViewModel by viewModel<ThreadViewModel>()
+    private lateinit var loadingDialogUtil: LoadingDialogUtil
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +49,37 @@ class UserAccountRepresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).showBtm()
-        navigation()
+        loadingDialogUtil = LoadingDialogUtil(requireContext())
 
+        navigation()
         performUserSearch()
+        setupRV()
+        getUserThread()
+    }
+
+    private fun getUserThread() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        val email = args.user.email
+
+        loadingDialogUtil.showLoadingDialog()
+        threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
+            feedAdapter.updateList(threads)
+            loadingDialogUtil.dismissLoadingDialog()
+        }
+        threadViewModel.getUserThread(authHeader, email)
+    }
+
+    private fun setupRV() {
+        recyclerView = binding.rcUsersFeed
+        val userEmail = args.user.email
+        feedAdapter = UserThreadAdapter(
+            mutableListOf(), userEmail,
+            null
+        )
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = feedAdapter
     }
 
     private fun performUserSearch() {
@@ -69,6 +107,10 @@ class UserAccountRepresentationFragment : Fragment() {
             findNavController().navigate(R.id.userMainFragment)
         }
 
+        val repostedText = args.user.name
+        val correctText = "$repostedText reposted"
+        binding.txtUserRepostedThread.text = correctText
+
         val numberOfFollowers = args.user.numbOfFollowers
         val followersText = if (numberOfFollowers == 1) {
             "$numberOfFollowers follower"
@@ -90,6 +132,7 @@ class UserAccountRepresentationFragment : Fragment() {
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun navigation() {
         binding.btnBackFromUserAccount.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountRepresentationFragment_to_searchFragment)

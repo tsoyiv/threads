@@ -199,7 +199,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/sfthin"
-        android:text="You haven’t posted any threads yet."
+        android:text="No posted or reposted any threads yet."
         android:textColor="#999999"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -230,13 +230,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/txtUserRepostedThread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="22dp"
                 android:fontFamily="@font/sfthin"
-                android:text="You reposted"
+                android:text="User reposted"
                 android:textColor="#999999"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -251,7 +251,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/txtUserRepostedThread" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package com.example.threads.utils
+package com.example.threads.utils.adapters.activity
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.utils.Holder
 import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
+import com.example.threads.view.user_fragments.UserMainFragmentDirections
 
-class FeedAdapter(
+class UserThreadAdapter(
     private val threadList: MutableList<ThreadResponse>,
+    private val userEmail: String,
     private val onItemClickListener: OnItemClickListener?
-) : RecyclerView.Adapter<FeedAdapter.ThreadViewHolder>() {
+) : RecyclerView.Adapter<UserThreadAdapter.ThreadViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(thread: ThreadResponse)
@@ -23,7 +26,7 @@ class FeedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreadViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view_owner, parent, false)
         return ThreadViewHolder(view)
     }
 
@@ -34,11 +37,13 @@ class FeedAdapter(
     }
 
     inner class ThreadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val username: TextView = itemView.findViewById(R.id.item_user_username)
-        private val threadContent: TextView = itemView.findViewById(R.id.item_userThread)
+        private val username: TextView = itemView.findViewById(R.id.item_owner_username)
+        private val threadContent: TextView = itemView.findViewById(R.id.item_ownerThread)
         private val likedTextView: TextView =
-            itemView.findViewById(R.id.item_view_anotherUser_numbLikes)
-        private val imageView: ImageView = itemView.findViewById(R.id.item_image12)
+            itemView.findViewById(R.id.item_view_ownUser_numbLikes)
+        private val imageView: ImageView = itemView.findViewById(R.id.itemView_owner_image)
+        private val removeImage: ImageView = itemView.findViewById(R.id.btn_remove_own_thread)
+        val ownEmail = Holder.email
 
         fun bind(thread: ThreadResponse) {
             username.text = thread.username
@@ -49,10 +54,18 @@ class FeedAdapter(
             } else {
                 "$numLikes likes"
             }
+
             Glide.with(imageView)
                 .load(thread.thread_media)
                 .centerCrop()
                 .into(imageView)
+
+
+            if (userEmail != ownEmail) {
+                removeImage.visibility = View.GONE
+            } else {
+                removeImage.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -62,7 +75,7 @@ class FeedAdapter(
 
         holder.itemView.setOnClickListener {
             val action =
-                TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadDescFragment(thread)
+                UserMainFragmentDirections.actionUserMainFragmentToThreadDescFragment(thread)
             action.thread = thread
             holder.itemView.findNavController().navigate(action)
         }

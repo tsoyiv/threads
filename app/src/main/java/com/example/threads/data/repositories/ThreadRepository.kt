@@ -22,6 +22,10 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
         return threadActionAPI.getThreadDetails(token, threadId)
     }
 
+    fun getThreadUserThread(token: String, authorEmail: String): Call<List<ThreadResponse>> {
+        return threadActionAPI.getThreadUserThread(token, authorEmail)
+    }
+
     fun writeComment(token: String, threadId: Int, content: String): Call<CommentResponse> {
         val commentRequest = CommentRequest(content)
         return threadActionAPI.writeComment(token, threadId, commentRequest)

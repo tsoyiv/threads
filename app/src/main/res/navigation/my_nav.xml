@@ -103,6 +103,9 @@
             android:id="@+id/action_userMainFragment_to_tabFragment"
             app:destination="@id/tabFragment"
             app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_userMainFragment_to_threadDescFragment"
+            app:destination="@id/threadDescFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
