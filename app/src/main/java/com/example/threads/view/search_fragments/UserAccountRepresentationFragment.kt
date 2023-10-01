@@ -91,6 +91,7 @@ class UserAccountRepresentationFragment : Fragment() {
         binding.txtUserName.text = args.user.name
         binding.txtUserBio.text = args.user.bio
         binding.txtLink.text = args.user.link
+        Holder.currentUsername = args.user.username
 
         val profilePictureUrl: String? = args.user.profile_picture
         val imgUser = binding.imgUser
@@ -136,6 +137,9 @@ class UserAccountRepresentationFragment : Fragment() {
     private fun navigation() {
         binding.btnBackFromUserAccount.setOnClickListener {
             findNavController().navigate(R.id.action_userAccountRepresentationFragment_to_searchFragment)
+        }
+        binding.txtUserNumbFollowers.setOnClickListener {
+            findNavController().navigate(R.id.action_userAccountRepresentationFragment_to_tabFragment2)
         }
     }
 }

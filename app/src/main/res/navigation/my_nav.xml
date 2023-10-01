@@ -159,6 +159,9 @@
             android:id="@+id/action_tabFragment_to_userMainFragment"
             app:destination="@id/userMainFragment"
             app:enterAnim="@anim/from_left" />
+        <action
+            android:id="@+id/action_tabFragment_to_userAccountRepresentationFragment"
+            app:destination="@id/userAccountRepresentationFragment" />
     </fragment>
     <fragment
         android:id="@+id/tabMainFeedFragment"
@@ -212,5 +215,8 @@
         <argument
             android:name="user"
             app:argType="com.example.threads.models.SearchUserInfo" />
+        <action
+            android:id="@+id/action_userAccountRepresentationFragment_to_tabFragment2"
+            app:destination="@id/tabFragment" />
     </fragment>
 </navigation>
