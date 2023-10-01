@@ -48,6 +48,9 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     val removeThreadResult: LiveData<Boolean>
         get() = _removeThreadResult
 
+    fun filterThreadsByCommentCount(threads: List<ThreadResponse>): List<ThreadResponse> {
+        return threads.filter { it.comments_count.toInt() > 0 }
+    }
     fun getUserThread(token: String, authorEmail: String) {
         threadRepository.getThreadUserThread(token, authorEmail).enqueue(object : Callback<List<ThreadResponse>> {
             override fun onResponse(

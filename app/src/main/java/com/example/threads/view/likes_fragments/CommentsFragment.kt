@@ -11,14 +11,21 @@ import com.example.threads.R
 import com.example.threads.databinding.FragmentCommentsBinding
 import com.example.threads.models.ActivityComments
 import com.example.threads.models.ActivityRequest
+import com.example.threads.utils.Holder
+import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.utils.adapters.activity.CommentsAdapter
 import com.example.threads.utils.adapters.activity.RequestAdapter
+import com.example.threads.view_models.ThreadViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CommentsFragment : Fragment() {
 
     private lateinit var binding: FragmentCommentsBinding
     private lateinit var commentsAdapter: CommentsAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private val threadViewModel by viewModel<ThreadViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +38,30 @@ class CommentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadingDialogUtil = LoadingDialogUtil(requireContext())
+
         setupRV()
+        getUserThread()
+    }
+
+    private fun getUserThread() {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        val email = Holder.email
+
+        loadingDialogUtil.showLoadingDialog()
+        threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
+            val filteredThreads = threadViewModel.filterThreadsByCommentCount(threads)
+            commentsAdapter.updateList(filteredThreads)
+            loadingDialogUtil.dismissLoadingDialog()
+        }
+        threadViewModel.getUserThread(authHeader, email)
+        loadingDialogUtil.dismissLoadingDialog()
     }
 
     private fun setupRV() {
-        val testData = listOf(
-            ActivityComments(1, "Vlad11", "12m", "today i gonna buy a new home", "okay, that's a great idea for you"),
-            ActivityComments(1, "user", "12m", "today i gonna buy a new home", "okay, that's a great idea for you"),
-            ActivityComments(1, "hello", "12m", "today i gonna buy a new home", "okay, that's a great idea for you"),
-            ActivityComments(1, "hi", "12m", "today i gonna buy a new home", "hi hello hello hello hello hello"),
-            ActivityComments(1, "neobis", "12m", "today i gonna buy a new home", "hi hello hello hello hello hello"),
-            ActivityComments(1, "VladTsoi", "12m", "today i gonna buy a new home", "hi hello hello hello hello hello")
-        )
-
         recyclerView = binding.rcActivityComments
-        commentsAdapter = CommentsAdapter(testData)
+        commentsAdapter = CommentsAdapter(mutableListOf())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = commentsAdapter
 

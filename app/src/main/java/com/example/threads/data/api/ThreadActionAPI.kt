@@ -5,6 +5,8 @@ import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,6 +17,14 @@ interface ThreadActionAPI {
         @Header("Authorization") token: String,
         @Body request: ThreadRequest
     ): Call<ThreadResponse>
+
+//    @Multipart
+//    @POST("v3/create/")
+//    fun createThread(
+//        @Header("Authorization") token: String,
+//        @Part("content") content: RequestBody,
+//        @Part thread_media: MultipartBody.Part?
+//    ): Call<ThreadResponse>
 
     @GET("v3/threads/")
     fun getThreadMainPage(@Header("Authorization") token: String): Call<List<ThreadResponse>>

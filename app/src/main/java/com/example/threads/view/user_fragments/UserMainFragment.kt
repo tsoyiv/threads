@@ -93,6 +93,7 @@ class UserMainFragment : Fragment() {
             loadingDialogUtil.dismissLoadingDialog()
         }
         threadViewModel.getUserThread(authHeader, email)
+        loadingDialogUtil.dismissLoadingDialog()
     }
 
     private fun openLink() {

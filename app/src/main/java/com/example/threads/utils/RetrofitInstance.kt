@@ -1,5 +1,6 @@
 package com.example.threads.utils
 
+import com.example.threads.data.api.ThreadActionAPI
 import com.example.threads.data.api.UserDataAPI
 import com.example.threads.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
@@ -27,6 +28,9 @@ class RetrofitInstance {
         }
         val userDataApi by lazy {
             retrofit.create(UserDataAPI::class.java)
+        }
+        val threadDataApi by lazy {
+            retrofit.create(ThreadActionAPI::class.java)
         }
     }
 }

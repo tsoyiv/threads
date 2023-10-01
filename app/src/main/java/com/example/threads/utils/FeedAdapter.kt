@@ -20,7 +20,6 @@ class FeedAdapter(
     interface OnItemClickListener {
         fun onItemClick(thread: ThreadResponse)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreadViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view, parent, false)

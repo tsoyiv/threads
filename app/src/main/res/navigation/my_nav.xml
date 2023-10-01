@@ -219,4 +219,14 @@
             android:id="@+id/action_userAccountRepresentationFragment_to_tabFragment2"
             app:destination="@id/tabFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.example.threads.view.likes_fragments.CommentsFragment"
+        android:label="fragment_comments"
+        tools:layout="@layout/fragment_comments" >
+
+        <action
+            android:id="@+id/action_commentsFragment_to_threadDescFragment2"
+            app:destination="@id/threadDescFragment" />
+    </fragment>
 </navigation>
