@@ -44,6 +44,10 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threadsWithComments = MutableLiveData<List<ThreadWithCommentsResponse>>()
     val threadsWithComments: LiveData<List<ThreadWithCommentsResponse>> = _threadsWithComments
 
+    private val _removeThreadResult = MutableLiveData<Boolean>()
+    val removeThreadResult: LiveData<Boolean>
+        get() = _removeThreadResult
+
     fun getUserThread(token: String, authorEmail: String) {
         threadRepository.getThreadUserThread(token, authorEmail).enqueue(object : Callback<List<ThreadResponse>> {
             override fun onResponse(
@@ -77,6 +81,23 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
 //                }
 //            })
 //    }
+
+    fun removeThread(token: String, id: Int) {
+        threadRepository.removeThreadById(token, id).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+               if (response.isSuccessful) {
+                   _removeThreadResult.value = true
+               } else {
+                   _removeThreadResult.value = false
+               }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                _removeThreadResult.value = false
+            }
+
+        })
+    }
 
     fun fetchThreadsWithComments(token: String, threadId: Int) {
         threadRepository.getThreadsWithComments(token, threadId).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {

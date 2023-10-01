@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.data.models.ThreadResponse
 import com.example.threads.utils.Holder
-import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
 import com.example.threads.view.user_fragments.UserMainFragmentDirections
+import kotlinx.android.synthetic.main.custom_item_view_owner.view.btn_remove_own_thread
 
 class UserThreadAdapter(
     private val threadList: MutableList<ThreadResponse>,
@@ -21,18 +21,21 @@ class UserThreadAdapter(
 ) : RecyclerView.Adapter<UserThreadAdapter.ThreadViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(thread: ThreadResponse)
+        fun deleteThread(threadId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreadViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.custom_item_view_owner, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.custom_item_view_owner, parent, false)
         return ThreadViewHolder(view)
     }
 
-    private var clickListener: ((ThreadResponse) -> Unit)? = null
+    //    private var clickListener: ((ThreadResponse) -> Unit)? = null
+    private var clickListener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: (ThreadResponse) -> Unit) {
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         clickListener = listener
     }
 
@@ -79,6 +82,14 @@ class UserThreadAdapter(
             action.thread = thread
             holder.itemView.findNavController().navigate(action)
         }
+
+        holder.itemView.btn_remove_own_thread.setOnClickListener {
+            onItemClickListener?.deleteThread(thread.id)
+        }
+
+//        holder.itemView.btn_remove_own_thread.setOnClickListener {
+//            onItemClickListener?.deleteThread(thread.id)
+//        }
     }
 
     override fun getItemCount(): Int {

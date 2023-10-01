@@ -46,4 +46,7 @@ interface ThreadActionAPI {
 
     @GET("v3/threads_with_comments/{thread_id}/")
     fun getThreadsWithComments(@Header("Authorization") token: String, @Path("thread_id") threadId: Int): Call<List<ThreadWithCommentsResponse>>
+
+    @DELETE("v3/threads/{id}/delete/")
+    fun removeThreadById(@Header("Authorization") token: String, @Path("id") id: Int): Call<Unit>
 }

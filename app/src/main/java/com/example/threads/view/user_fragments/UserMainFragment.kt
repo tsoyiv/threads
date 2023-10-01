@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.threads.MainActivity
 import com.example.threads.R
+import com.example.threads.data.models.ThreadResponse
 import com.example.threads.databinding.FragmentUserMainBinding
 import com.example.threads.models.FeedItem
 import com.example.threads.utils.FeedAdapter
@@ -63,6 +64,22 @@ class UserMainFragment : Fragment() {
         fetchData()
         openLink()
         getUserThread()
+    }
+
+    private fun removeThread(id: Int) {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+
+        loadingDialogUtil.showLoadingDialog()
+        threadViewModel.removeThreadResult.observe(viewLifecycleOwner) { success->
+            if (success) {
+                Toast.makeText(requireContext(), "removed", Toast.LENGTH_SHORT).show()
+                loadingDialogUtil.dismissLoadingDialog()
+                getUserThread()
+            } else {
+            }
+        }
+        threadViewModel.removeThread(authHeader, id)
     }
 
     private fun getUserThread() {
@@ -132,23 +149,26 @@ class UserMainFragment : Fragment() {
     }
 
     private fun setupRV() {
-
-        val testItems = listOf(
-            FeedItem(1, "User1", "This is the first thread."),
-            FeedItem(2, "User2", "Testing the second thread."),
-            FeedItem(3, "User3", "Third thread for testing."),
-            // Add more test items as needed
-        )
-
         recyclerView = binding.rcFeedUserPage
         feedAdapter = UserThreadAdapter(
             mutableListOf(),
             Holder.email,
-            null
+            listener
         )
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = feedAdapter
+//        feedAdapter.setOnItemClickListener(object : UserThreadAdapter.OnItemClickListener {
+//            override fun deleteThread(threadId: Int) {
+//                removeThread(threadId)
+//            }
+//        })
+    }
+
+    private val listener = object : UserThreadAdapter.OnItemClickListener {
+        override fun deleteThread(threadId: Int) {
+            removeThread(threadId)
+        }
     }
 
     private fun navigation() {

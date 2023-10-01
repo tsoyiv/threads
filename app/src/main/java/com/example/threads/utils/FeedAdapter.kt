@@ -39,6 +39,7 @@ class FeedAdapter(
         private val likedTextView: TextView =
             itemView.findViewById(R.id.item_view_anotherUser_numbLikes)
         private val imageView: ImageView = itemView.findViewById(R.id.item_image12)
+        private val userImage: ImageView = itemView.findViewById(R.id.itemView_user_image)
 
         fun bind(thread: ThreadResponse) {
             username.text = thread.username
