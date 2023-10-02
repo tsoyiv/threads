@@ -85,7 +85,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/itemView_user_image"
             app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
-            app:srcCompat="@drawable/img_activity_following" />
+            app:srcCompat="@drawable/img_commented_activity" />
 
         <TextView
             android:id="@+id/txtTimeFollowed"
