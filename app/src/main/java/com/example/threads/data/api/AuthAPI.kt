@@ -20,4 +20,7 @@ interface AuthAPI {
 
     @POST("v1/reset-password/")
     fun createNewPassword(@Body request: NewPasswordRequest): Call<Unit>
+
+    @POST("/v2/google/")
+    fun signInWithGoogle(@Body request: GoogleSignInRequest): Call<UserLoginResponse>
 }

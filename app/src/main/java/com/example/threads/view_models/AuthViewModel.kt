@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.threads.data.models.CustomUser
+import com.example.threads.data.models.GoogleSignInRequest
 import com.example.threads.data.models.NewPasswordRequest
 import com.example.threads.data.models.UserLogin
 import com.example.threads.data.models.UserLoginResponse
@@ -38,6 +39,27 @@ public class AuthViewModel(private val authRepository: AuthRepository) : ViewMod
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 _registrationStatus.postValue(false)
+            }
+        })
+    }
+
+    private val _signInResult = MutableLiveData<Boolean>()
+    val signInResult: LiveData<Boolean> = _signInResult
+
+    fun signInWithGoogle(authToken: String) {
+        val request = GoogleSignInRequest(authToken)
+
+        authRepository.loginFromGoogle(request).enqueue(object : Callback<UserLoginResponse> {
+            override fun onResponse(
+                call: Call<UserLoginResponse>,
+                response: Response<UserLoginResponse>
+            ) {
+                _signInResult.value = response.isSuccessful
+            }
+
+            override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
+                // Handle failure
+                _signInResult.value = false
             }
         })
     }

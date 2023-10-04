@@ -1,6 +1,7 @@
 package com.example.threads.view.log_fragments
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,6 +23,11 @@ import com.example.threads.databinding.FragmentLoginBinding
 import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.view_models.AuthViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import kotlinx.android.synthetic.main.custom_dialog_forgotten_password.view.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +40,11 @@ class LoginFragment : Fragment() {
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
+    private lateinit var googleSignInClient: GoogleSignInClient
 
+    companion object {
+        const val RC_SIGN_IN = 123
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +63,69 @@ class LoginFragment : Fragment() {
 
         etCheck()
         isSuccess()
+
+        binding.btnLogGoogle.setOnClickListener {
+            signInWithGoogle()
+        }
+    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val result = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = result.getResult(ApiException::class.java)
+                handleGoogleSignInSuccess(account)
+            } catch (e: ApiException) {
+                // Handle Google Sign-In failure
+                val statusCode = e.statusCode
+                Toast.makeText(
+                    requireContext(),
+                    "Google Sign-In failed with error code: $statusCode",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun handleGoogleSignInSuccess(account: GoogleSignInAccount?) {
+        val idToken = account?.idToken
+        if (idToken != null) {
+            sendIdTokenToServer(idToken)
+            Toast.makeText(
+                requireContext(),
+                "ID Token: $idToken",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun sendIdTokenToServer(idToken: String?) {
+        if (idToken != null) {
+            authViewModel.signInWithGoogle(idToken)
+        }
+        authViewModel.signInResult.observe(this) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "created google account", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun etCheck() {
@@ -72,9 +145,11 @@ class LoginFragment : Fragment() {
             Holder.email = emailText
 
             if (emailText.isEmpty() || passwordText.isEmpty()) {
-                Toast.makeText(requireContext(), "Both fields must be filled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Both fields must be filled", Toast.LENGTH_SHORT)
+                    .show()
             } else if (!emailText.contains("@")) {
-                Toast.makeText(requireContext(), "Email must contain '@'", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email must contain '@'", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 loginUser()
             }

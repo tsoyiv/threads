@@ -45,6 +45,7 @@
     <string name="the_username_you_entered_doesn_t_appear_to_belong_to_an_account_please_check_your_username_and_try_again">The username you entered doesn’t appear to belong to an account Please check your username and try again.</string>
     <string name="num_requests_text">%1$d requests</string>
     <string name="_0_requests">0 requests</string>
+    <string name="default_web_client_id">473946467827-h58r442u98j5idtjofdjcn83nbi8p84m.apps.googleusercontent.com</string>
     <string name="approve_all">Approve all</string>
 
     <string-array name="replyOptions">
