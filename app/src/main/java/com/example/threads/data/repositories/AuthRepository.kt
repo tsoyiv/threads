@@ -28,4 +28,8 @@ class AuthRepository(private val authAPI: AuthAPI) {
     suspend fun createNewPassword(request: NewPasswordRequest): Call<Unit> {
         return authAPI.createNewPassword(request)
     }
+
+    fun loginFromGoogle(request: GoogleSignInRequest): Call<UserLoginResponse> {
+        return authAPI.signInWithGoogle(request)
+    }
 }

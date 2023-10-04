@@ -44,7 +44,7 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
     val error: LiveData<String> = _error
 
     private val _userFollowers = MutableLiveData<List<UserRepresentation>>()
-    val userFollowers: LiveData<List<UserRepresentation>> = _userFollowers
+    val userFollowers: LiveData<List<UserRepresentation>> get() = _userFollowers
 
     fun fetchUserFollowers(token: String, username: String) {
         userDataRepository.getUserFollowers(token, username).enqueue(object : Callback<List<UserRepresentation>> {

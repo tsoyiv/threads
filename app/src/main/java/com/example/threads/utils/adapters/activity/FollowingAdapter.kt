@@ -26,12 +26,10 @@ class FollowingAdapter(private val items: List<ActivityFollowing>) :
     inner class FollowerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: ActivityFollowing) {
             val usernameTextView = itemView.findViewById<TextView>(R.id.txtActivityFollowingUsername)
-            val status = itemView.findViewById<TextView>(R.id.txtActivityFollowingState)
+            val name = itemView.findViewById<TextView>(R.id.txtActivityFollowingState)
             val time = itemView.findViewById<TextView>(R.id.txtDateOfFollowed)
 
             usernameTextView.text = item.username
-            status.text = item.status
-            time.text= item.time
         }
     }
 

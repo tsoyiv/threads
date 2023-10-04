@@ -1,9 +1,11 @@
 package com.example.threads.view.followers_fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +43,8 @@ class FollowersFragment : Fragment() {
 
     private fun checkFetching() {
         userDataViewModel.userFollowers.observe(viewLifecycleOwner) { followers ->
-            userFollowersAdapter.updateFollowers(followers)
+            userFollowersAdapter.updateList(followers)
+            Toast.makeText(requireContext(), "received users", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -54,7 +57,7 @@ class FollowersFragment : Fragment() {
 
     private fun setupRV() {
         recyclerView = binding.rcFollowers
-        userFollowersAdapter = UserFollowersAdapter()
+        userFollowersAdapter = UserFollowersAdapter(mutableListOf())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = userFollowersAdapter
     }

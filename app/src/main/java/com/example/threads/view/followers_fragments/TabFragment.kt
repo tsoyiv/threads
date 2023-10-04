@@ -48,7 +48,7 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
 
         userDataViewModel.userInfo.observe(viewLifecycleOwner) { userInfo ->
             if (userInfo != null) {
-                binding.txtFollowPageUsername.text = userInfo.username
+                binding.txtFollowPageUsername.text = Holder.currentUsername
             }
         }
     }
