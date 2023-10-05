@@ -5,6 +5,7 @@ import com.example.threads.data.models.CommentRequest
 import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadUserLikedResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
 import retrofit2.Call
 
@@ -16,6 +17,10 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
 
     fun getThread(token: String): Call<List<ThreadResponse>> {
         return threadActionAPI.getThreadMainPage(token)
+    }
+
+    fun getThreadLikedUser(token: String, threadId: Int): Call<List<ThreadUserLikedResponse>> {
+        return threadActionAPI.getThreadLikedUser(token, threadId)
     }
 
     fun getThreadDetails(token: String, threadId: Int): Call<ThreadResponse> {

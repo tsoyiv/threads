@@ -13,6 +13,7 @@ import com.example.threads.data.models.ThreadResponse
 import com.example.threads.utils.adapters.activity.UserThreadAdapter
 import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
 import kotlinx.android.synthetic.main.custom_item_view.view.checkBox
+import kotlinx.android.synthetic.main.custom_item_view.view.item_view_anotherUser_numbLikes
 
 class FeedAdapter(
     private val threadList: MutableList<ThreadResponse>,
@@ -21,6 +22,7 @@ class FeedAdapter(
 
     interface OnItemClickListener {
        fun likeThreadClick(threadId: Int)
+//        fun getUserLikedThread(threadId: Int)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreadViewHolder {
         val view =
@@ -70,6 +72,13 @@ class FeedAdapter(
         }
         holder.itemView.checkBox.setOnClickListener {
             onItemClickListener?.likeThreadClick(thread.id)
+        }
+
+        holder.itemView.item_view_anotherUser_numbLikes.setOnClickListener {
+            val action = TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadLikedUserFragment(thread)
+            action.userRep = thread
+            holder.itemView.findNavController().navigate(action)
+//            onItemClickListener?.getUserLikedThread(thread.id)
         }
     }
 

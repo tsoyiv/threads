@@ -173,6 +173,9 @@
             app:destination="@id/threadDescFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_tabMainFeedFragment_to_threadLikedUserFragment"
+            app:destination="@id/threadLikedUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/confirmEmailFragment"
@@ -228,5 +231,16 @@
         <action
             android:id="@+id/action_commentsFragment_to_threadDescFragment2"
             app:destination="@id/threadDescFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/threadLikedUserFragment"
+        android:name="com.example.threads.view.main_feed_fragments.ThreadLikedUserFragment"
+        android:label="ThreadLikedUserFragment" >
+        <action
+            android:id="@+id/action_threadLikedUserFragment_to_tabMainFeedFragment"
+            app:destination="@id/tabMainFeedFragment" />
+        <argument
+            android:name="userRep"
+            app:argType="com.example.threads.data.models.ThreadResponse" />
     </fragment>
 </navigation>

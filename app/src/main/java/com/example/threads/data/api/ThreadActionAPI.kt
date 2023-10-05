@@ -4,6 +4,7 @@ import com.example.threads.data.models.CommentRequest
 import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadUserLikedResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -72,4 +73,7 @@ interface ThreadActionAPI {
 
     @DELETE("v3/threads/{id}/delete/")
     fun removeThreadById(@Header("Authorization") token: String, @Path("id") id: Int): Call<Unit>
+
+    @GET("v3/threads/{thread_id}/liked_users/")
+    fun getThreadLikedUser(@Header("Authorization") token: String, @Path("thread_id") threadId: Int) : Call<List<ThreadUserLikedResponse>>
 }

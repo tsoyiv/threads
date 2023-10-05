@@ -9,6 +9,7 @@ import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.data.models.ThreadUserLikedResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.ThreadRepository
@@ -57,8 +58,27 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _likeCommentResponse = MutableLiveData<CommentResponse>()
     val likeCommentResponse: LiveData<CommentResponse> = _likeCommentResponse
 
+    private val _likedUsers = MutableLiveData<List<ThreadUserLikedResponse>>()
+    val likedUsers: LiveData<List<ThreadUserLikedResponse>> get() = _likedUsers
+
+
     fun filterThreadsByCommentCount(threads: List<ThreadResponse>): List<ThreadResponse> {
         return threads.filter { it.comments_count.toInt() > 0 }
+    }
+
+    fun getThreadLikedUsers(token: String, threadId: Int) {
+        threadRepository.getThreadLikedUser(token, threadId).enqueue(object : Callback<List<ThreadUserLikedResponse>> {
+            override fun onResponse(call: Call<List<ThreadUserLikedResponse>>, response: Response<List<ThreadUserLikedResponse>>) {
+                if (response.isSuccessful) {
+                    _likedUsers.value = response.body()
+                } else {
+                    _errorMessage.value = "Failed to fetch liked users"
+                }
+            }
+            override fun onFailure(call: Call<List<ThreadUserLikedResponse>>, t: Throwable) {
+                _errorMessage.value = "Network error"
+            }
+        })
     }
 
     fun likeComment(token: String, commentId: Int) {
