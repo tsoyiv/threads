@@ -5,8 +5,6 @@ import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadRequest
 import com.example.threads.data.models.ThreadResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -47,6 +45,12 @@ interface ThreadActionAPI {
         @Path("thread_id") threadId: Int
     ): Call<ThreadResponse>
 
+    @POST("v3/comments/{comment_id}/like/")
+    fun likeComment(
+        @Header("Authorization") token: String,
+        @Path("comment_id") commentId: Int
+    ): Call<CommentResponse>
+
     @POST("v3/threads/{thread_id}/comments/")
     fun writeComment(
         @Header("Authorization") token: String,
@@ -54,8 +58,17 @@ interface ThreadActionAPI {
         @Body request: CommentRequest
     ): Call<CommentResponse>
 
+    @GET("v3/threads/{author_email}/")
+    fun getThreadsWithCommentsActivity(
+        @Header("Authorization") token: String,
+        @Path("author_email") authorEmail: String
+    ): Call<List<CommentResponse>>
+
     @GET("v3/threads_with_comments/{thread_id}/")
-    fun getThreadsWithComments(@Header("Authorization") token: String, @Path("thread_id") threadId: Int): Call<List<ThreadWithCommentsResponse>>
+    fun getThreadsWithComments(
+        @Header("Authorization") token: String,
+        @Path("thread_id") threadId: Int
+    ): Call<List<ThreadWithCommentsResponse>>
 
     @DELETE("v3/threads/{id}/delete/")
     fun removeThreadById(@Header("Authorization") token: String, @Path("id") id: Int): Call<Unit>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,9 @@ import com.example.threads.MainActivity
 import com.example.threads.R
 import com.example.threads.databinding.FragmentFeedMainBinding
 import com.example.threads.utils.FeedAdapter
+import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
+import com.example.threads.utils.adapters.activity.UserThreadAdapter
 import com.example.threads.view_models.ThreadViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
@@ -42,6 +45,17 @@ class FeedMainFragment : Fragment() {
         setupRV()
         isSuccess()
     }
+
+    private fun likeThread(id: Int) {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        threadViewModel.likeThreadResponse.observe(viewLifecycleOwner) { response ->
+            Toast.makeText(requireContext(), "Liked", Toast.LENGTH_SHORT).show()
+            isSuccess()
+        }
+        threadViewModel.likeThread(authHeader, id)
+    }
+
     private fun isSuccess() {
         loadingDialogUtil.showLoadingDialog()
         threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
@@ -54,7 +68,13 @@ class FeedMainFragment : Fragment() {
     private fun setupRV() {
         recyclerView = binding.rcFeedMainPage
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        feedAdapter = FeedAdapter(mutableListOf(), null) // Initialize with an empty list
+        feedAdapter = FeedAdapter(mutableListOf(), listener)
         recyclerView.adapter = feedAdapter
+    }
+
+    private val listener = object : FeedAdapter.OnItemClickListener {
+        override fun likeThreadClick(threadId: Int) {
+            likeThread(threadId)
+        }
     }
 }

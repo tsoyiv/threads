@@ -71,6 +71,7 @@
             android:layout_marginStart="60dp"
             android:padding="14dp"
             android:button="@drawable/selector_likes"
+            app:useMaterialThemeColors="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_image12" />
 

@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.threads.R
 import com.example.threads.data.models.ThreadResponse
+import com.example.threads.utils.adapters.activity.UserThreadAdapter
 import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
+import kotlinx.android.synthetic.main.custom_item_view.view.checkBox
 
 class FeedAdapter(
     private val threadList: MutableList<ThreadResponse>,
@@ -18,7 +20,7 @@ class FeedAdapter(
 ) : RecyclerView.Adapter<FeedAdapter.ThreadViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(thread: ThreadResponse)
+       fun likeThreadClick(threadId: Int)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThreadViewHolder {
         val view =
@@ -26,9 +28,9 @@ class FeedAdapter(
         return ThreadViewHolder(view)
     }
 
-    private var clickListener: ((ThreadResponse) -> Unit)? = null
+    private var clickListener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: (ThreadResponse) -> Unit) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         clickListener = listener
     }
 
@@ -65,6 +67,9 @@ class FeedAdapter(
                 TabMainFeedFragmentDirections.actionTabMainFeedFragmentToThreadDescFragment(thread)
             action.thread = thread
             holder.itemView.findNavController().navigate(action)
+        }
+        holder.itemView.checkBox.setOnClickListener {
+            onItemClickListener?.likeThreadClick(thread.id)
         }
     }
 

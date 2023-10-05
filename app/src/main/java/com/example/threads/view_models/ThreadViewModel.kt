@@ -29,6 +29,9 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threads = MutableLiveData<List<ThreadResponse>>()
     val threads: LiveData<List<ThreadResponse>> get() = _threads
 
+    private val _threads1 = MutableLiveData<List<CommentResponse>>()
+    val threads1: MutableLiveData<List<CommentResponse>> get() = _threads1
+
     private val _threadDetails: MutableLiveData<ThreadResponse> = MutableLiveData()
     val threadDetails: LiveData<ThreadResponse> = _threadDetails
 
@@ -48,8 +51,43 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     val removeThreadResult: LiveData<Boolean>
         get() = _removeThreadResult
 
+    private val _likeThreadResponse = MutableLiveData<ThreadResponse>()
+    val likeThreadResponse: LiveData<ThreadResponse> = _likeThreadResponse
+
     fun filterThreadsByCommentCount(threads: List<ThreadResponse>): List<ThreadResponse> {
         return threads.filter { it.comments_count.toInt() > 0 }
+    }
+
+    fun likeThread(token: String, threadId: Int) {
+        threadRepository.likeThread(token, threadId).enqueue(object : Callback<ThreadResponse> {
+            override fun onResponse(call: Call<ThreadResponse>, response: Response<ThreadResponse>) {
+                if (response.isSuccessful) {
+                    _likeThreadResponse.value = response.body()
+                } else {
+                    _errorMessage.value = "Empty response"
+                }
+            }
+            override fun onFailure(call: Call<ThreadResponse>, t: Throwable) {
+                _errorMessage.value = "Empty response"
+            }
+        })
+    }
+
+    fun getUserThread1(token: String, authorEmail: String) {
+        threadRepository.getThreadsWithCommentsActivity(token, authorEmail).enqueue(object : Callback<List<CommentResponse>> {
+            override fun onResponse(
+                call: Call<List<CommentResponse>>,
+                response: Response<List<CommentResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val threadList = response.body() ?: emptyList()
+                    _threads1.postValue(threadList)
+                } else {
+                }
+            }
+            override fun onFailure(call: Call<List<CommentResponse>>, t: Throwable) {
+            }
+        })
     }
     fun getUserThread(token: String, authorEmail: String) {
         threadRepository.getThreadUserThread(token, authorEmail).enqueue(object : Callback<List<ThreadResponse>> {

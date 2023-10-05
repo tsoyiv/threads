@@ -31,6 +31,13 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
         return threadActionAPI.writeComment(token, threadId, commentRequest)
     }
 
+    fun getThreadsWithCommentsActivity(
+        token: String,
+        authorEmail: String
+    ): Call<List<CommentResponse>> {
+        return threadActionAPI.getThreadsWithCommentsActivity(token, authorEmail)
+    }
+
     fun getThreadsWithComments(
         token: String,
         threadId: Int
@@ -40,5 +47,13 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
 
     fun removeThreadById(token: String, id: Int): Call<Unit> {
         return threadActionAPI.removeThreadById(token, id)
+    }
+
+    fun likeThread(token: String, threadId: Int): Call<ThreadResponse> {
+        return threadActionAPI.likeThread(token, threadId)
+    }
+
+    fun likeComment(token: String, commentId: Int) : Call<CommentResponse> {
+        return threadActionAPI.likeComment(token, commentId)
     }
 }
