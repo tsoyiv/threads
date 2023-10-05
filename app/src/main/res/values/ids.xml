@@ -9,4 +9,5 @@
     <item name="et_left_comment" type="id" />
     <item name="txt_username" type="id" />
     <item name="btn_send_comment" type="id" />
+    <item name="checkBoxComment" type="id" />
 </resources>

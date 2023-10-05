@@ -16,6 +16,7 @@ import com.example.threads.data.models.CommentResponse
 import com.example.threads.data.models.ThreadResponse
 import com.example.threads.data.models.ThreadWithCommentsResponse
 import com.example.threads.databinding.FragmentThreadDescBinding
+import com.example.threads.utils.FeedAdapter
 import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.utils.adapters.activity.ThreadCommentAdapter
@@ -69,6 +70,17 @@ class ThreadDescFragment : Fragment() {
         }
     }
 
+    private fun likeCommentFun(id: Int) {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+        threadViewModel.likeCommentResponse.observe(viewLifecycleOwner) { response ->
+            Toast.makeText(requireContext(), "Liked", Toast.LENGTH_SHORT).show()
+            updateComments(id)
+        }
+        threadViewModel.likeComment(authHeader, id)
+    }
+
+
 //    private fun updateComments() {
 //        val token = Holder.token
 //        val authHeader = "Bearer $token"
@@ -82,10 +94,16 @@ class ThreadDescFragment : Fragment() {
 //    }
 
     private fun RVsetup() {
-        commentAdapter = ThreadCommentAdapter()
+        commentAdapter = ThreadCommentAdapter(listener)
         val recyclerView = binding.rcComments
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = commentAdapter
+    }
+
+    private val listener = object : ThreadCommentAdapter.OnItemClickListener {
+        override fun likeComment(commentId: Int) {
+            likeCommentFun(commentId)
+        }
     }
 
     private fun writeComment() {
@@ -122,6 +140,15 @@ class ThreadDescFragment : Fragment() {
 
     private fun loadDetailPage() {
         thread = args.thread
+
+        val likes = args.thread.likes.toInt()
+        val likesText = if (likes == 1) {
+            "$likes like"
+        } else {
+            "$likes likes"
+        }
+        binding.itemViewAnotherUserNumbLikes.text = likesText
+
         val token = Holder.token
         val authHolder = "Bearer $token"
         descriptionUi(thread)

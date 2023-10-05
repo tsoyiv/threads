@@ -13,16 +13,16 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/itemView_user_image"
+            style="@style/roundedImageViewRounded"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:strokeWidth="1dp"
-            style="@style/roundedImageViewRounded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeWidth="1dp" />
 
         <TextView
             android:id="@+id/commentThreadUsername"
@@ -64,23 +64,24 @@
             app:layout_constraintStart_toEndOf="@+id/itemView_user_image"
             app:layout_constraintTop_toBottomOf="@+id/commentThreadUsername" />
 
+
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:padding="14dp"
             android:button="@drawable/selector_likes"
+            android:padding="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_image12" />
-
+            app:layout_constraintTop_toBottomOf="@+id/item_image12"
+            app:useMaterialThemeColors="false" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="14dp"
-            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxComment"
             app:layout_constraintTop_toBottomOf="@+id/item_image12"
             app:srcCompat="@drawable/img_comment" />
 
@@ -131,9 +132,9 @@
             android:id="@+id/item_image12"
             android:layout_width="309dp"
             android:layout_height="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
-            android:layout_marginTop="5dp"
             android:maxWidth="309dp"
             android:maxHeight="361dp"
             android:rotation="360"
@@ -155,14 +156,29 @@
             app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
             app:srcCompat="@drawable/img_subscribe_user_photo" />
 
+        <TextView
+            android:id="@+id/commentsCounterLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sf_reg"
+            android:text="87 likes"
+            android:textColor="#999999"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
             android:background="#3C3C4399"
-            android:layout_marginTop="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            app:layout_constraintTop_toBottomOf="@+id/commentsCounterLikes"
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

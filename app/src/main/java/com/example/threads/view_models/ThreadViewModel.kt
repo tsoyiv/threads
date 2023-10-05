@@ -54,8 +54,26 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _likeThreadResponse = MutableLiveData<ThreadResponse>()
     val likeThreadResponse: LiveData<ThreadResponse> = _likeThreadResponse
 
+    private val _likeCommentResponse = MutableLiveData<CommentResponse>()
+    val likeCommentResponse: LiveData<CommentResponse> = _likeCommentResponse
+
     fun filterThreadsByCommentCount(threads: List<ThreadResponse>): List<ThreadResponse> {
         return threads.filter { it.comments_count.toInt() > 0 }
+    }
+
+    fun likeComment(token: String, commentId: Int) {
+        threadRepository.likeComment(token, commentId).enqueue(object : Callback<CommentResponse> {
+            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
+                if (response.isSuccessful) {
+                    _likeCommentResponse.value = response.body()
+                } else {
+                    _errorMessage.value = "Empty response"
+                }
+            }
+            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+                _errorMessage.value = "Empty response"
+            }
+        })
     }
 
     fun likeThread(token: String, threadId: Int) {
