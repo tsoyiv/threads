@@ -1,5 +1,6 @@
 package com.example.threads.data.api
 
+import com.example.threads.data.models.FollowersResponse
 import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
@@ -46,4 +47,10 @@ interface UserDataAPI {
 
     @GET("v1/followers/{username}/")
     fun getSubscribersOfUser(@Header("Authorization") token: String, @Path("username") username: String): Call<List<UserRepresentation>>
+
+//    @GET("v1/followers/{username}/")
+//    fun getFollowers(
+//        @Header("Authorization") token: String,
+//        @Path("username") username: String
+//    ): Call<List<FollowersResponse>>
 }

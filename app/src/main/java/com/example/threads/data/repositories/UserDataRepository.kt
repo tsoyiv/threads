@@ -1,6 +1,7 @@
 package com.example.threads.data.repositories
 
 import com.example.threads.data.api.UserDataAPI
+import com.example.threads.data.models.FollowersResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.models.SearchUserInfo
@@ -20,6 +21,7 @@ class UserDataRepository(private val userDataAPI: UserDataAPI) {
     fun getUserFollowers(token: String, username: String): Call<List<UserRepresentation>> {
         return userDataAPI.getSubscribersOfUser(token, username)
     }
+
     fun updateProfile(token: String, request: ProfileUpdateRequest): Call<Unit> {
         return userDataAPI.updateProfile(token, request)
     }

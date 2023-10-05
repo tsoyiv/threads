@@ -17,6 +17,7 @@ import com.example.threads.models.UserRepresentation
 import com.example.threads.utils.Holder
 import com.example.threads.utils.ImageConverter
 import com.example.threads.utils.RetrofitInstance
+import com.example.threads.utils.RetrofitInstance.Companion.userDataApi
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -38,7 +39,7 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
     val imageAddedSuccess: LiveData<Boolean> = _imageAddedSuccess
 
     private val _searchResults = MutableLiveData<List<SearchUserInfo>>()
-    val searchResults: LiveData<List<SearchUserInfo>>  = _searchResults
+    val searchResults: LiveData<List<SearchUserInfo>> = _searchResults
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -46,39 +47,77 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
     private val _userFollowers = MutableLiveData<List<UserRepresentation>>()
     val userFollowers: LiveData<List<UserRepresentation>> get() = _userFollowers
 
-    fun fetchUserFollowers(token: String, username: String) {
-        userDataRepository.getUserFollowers(token, username).enqueue(object : Callback<List<UserRepresentation>> {
-            override fun onResponse(call: Call<List<UserRepresentation>>, response: Response<List<UserRepresentation>>) {
+    private val _uploadResult = MutableLiveData<String?>()
+    val uploadResult: LiveData<String?> = _uploadResult
+
+    fun uploadProfilePicture(imageUri: Uri) {
+        val file = File(imageUri.path)
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("profile_picture", file.name, requestFile)
+
+        userDataApi.uploadProfilePicture(body).enqueue(object : Callback<ProfileAvatarResponse> {
+            override fun onResponse(call: Call<ProfileAvatarResponse>, response: Response<ProfileAvatarResponse>) {
                 if (response.isSuccessful) {
-                    _userFollowers.value = response.body()
+                    // Image upload successful, get the URL
+                    val profilePictureUrl = response.body()?.profile_picture
+                    _uploadResult.postValue(profilePictureUrl)
                 } else {
+                    // Image upload failed
+                    _uploadResult.postValue(null)
                 }
             }
-            override fun onFailure(call: Call<List<UserRepresentation>>, t: Throwable) {
+
+            override fun onFailure(call: Call<ProfileAvatarResponse>, t: Throwable) {
+                // Image upload failed
+                _uploadResult.postValue(null)
             }
         })
     }
 
-    fun searchUsers(token: String, query: String) {
-        userDataRepository.searchUsers(token, query).enqueue(object : Callback<List<SearchUserInfo>> {
-            override fun onResponse(
-                call: Call<List<SearchUserInfo>>,
-                response: Response<List<SearchUserInfo>>
-            ) {
-                if (response.isSuccessful) {
-                    val results = response.body() ?: emptyList()
-                    _searchResults.postValue(results)
-                } else {
-                    val errorMessage = "API Error: ${response.code()}"
+    fun fetchUserFollowers(token: String, username: String) {
+        userDataRepository.getUserFollowers(token, username)
+            .enqueue(object : Callback<List<UserRepresentation>> {
+                override fun onResponse(
+                    call: Call<List<UserRepresentation>>,
+                    response: Response<List<UserRepresentation>>
+                ) {
+                    if (response.isSuccessful) {
+                        val results = response.body() ?: emptyList()
+                        _userFollowers.postValue(results)
+                    } else {
+                        val errorMessage = "API Error: ${response.code()}"
+                        _error.postValue(errorMessage)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<UserRepresentation>>, t: Throwable) {
+                    val errorMessage = "Network Error: ${t.message}"
                     _error.postValue(errorMessage)
                 }
-            }
+            })
+    }
 
-            override fun onFailure(call: Call<List<SearchUserInfo>>, t: Throwable) {
-                val errorMessage = "Network Error: ${t.message}"
-                _error.postValue(errorMessage)
-            }
-        })
+    fun searchUsers(token: String, query: String) {
+        userDataRepository.searchUsers(token, query)
+            .enqueue(object : Callback<List<SearchUserInfo>> {
+                override fun onResponse(
+                    call: Call<List<SearchUserInfo>>,
+                    response: Response<List<SearchUserInfo>>
+                ) {
+                    if (response.isSuccessful) {
+                        val results = response.body() ?: emptyList()
+                        _searchResults.postValue(results)
+                    } else {
+                        val errorMessage = "API Error: ${response.code()}"
+                        _error.postValue(errorMessage)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<SearchUserInfo>>, t: Throwable) {
+                    val errorMessage = "Network Error: ${t.message}"
+                    _error.postValue(errorMessage)
+                }
+            })
     }
 
 
