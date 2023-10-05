@@ -46,7 +46,6 @@ class ThreadLikedUserFragment : Fragment() {
         val id = args.userRep.id
         threadViewModel.likedUsers.observe(viewLifecycleOwner) { response ->
             feedAdapter.updateList(response)
-            Toast.makeText(requireContext(), "Liked", Toast.LENGTH_SHORT).show()
         }
         threadViewModel.getThreadLikedUsers(authHeader,id)
     }

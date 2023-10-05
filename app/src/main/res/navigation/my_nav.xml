@@ -106,6 +106,12 @@
         <action
             android:id="@+id/action_userMainFragment_to_threadDescFragment"
             app:destination="@id/threadDescFragment" />
+        <action
+            android:id="@+id/action_userMainFragment_to_threadLikedUserFragment"
+            app:destination="@id/threadLikedUserFragment" />
+        <action
+            android:id="@+id/action_userMainFragment_to_threadLikedUserFragment2"
+            app:destination="@id/threadLikedUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

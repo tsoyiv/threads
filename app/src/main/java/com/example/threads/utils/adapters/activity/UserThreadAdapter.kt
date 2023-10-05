@@ -13,6 +13,7 @@ import com.example.threads.data.models.ThreadResponse
 import com.example.threads.utils.Holder
 import com.example.threads.view.user_fragments.UserMainFragmentDirections
 import kotlinx.android.synthetic.main.custom_item_view_owner.view.btn_remove_own_thread
+import kotlinx.android.synthetic.main.custom_item_view_owner.view.item_view_ownUser_numbLikes
 
 class UserThreadAdapter(
     private val threadList: MutableList<ThreadResponse>,
@@ -80,6 +81,13 @@ class UserThreadAdapter(
             val action =
                 UserMainFragmentDirections.actionUserMainFragmentToThreadDescFragment(thread)
             action.thread = thread
+            holder.itemView.findNavController().navigate(action)
+        }
+
+        holder.itemView.item_view_ownUser_numbLikes.setOnClickListener {
+            val action =
+                UserMainFragmentDirections.actionUserMainFragmentToThreadLikedUserFragment2(thread)
+            action.userRep = thread
             holder.itemView.findNavController().navigate(action)
         }
 
