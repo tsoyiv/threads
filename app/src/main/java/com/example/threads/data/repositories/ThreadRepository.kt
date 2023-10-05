@@ -39,7 +39,7 @@ class ThreadRepository(private val threadActionAPI: ThreadActionAPI) {
     fun getThreadsWithCommentsActivity(
         token: String,
         authorEmail: String
-    ): Call<List<CommentResponse>> {
+    ): Call<List<ThreadWithCommentsResponse>> {
         return threadActionAPI.getThreadsWithCommentsActivity(token, authorEmail)
     }
 

@@ -30,9 +30,6 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _threads = MutableLiveData<List<ThreadResponse>>()
     val threads: LiveData<List<ThreadResponse>> get() = _threads
 
-    private val _threads1 = MutableLiveData<List<CommentResponse>>()
-    val threads1: MutableLiveData<List<CommentResponse>> get() = _threads1
-
     private val _threadDetails: MutableLiveData<ThreadResponse> = MutableLiveData()
     val threadDetails: LiveData<ThreadResponse> = _threadDetails
 
@@ -61,35 +58,68 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _likedUsers = MutableLiveData<List<ThreadUserLikedResponse>>()
     val likedUsers: LiveData<List<ThreadUserLikedResponse>> get() = _likedUsers
 
+    private val _threadsLiveData : MutableLiveData<List<ThreadWithCommentsResponse>> = MutableLiveData()
+    val threadsLiveData: LiveData<List<ThreadWithCommentsResponse>> = _threadsLiveData
+
 
     fun filterThreadsByCommentCount(threads: List<ThreadResponse>): List<ThreadResponse> {
         return threads.filter { it.comments_count.toInt() > 0 }
     }
 
-    fun getThreadLikedUsers(token: String, threadId: Int) {
-        threadRepository.getThreadLikedUser(token, threadId).enqueue(object : Callback<List<ThreadUserLikedResponse>> {
-            override fun onResponse(call: Call<List<ThreadUserLikedResponse>>, response: Response<List<ThreadUserLikedResponse>>) {
-                if (response.isSuccessful) {
-                    _likedUsers.value = response.body()
-                } else {
-                    _errorMessage.value = "Failed to fetch liked users"
+    fun getThreadsWithCommentsActivity(token: String, authorEmail: String) {
+        threadRepository.getThreadsWithCommentsActivity(token, authorEmail)
+            .enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
+                override fun onResponse(
+                    call: Call<List<ThreadWithCommentsResponse>>,
+                    response: Response<List<ThreadWithCommentsResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        val threads = response.body()
+                        _threadsLiveData.postValue(threads)
+                    } else {
+                        _errorMessage.postValue("Error: ${response.code()}")
+                    }
                 }
-            }
-            override fun onFailure(call: Call<List<ThreadUserLikedResponse>>, t: Throwable) {
-                _errorMessage.value = "Network error"
-            }
-        })
+
+                override fun onFailure(call: Call<List<ThreadWithCommentsResponse>>, t: Throwable) {
+                    _errorMessage.postValue("Network Error: ${t.message}")
+                }
+            })
+    }
+
+    fun getThreadLikedUsers(token: String, threadId: Int) {
+        threadRepository.getThreadLikedUser(token, threadId)
+            .enqueue(object : Callback<List<ThreadUserLikedResponse>> {
+                override fun onResponse(
+                    call: Call<List<ThreadUserLikedResponse>>,
+                    response: Response<List<ThreadUserLikedResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        _likedUsers.value = response.body()
+                    } else {
+                        _errorMessage.value = "Failed to fetch liked users"
+                    }
+                }
+
+                override fun onFailure(call: Call<List<ThreadUserLikedResponse>>, t: Throwable) {
+                    _errorMessage.value = "Network error"
+                }
+            })
     }
 
     fun likeComment(token: String, commentId: Int) {
         threadRepository.likeComment(token, commentId).enqueue(object : Callback<CommentResponse> {
-            override fun onResponse(call: Call<CommentResponse>, response: Response<CommentResponse>) {
+            override fun onResponse(
+                call: Call<CommentResponse>,
+                response: Response<CommentResponse>
+            ) {
                 if (response.isSuccessful) {
                     _likeCommentResponse.value = response.body()
                 } else {
                     _errorMessage.value = "Empty response"
                 }
             }
+
             override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
                 _errorMessage.value = "Empty response"
             }
@@ -98,50 +128,40 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
 
     fun likeThread(token: String, threadId: Int) {
         threadRepository.likeThread(token, threadId).enqueue(object : Callback<ThreadResponse> {
-            override fun onResponse(call: Call<ThreadResponse>, response: Response<ThreadResponse>) {
+            override fun onResponse(
+                call: Call<ThreadResponse>,
+                response: Response<ThreadResponse>
+            ) {
                 if (response.isSuccessful) {
                     _likeThreadResponse.value = response.body()
                 } else {
                     _errorMessage.value = "Empty response"
                 }
             }
+
             override fun onFailure(call: Call<ThreadResponse>, t: Throwable) {
                 _errorMessage.value = "Empty response"
             }
         })
     }
 
-    fun getUserThread1(token: String, authorEmail: String) {
-        threadRepository.getThreadsWithCommentsActivity(token, authorEmail).enqueue(object : Callback<List<CommentResponse>> {
-            override fun onResponse(
-                call: Call<List<CommentResponse>>,
-                response: Response<List<CommentResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    val threadList = response.body() ?: emptyList()
-                    _threads1.postValue(threadList)
-                } else {
-                }
-            }
-            override fun onFailure(call: Call<List<CommentResponse>>, t: Throwable) {
-            }
-        })
-    }
     fun getUserThread(token: String, authorEmail: String) {
-        threadRepository.getThreadUserThread(token, authorEmail).enqueue(object : Callback<List<ThreadResponse>> {
-            override fun onResponse(
-                call: Call<List<ThreadResponse>>,
-                response: Response<List<ThreadResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    val threadList = response.body() ?: emptyList()
-                    _threads.postValue(threadList)
-                } else {
+        threadRepository.getThreadUserThread(token, authorEmail)
+            .enqueue(object : Callback<List<ThreadResponse>> {
+                override fun onResponse(
+                    call: Call<List<ThreadResponse>>,
+                    response: Response<List<ThreadResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        val threadList = response.body() ?: emptyList()
+                        _threads.postValue(threadList)
+                    } else {
+                    }
                 }
-            }
-            override fun onFailure(call: Call<List<ThreadResponse>>, t: Throwable) {
-            }
-        })
+
+                override fun onFailure(call: Call<List<ThreadResponse>>, t: Throwable) {
+                }
+            })
     }
 
 //    fun getThreadUserThread(token: String, authorEmail: String) {
@@ -164,11 +184,11 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     fun removeThread(token: String, id: Int) {
         threadRepository.removeThreadById(token, id).enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-               if (response.isSuccessful) {
-                   _removeThreadResult.value = true
-               } else {
-                   _removeThreadResult.value = false
-               }
+                if (response.isSuccessful) {
+                    _removeThreadResult.value = true
+                } else {
+                    _removeThreadResult.value = false
+                }
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -179,49 +199,54 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     }
 
     fun fetchThreadsWithComments(token: String, threadId: Int) {
-        threadRepository.getThreadsWithComments(token, threadId).enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
-            override fun onResponse(
-                call: Call<List<ThreadWithCommentsResponse>>,
-                response: Response<List<ThreadWithCommentsResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    _threadsWithComments.value = response.body()
-                } else {
-                    _errorMessage.value = "Empty response"
+        threadRepository.getThreadsWithComments(token, threadId)
+            .enqueue(object : Callback<List<ThreadWithCommentsResponse>> {
+                override fun onResponse(
+                    call: Call<List<ThreadWithCommentsResponse>>,
+                    response: Response<List<ThreadWithCommentsResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        _threadsWithComments.value = response.body()
+                    } else {
+                        _errorMessage.value = "Empty response"
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<List<ThreadWithCommentsResponse>>, t: Throwable) {
-                _errorMessage.value = "Network error: ${t.message}"
-            }
-        })
+                override fun onFailure(call: Call<List<ThreadWithCommentsResponse>>, t: Throwable) {
+                    _errorMessage.value = "Network error: ${t.message}"
+                }
+            })
     }
 
     fun writeComment(token: String, threadId: Int, content: String) {
-        threadRepository.writeComment(token, threadId, content).enqueue(object : Callback<CommentResponse> {
-            override fun onResponse(
-                call: Call<CommentResponse>,
-                response: Response<CommentResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val comment = response.body()
-                    _commentResult.postValue(true)
-                } else {
-                    _commentResult.postValue(false)
+        threadRepository.writeComment(token, threadId, content)
+            .enqueue(object : Callback<CommentResponse> {
+                override fun onResponse(
+                    call: Call<CommentResponse>,
+                    response: Response<CommentResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val comment = response.body()
+                        _commentResult.postValue(true)
+                    } else {
+                        _commentResult.postValue(false)
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
-                _errorMessage.value = "Network error: ${t.message}"
-            }
-        })
+                override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+                    _errorMessage.value = "Network error: ${t.message}"
+                }
+            })
     }
 
     fun getThreadDetails(token: String, threadId: Int) {
         _isLoading.value = true
         val call = threadRepository.getThreadDetails(token, threadId)
         call.enqueue(object : Callback<ThreadResponse> {
-            override fun onResponse(call: Call<ThreadResponse>, response: Response<ThreadResponse>) {
+            override fun onResponse(
+                call: Call<ThreadResponse>,
+                response: Response<ThreadResponse>
+            ) {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
@@ -245,11 +270,15 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
 
     fun createThread(token: String, content: ThreadRequest) {
         threadRepository.createThread(token, content).enqueue(object : Callback<ThreadResponse> {
-            override fun onResponse(call: Call<ThreadResponse>, response: Response<ThreadResponse>) {
+            override fun onResponse(
+                call: Call<ThreadResponse>,
+                response: Response<ThreadResponse>
+            ) {
                 if (response.isSuccessful) {
                     _threadActionStatus.postValue(response.isSuccessful)
                 }
             }
+
             override fun onFailure(call: Call<ThreadResponse>, t: Throwable) {
                 _threadActionStatus.postValue(false)
             }

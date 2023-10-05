@@ -50,12 +50,12 @@ class CommentsFragment : Fragment() {
         val email = Holder.email
 
         loadingDialogUtil.showLoadingDialog()
-        threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
-            val filteredThreads = threadViewModel.filterThreadsByCommentCount(threads)
-            commentsAdapter.updateList(filteredThreads)
+        threadViewModel.threadsLiveData.observe(viewLifecycleOwner) { threads ->
+//            val filteredThreads = threadViewModel.filterThreadsByCommentCount(threads)
+            commentsAdapter.updateList(threads)
             loadingDialogUtil.dismissLoadingDialog()
         }
-        threadViewModel.getUserThread(authHeader, email)
+        threadViewModel.getThreadsWithCommentsActivity(authHeader, email)
         loadingDialogUtil.dismissLoadingDialog()
     }
 

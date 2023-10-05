@@ -63,7 +63,7 @@ interface ThreadActionAPI {
     fun getThreadsWithCommentsActivity(
         @Header("Authorization") token: String,
         @Path("author_email") authorEmail: String
-    ): Call<List<CommentResponse>>
+    ): Call<List<ThreadWithCommentsResponse>>
 
     @GET("v3/threads_with_comments/{thread_id}/")
     fun getThreadsWithComments(

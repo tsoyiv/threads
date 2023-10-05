@@ -7,7 +7,8 @@ data class CommentResponse(
     val created: String,
     val likes: Int,
     val parent: Int?,
-    val replies: List<CommentResponse>
+    val replies: List<CommentResponse>,
+//    val thread: List<ThreadWithCommentsResponse>
 )
 
 data class ThreadWithCommentsResponse(
