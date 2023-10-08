@@ -34,18 +34,40 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.98" />
 
+    <ImageView
+        android:id="@+id/btnBackFromLiked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_arrow"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+
+    <TextView
+        android:id="@+id/textView7"
+        style="@style/SecondaryHeaderTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Likes"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/btnBackFromLiked"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top">
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcThreadLikedUser"
                 android:layout_width="match_parent"

@@ -233,9 +233,8 @@
         android:name="com.example.threads.view.likes_fragments.CommentsFragment"
         android:label="fragment_comments"
         tools:layout="@layout/fragment_comments" >
-
         <action
-            android:id="@+id/action_commentsFragment_to_threadDescFragment2"
+            android:id="@+id/action_commentsFragment_to_threadDescFragment"
             app:destination="@id/threadDescFragment" />
     </fragment>
     <fragment

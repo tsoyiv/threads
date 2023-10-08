@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.threads.R
 import com.example.threads.databinding.FragmentThreadLikedUserBinding
 import com.example.threads.utils.FeedAdapter
 import com.example.threads.utils.Holder
@@ -38,6 +40,13 @@ class ThreadLikedUserFragment : Fragment() {
 
         setupRv()
         fetchLiked()
+        navigation()
+    }
+
+    private fun navigation() {
+        binding.btnBackFromLiked.setOnClickListener {
+            findNavController().navigate(R.id.action_threadLikedUserFragment_to_tabMainFeedFragment)
+        }
     }
 
     private fun fetchLiked() {
