@@ -15,6 +15,7 @@ import com.example.threads.utils.Holder
 import com.example.threads.utils.LoadingDialogUtil
 import com.example.threads.utils.adapters.activity.CommentsAdapter
 import com.example.threads.utils.adapters.activity.RequestAdapter
+import com.example.threads.utils.adapters.activity.ThreadCommentAdapter
 import com.example.threads.view_models.ThreadViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,7 +26,6 @@ class CommentsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var loadingDialogUtil: LoadingDialogUtil
     private val threadViewModel by viewModel<ThreadViewModel>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,27 +41,28 @@ class CommentsFragment : Fragment() {
         loadingDialogUtil = LoadingDialogUtil(requireContext())
 
         setupRV()
-        getUserThread()
+        updateComments()
     }
 
-    private fun getUserThread() {
+    private fun updateComments() {
         val token = Holder.token
         val authHeader = "Bearer $token"
         val email = Holder.email
 
+        threadViewModel.getThreadsWithCommentsActivity(authHeader, email)
         loadingDialogUtil.showLoadingDialog()
-        threadViewModel.threadsLiveData.observe(viewLifecycleOwner) { threads ->
-//            val filteredThreads = threadViewModel.filterThreadsByCommentCount(threads)
-            commentsAdapter.updateList(threads)
+
+        threadViewModel.threadsLiveData.observe(viewLifecycleOwner) { threadsWithComments ->
+            val commentsForSelectedThread = threadsWithComments
+                .flatMap { it.comments }
+            commentsAdapter.updateComments(commentsForSelectedThread)
             loadingDialogUtil.dismissLoadingDialog()
         }
-        threadViewModel.getThreadsWithCommentsActivity(authHeader, email)
-        loadingDialogUtil.dismissLoadingDialog()
     }
 
     private fun setupRV() {
         recyclerView = binding.rcActivityComments
-        commentsAdapter = CommentsAdapter(mutableListOf())
+        commentsAdapter = CommentsAdapter(null)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = commentsAdapter
 
