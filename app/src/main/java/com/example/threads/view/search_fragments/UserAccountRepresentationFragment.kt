@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.threads.MainActivity
 import com.example.threads.R
+import com.example.threads.data.models.SubscribeRequest
 import com.example.threads.databinding.FragmentUserAccountRepresentationBinding
 import com.example.threads.models.FeedItem
 import com.example.threads.models.SearchUserInfo
@@ -36,6 +38,7 @@ class UserAccountRepresentationFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val threadViewModel by viewModel<ThreadViewModel>()
     private lateinit var loadingDialogUtil: LoadingDialogUtil
+    private var isFollowing = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +58,81 @@ class UserAccountRepresentationFragment : Fragment() {
         performUserSearch()
         setupRV()
         getUserThread()
+//        followUser()
+        // Setup the followResult observer here (outside the click listener)
+        userDataViewModel.followResult.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                updateButtonState()
+                Toast.makeText(requireContext(), "Followed", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        updateButtonState()
+        binding.btnSubscribe.setOnClickListener {
+            isFollowing = !isFollowing
+
+            val token = Holder.token
+            val authHeader = "Bearer $token"
+            val id = args.user.id
+
+            val requestType = if (isFollowing) "follow" else "unfollow"
+            val request = SubscribeRequest(id.toString(), requestType)
+            userDataViewModel.followUser(authHeader, request)
+        }
+
     }
+    private fun updateButtonState() {
+        if (isFollowing) {
+            binding.btnSubscribe.text = "Followed"
+            binding.btnSubscribe.setBackgroundResource(R.drawable.btn_google)
+            binding.btnSubscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        } else {
+            binding.btnSubscribe.text = "Follow"
+            binding.btnSubscribe.setBackgroundResource(R.drawable.custom_btn_follow)
+            binding.btnSubscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        }
+    }
+//    private var isFollowing = false
+//    private fun followUser() {
+//        val token = Holder.token
+//        val authHeader = "Bearer $token"
+//        val id = args.user.id
+//
+//        binding.btnSubscribe.setOnClickListener {
+//            if (isFollowing) {
+//                val unfollowInstance = SubscribeRequest(id.toString(), "unfollow")
+//                userDataViewModel.followUser(authHeader, unfollowInstance)
+//            } else {
+//                val followInstance = SubscribeRequest(id.toString(), "follow")
+//                userDataViewModel.followUser(authHeader, followInstance)
+//            }
+//
+//            userDataViewModel.followResult.observe(viewLifecycleOwner) { response ->
+//                if (response != null) {
+//                    isFollowing = !isFollowing
+//                    if (isFollowing) {
+//                        binding.btnSubscribe.text = "followed"
+//                        binding.btnSubscribe.setBackgroundResource(R.drawable.btn_google)
+//                        binding.btnSubscribe.setTextColor(
+//                            ContextCompat.getColor(
+//                                requireContext(),
+//                                R.color.black
+//                            )
+//                        )
+//                    }else {
+//                        binding.btnSubscribe.text = "Follow"
+//                        binding.btnSubscribe.setBackgroundResource(R.drawable.custom_btn_follow)
+//                        binding.btnSubscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+//                    }
+//                    Toast.makeText(requireContext(), "Followed", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//    }
+
 
     private fun getUserThread() {
         val token = Holder.token
@@ -92,6 +169,13 @@ class UserAccountRepresentationFragment : Fragment() {
         binding.txtUserBio.text = args.user.bio
         binding.txtLink.text = args.user.link
         Holder.currentUsername = args.user.username
+        val isPrivateAccount = args.user.is_private
+
+        if (!isPrivateAccount) {
+            binding.privateLayout.visibility = View.GONE
+        } else {
+            binding.txtUserNumbFollowers.isEnabled = false
+        }
 
         val profilePictureUrl: String? = args.user.profile_picture
         val imgUser = binding.imgUser
