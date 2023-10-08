@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.example.threads.models.SearchUserInfo
 import com.example.threads.view.main_feed_fragments.TabMainFeedFragmentDirections
 import com.example.threads.view.search_fragments.SearchFragmentDirections
 import com.google.android.material.imageview.ShapeableImageView
+import kotlinx.android.synthetic.main.fragment_search.view.searchUsers
 
 class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewHolder>() {
 
@@ -52,6 +54,13 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
             val bioTextView = itemView.findViewById<TextView>(R.id.item_userSearchBio)
             val followersTextView = itemView.findViewById<TextView>(R.id.txt_numbOfFollowers)
             val profileImageView = itemView.findViewById<ShapeableImageView>(R.id.itemView_user_image)
+            val btnFollow = itemView.findViewById<AppCompatButton>(R.id.centerButton)
+            val isFollow = searchUser.is_following
+            if (isFollow) {
+                btnFollow.text = "Following"
+            } else {
+                btnFollow.text = "Follow"
+            }
 
             usernameTextView.text = searchUser.username
             bioTextView.text = searchUser.bio
