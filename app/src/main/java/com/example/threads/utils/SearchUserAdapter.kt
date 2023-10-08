@@ -67,9 +67,16 @@ class SearchUserAdapter : RecyclerView.Adapter<SearchUserAdapter.SearchUserViewH
             val formattedCount = formatFollowerCount(searchUser.numbOfFollowers)
             followersTextView.text = formattedCount
 
-            Glide.with(itemView)
-                .load(searchUser.profile_picture)
-                .into(profileImageView)
+            if (!searchUser.profile_picture.isNullOrEmpty()) {
+                Glide.with(itemView)
+                    .load(searchUser.profile_picture)
+                    .into(profileImageView)
+            } else {
+                // Load a default image when profile_picture is empty
+                Glide.with(itemView)
+                    .load(R.drawable.img_userphoto) // Replace with the resource ID of your default image
+                    .into(profileImageView)
+            }
         }
     }
 
