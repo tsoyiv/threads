@@ -157,17 +157,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <ImageView
-            android:id="@+id/btn_subscribe_from_userPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:padding="5dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/item_userThread"
-            app:layout_constraintTop_toTopOf="@+id/itemView_user_image"
-            app:srcCompat="@drawable/img_subscribe_user_photo" />
+<!--        <ImageView-->
+<!--            android:id="@+id/btn_subscribe_from_userPhoto"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/item_userThread"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/itemView_user_image"-->
+<!--            app:srcCompat="@drawable/img_subscribe_user_photo" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

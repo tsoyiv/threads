@@ -5,6 +5,7 @@ import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
 import com.example.threads.data.models.SubscribeRequest
 import com.example.threads.data.models.SubscribeResponse
+import com.example.threads.data.models.UserData
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.models.SearchUserInfo
 import com.example.threads.models.UserFollower
@@ -49,7 +50,10 @@ interface UserDataAPI {
     fun searchUsers(@Header("Authorization") token: String, @Query("search") query: String): Call<List<SearchUserInfo>>
 
     @GET("v1/followers/{username}/")
-    fun getSubscribersOfUser(@Header("Authorization") token: String, @Path("username") username: String): Call<List<UserFollower>>
+    fun getSubscribersOfUser(
+        @Header("Authorization") token: String,
+        @Path("username") username: String
+    ): Call<UserData>
 
 //    @GET("v1/followers/{username}/")
 //    fun getFollowers(

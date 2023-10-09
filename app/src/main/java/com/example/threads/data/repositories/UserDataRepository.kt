@@ -3,8 +3,12 @@ package com.example.threads.data.repositories
 import com.example.threads.data.api.UserDataAPI
 import com.example.threads.data.models.FollowersResponse
 import com.example.threads.data.models.ProfileUpdateRequest
+import com.example.threads.data.models.SubscribeRequest
+import com.example.threads.data.models.SubscribeResponse
+import com.example.threads.data.models.UserData
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.models.UserFollower
 import com.example.threads.models.UserRepresentation
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -18,7 +22,7 @@ import java.io.File
 
 class UserDataRepository(private val userDataAPI: UserDataAPI) {
 
-    fun getUserFollowers(token: String, username: String): Call<List<UserRepresentation>> {
+    fun getUserFollowers(token: String, username: String): Call<UserData> {
         return userDataAPI.getSubscribersOfUser(token, username)
     }
 
@@ -28,6 +32,10 @@ class UserDataRepository(private val userDataAPI: UserDataAPI) {
 
     fun searchUsers(token: String, query: String): Call<List<SearchUserInfo>> {
         return userDataAPI.searchUsers(token, query)
+    }
+
+    fun followUser(token: String, request: SubscribeRequest): Call<SubscribeResponse> {
+        return userDataAPI.followUser(token, request)
     }
 
 //    fun uploadProfilePicture(imageFile: File, callback: Callback<Unit>) {

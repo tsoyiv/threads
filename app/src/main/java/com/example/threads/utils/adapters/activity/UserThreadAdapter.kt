@@ -45,7 +45,7 @@ class UserThreadAdapter(
         private val threadContent: TextView = itemView.findViewById(R.id.item_ownerThread)
         private val likedTextView: TextView =
             itemView.findViewById(R.id.item_view_ownUser_numbLikes)
-        private val imageView: ImageView = itemView.findViewById(R.id.itemView_owner_image)
+        private val userImageThread: ImageView = itemView.findViewById(R.id.itemView_owner_image)
         private val removeImage: ImageView = itemView.findViewById(R.id.btn_remove_own_thread)
         val ownEmail = Holder.email
 
@@ -59,10 +59,10 @@ class UserThreadAdapter(
                 "$numLikes likes"
             }
 
-            Glide.with(imageView)
-                .load(thread.thread_media)
-                .centerCrop()
-                .into(imageView)
+//            Glide.with(userImageThread)
+//                .load(thread.thread_media) // change to user image from API
+//                .centerCrop()
+//                .into(userImageThread)
 
 
             if (userEmail != ownEmail) {

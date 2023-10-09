@@ -1,7 +1,6 @@
 package com.example.threads.view.followers_fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threads.databinding.FragmentFollowersBinding
-import com.example.threads.models.UserRepresentation
 import com.example.threads.utils.Holder
 import com.example.threads.utils.adapters.UserFollowersAdapter
 import com.example.threads.view_models.UserDataViewModel
-import com.google.android.material.transition.Hold
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FollowersFragment : Fragment() {
@@ -37,21 +34,17 @@ class FollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRV()
-        fetchUserFollowers()
+//        fetchUserFollowers()
         checkFetching()
     }
 
     private fun checkFetching() {
-        userDataViewModel.userFollowers.observe(viewLifecycleOwner) { followers ->
-            userFollowersAdapter.updateList(followers)
-            Toast.makeText(requireContext(), "received users", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun fetchUserFollowers() {
         val token = Holder.token
         val authHeader = "Bearer $token"
         val username = Holder.currentUsername
+        userDataViewModel.userFollowers.observe(viewLifecycleOwner) {
+            userFollowersAdapter.updateList(it.followers)
+        }
         userDataViewModel.fetchUserFollowers(authHeader, username)
     }
 

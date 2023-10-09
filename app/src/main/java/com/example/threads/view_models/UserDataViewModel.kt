@@ -2,6 +2,7 @@ package com.example.threads.view_models
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +11,13 @@ import com.airbnb.lottie.utils.Utils
 import com.example.threads.data.models.CustomUser
 import com.example.threads.data.models.ProfileAvatarResponse
 import com.example.threads.data.models.ProfileUpdateRequest
+import com.example.threads.data.models.SubscribeRequest
+import com.example.threads.data.models.SubscribeResponse
+import com.example.threads.data.models.UserData
 import com.example.threads.data.models.UserOwnInfo
 import com.example.threads.data.repositories.UserDataRepository
 import com.example.threads.models.SearchUserInfo
+import com.example.threads.models.UserFollower
 import com.example.threads.models.UserRepresentation
 import com.example.threads.utils.Holder
 import com.example.threads.utils.ImageConverter
@@ -44,11 +49,30 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private val _userFollowers = MutableLiveData<List<UserRepresentation>>()
-    val userFollowers: LiveData<List<UserRepresentation>> get() = _userFollowers
+    private val _userFollowers = MutableLiveData<UserData>()
+    val userFollowers: LiveData<UserData> = _userFollowers
 
     private val _uploadResult = MutableLiveData<String?>()
     val uploadResult: LiveData<String?> = _uploadResult
+
+    private val _followResult = MutableLiveData<SubscribeResponse>()
+    val followResult: LiveData<SubscribeResponse> = _followResult
+
+    fun followUser(token: String, request: SubscribeRequest) {
+        userDataRepository.followUser(token, request).enqueue(object : Callback<SubscribeResponse> {
+            override fun onResponse(call: Call<SubscribeResponse>, response: Response<SubscribeResponse>) {
+                if (response.isSuccessful) {
+                    _followResult.postValue(response.body())
+                } else {
+                }
+            }
+
+            override fun onFailure(call: Call<SubscribeResponse>, t: Throwable) {
+                val errorMessage = "Network Error: ${t.message}"
+                _error.postValue(errorMessage)
+            }
+        })
+    }
 
     fun uploadProfilePicture(imageUri: Uri) {
         val file = File(imageUri.path)
@@ -74,28 +98,47 @@ class UserDataViewModel(private val userDataRepository: UserDataRepository) : Vi
         })
     }
 
-    fun fetchUserFollowers(token: String, username: String) {
-        userDataRepository.getUserFollowers(token, username)
-            .enqueue(object : Callback<List<UserRepresentation>> {
-                override fun onResponse(
-                    call: Call<List<UserRepresentation>>,
-                    response: Response<List<UserRepresentation>>
-                ) {
-                    if (response.isSuccessful) {
-                        val results = response.body() ?: emptyList()
-                        _userFollowers.postValue(results)
-                    } else {
-                        val errorMessage = "API Error: ${response.code()}"
-                        _error.postValue(errorMessage)
-                    }
-                }
 
-                override fun onFailure(call: Call<List<UserRepresentation>>, t: Throwable) {
-                    val errorMessage = "Network Error: ${t.message}"
+    fun fetchUserFollowers(token: String, username: String) {
+        userDataRepository.getUserFollowers(token, username).enqueue(object : Callback<UserData> {
+            override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
+                if (response.isSuccessful) {
+                    _userFollowers.postValue(response.body())
+                } else {
+                    val errorMessage = "API Error: ${response.code()}"
                     _error.postValue(errorMessage)
                 }
-            })
+            }
+
+            override fun onFailure(call: Call<UserData>, t: Throwable) {
+                Log.d("errror", "fetch users ${t.message}")
+//                val errorMessage = "Network Error: ${t.message}"
+//                _error.postValue(errorMessage)
+            }
+        })
     }
+//    fun fetchUserFollowers(token: String, username: String) {
+//        userDataRepository.getUserFollowers(token, username)
+//            .enqueue(object : Callback<List<UserFollower>> {
+//                override fun onResponse(
+//                    call: Call<List<UserFollower>>,
+//                    response: Response<List<UserFollower>>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val results = response.body()
+//                        _userFollowers.postValue(results)
+//                    } else {
+//                        val errorMessage = "API Error: ${response.code()}"
+//                        _error.postValue(errorMessage)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<List<UserFollower>>, t: Throwable) {
+//                    val errorMessage = "Network Error: ${t.message}"
+//                    _error.postValue(errorMessage)
+//                }
+//            })
+//    }
 
     fun searchUsers(token: String, query: String) {
         userDataRepository.searchUsers(token, query)

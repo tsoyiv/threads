@@ -22,20 +22,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/centerButton"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="104dp"
-            android:layout_height="34dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_google"
-            android:fontFamily="@font/sfmed"
-            android:text="Follow"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/centerButton"-->
+<!--            style="?android:attr/borderlessButtonStyle"-->
+<!--            android:layout_width="104dp"-->
+<!--            android:layout_height="34dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:background="@drawable/btn_google"-->
+<!--            android:fontFamily="@font/sfmed"-->
+<!--            android:text="Follow"-->
+<!--            android:textAllCaps="false"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineCenter"
