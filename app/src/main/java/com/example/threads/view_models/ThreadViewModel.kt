@@ -58,7 +58,7 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
     private val _likedUsers = MutableLiveData<List<ThreadUserLikedResponse>>()
     val likedUsers: LiveData<List<ThreadUserLikedResponse>> get() = _likedUsers
 
-    private val _threadsLiveData : MutableLiveData<List<ThreadWithCommentsResponse>> = MutableLiveData()
+    private val _threadsLiveData = MutableLiveData<List<ThreadWithCommentsResponse>>()
     val threadsLiveData: LiveData<List<ThreadWithCommentsResponse>> = _threadsLiveData
 
 
@@ -74,8 +74,7 @@ class ThreadViewModel(private val threadRepository: ThreadRepository) : ViewMode
                     response: Response<List<ThreadWithCommentsResponse>>
                 ) {
                     if (response.isSuccessful) {
-                        val threads = response.body()
-                        _threadsLiveData.postValue(threads)
+                        _threadsLiveData.value = response.body()
                     } else {
                         _errorMessage.postValue("Error: ${response.code()}")
                     }

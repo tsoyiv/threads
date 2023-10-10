@@ -56,6 +56,16 @@ class FeedMainFragment : Fragment() {
         threadViewModel.likeThread(authHeader, id)
     }
 
+    private fun getUserLiked(id: Int) {
+        val token = Holder.token
+        val authHeader = "Bearer $token"
+
+        threadViewModel.likedUsers.observe(viewLifecycleOwner) { response ->
+            Toast.makeText(requireContext(), "Liked", Toast.LENGTH_SHORT).show()
+        }
+        threadViewModel.getThreadLikedUsers(authHeader, id)
+    }
+
     private fun isSuccess() {
         loadingDialogUtil.showLoadingDialog()
         threadViewModel.threads.observe(viewLifecycleOwner) { threads ->
@@ -76,5 +86,9 @@ class FeedMainFragment : Fragment() {
         override fun likeThreadClick(threadId: Int) {
             likeThread(threadId)
         }
+
+//        override fun getUserLikedThread(threadId: Int) {
+//            getUserLiked(threadId)
+//        }
     }
 }
