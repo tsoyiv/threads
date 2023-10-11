@@ -3,6 +3,7 @@ package com.example.threads.utils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
@@ -43,6 +44,7 @@ class FeedAdapter(
             itemView.findViewById(R.id.item_view_anotherUser_numbLikes)
         private val imageView: ImageView = itemView.findViewById(R.id.item_image12)
         private val userImage: ImageView = itemView.findViewById(R.id.itemView_user_image)
+        private val is_liked: CheckBox = itemView.findViewById(R.id.checkBox)
 
         fun bind(thread: ThreadResponse) {
             username.text = thread.username
@@ -57,6 +59,12 @@ class FeedAdapter(
                 .load(thread.thread_media)
                 .centerCrop()
                 .into(imageView)
+
+            val likedByUser = thread.liked_by_user.toBoolean()
+            is_liked.isChecked = likedByUser
+//            is_liked.setOnClickListener {
+//                thread.liked_by_user = is_liked.isChecked.toString()
+//            }
         }
     }
 

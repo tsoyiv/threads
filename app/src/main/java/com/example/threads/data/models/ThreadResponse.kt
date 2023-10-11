@@ -10,5 +10,6 @@ data class ThreadResponse(
     val username: String,
     val likes: String,
     val comments_count: String,
-    val quoted_thread: Int
+    val quoted_thread: Int,
+    var liked_by_user: String
 ) : java.io.Serializable
